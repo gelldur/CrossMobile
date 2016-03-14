@@ -36,7 +36,7 @@ ELSEIF(IS_ANDROID)
 			proj/android/jni/AndroidAdapter.cpp proj/android/jni/AndroidAdapter.h
 			proj/android/jni/AndroidView.cpp proj/android/jni/AndroidView.h
 			proj/android/jni/Bridge.cpp
-			proj/android/jni/JniObject.cpp proj/android/jni/JniObject.h
+			libs/jniobject/src/JniObject.cpp libs/jniobject/src/JniObject.h
 			)
 	SET(INCLUDE_DIRS_PLATFORM
 			"/home/dawid/Android/Sdk/ndk-bundle/platforms/android-21/arch-x86/usr/include/"
