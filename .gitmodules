@@ -1,0 +1,3 @@
+[submodule "libs/jniobject"]
+	path = libs/jniobject
+	url = git@github.com:gelldur/jniobject.git
