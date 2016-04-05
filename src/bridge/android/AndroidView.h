@@ -5,7 +5,7 @@
 #pragma once
 
 #include <bridge/NativeView.h>
-#include <JniObject.h>
+#include <bridge/android/JniObject.h>
 
 class AndroidView : public NativeView
 {

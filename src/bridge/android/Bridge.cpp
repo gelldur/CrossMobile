@@ -4,10 +4,10 @@
 
 #include <Director.h>
 #include <log.h>
+#include <bridge/android/AndroidAdapter.h>
 #include <interface/DataSetAdapter.h>
 #include <init.h>
 
-#include "AndroidAdapter.h"
 #include "Android.h"
 
 jmethodID gHashCodeMethod = nullptr;

@@ -23,7 +23,7 @@ SET(SOURCE_FILES_CORE
 
 IF(IS_LINUX)
 	SET(SOURCE_FILES_PLATFORM
-			proj/linux/LinuxAdapter.cpp proj/linux/LinuxAdapter.h
+			src/bridge/linux/LinuxAdapter.cpp src/bridge/linux/LinuxAdapter.h
 			proj/linux/log.h
 			)
 	SET(INCLUDE_DIRS_PLATFORM
@@ -32,11 +32,11 @@ IF(IS_LINUX)
 ELSEIF(IS_ANDROID)
 	SET(SOURCE_FILES_PLATFORM
 			proj/android/jni/log.h
-			proj/android/jni/Android.h
-			proj/android/jni/AndroidAdapter.cpp proj/android/jni/AndroidAdapter.h
-			proj/android/jni/AndroidView.cpp proj/android/jni/AndroidView.h
-			proj/android/jni/Bridge.cpp
-			libs/jniobject/src/JniObject.cpp libs/jniobject/src/JniObject.h
+			src/bridge/android/Android.h
+			src/bridge/android/AndroidAdapter.cpp src/bridge/android/AndroidAdapter.h
+			src/bridge/android/AndroidView.cpp src/bridge/android/AndroidView.h
+			src/bridge/android/Bridge.cpp
+			src/bridge/android/JniObject.cpp src/bridge/android/JniObject.h
 			)
 	SET(INCLUDE_DIRS_PLATFORM
 			"/home/dawid/Android/Sdk/ndk-bundle/platforms/android-21/arch-x86/usr/include/"
