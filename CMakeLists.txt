@@ -3,10 +3,6 @@ PROJECT(DexodeEngine)
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-OPTION(IS_LINUX "" ON)
-OPTION(IS_ANDROID "" ON)
-OPTION(IS_IOS "" OFF)
-
 # Set core files
 SET(SOURCE_FILES_CORE
 		src/Application.cpp src/Application.h
@@ -22,7 +18,7 @@ SET(SOURCE_FILES_CORE
 		src/acme/ColorUtils.h
 		)
 
-IF(IS_LINUX)
+IF(LINUX)
 	SET(SOURCE_FILES_PLATFORM
 			src/bridge/linux/LinuxAdapter.cpp src/bridge/linux/LinuxAdapter.h
 			proj/linux/log.h
@@ -30,7 +26,7 @@ IF(IS_LINUX)
 	SET(INCLUDE_DIRS_PLATFORM
 			"proj/linux/"
 			)
-ELSEIF(IS_ANDROID)
+ELSEIF(ANDROID)
 	SET(SOURCE_FILES_PLATFORM
 			proj/android/jni/log.h
 			src/bridge/android/Android.h
@@ -43,30 +39,21 @@ ELSEIF(IS_ANDROID)
 			"/home/dawid/Android/Sdk/ndk-bundle/platforms/android-21/arch-x86/usr/include/"
 			"proj/android/jni"
 			)
-ELSEIF(IS_IOS)
+ELSEIF(IOS)
 	SET(SOURCE_FILES_PLATFORM
 			"src/bridge/ios/IosAdapter.cpp" "src/bridge/ios/IosAdapter.h"
-			proj/ios/ColorUtils.h)
+			proj/ios/ColorUtils.h
+			)
 	SET(INCLUDE_DIRS_PLATFORM
 			"proj/ios/"
 			)
-ENDIF(IS_LINUX)
+ELSE()
+	MESSAGE(FATAL_ERROR "Set build platform, CMake will exit.")
+ENDIF(LINUX)
 
 SET(INCLUDE_DIRS_CORE
 		"src/"
 		)
-
-#OPTION(DEXODE_BUILD_FOR_ANDROID "Building for android" ON)
-
-#IF(DEXODE_BUILD_FOR_ANDROID)
-#	SET(INCLUDE_DIRS
-#			${INCLUDE_DIRS}
-#			proj/android/jni/
-#			/home/dawid/Android/Sdk/ndk-bundle/platforms/android-21/arch-x86/usr/include/
-#			)
-#ENDIF()
-
-#INCLUDE_DIRECTORIES(${INCLUDE_DIRS})
 
 ADD_LIBRARY(DexodeEngine ${SOURCE_FILES_CORE} ${SOURCE_FILES_PLATFORM})
 
