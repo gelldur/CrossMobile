@@ -19,6 +19,7 @@ SET(SOURCE_FILES_CORE
 		src/Director.cpp src/Director.h
 		src/interface/DataSetAdapter.h
 		src/Screen.cpp src/Screen.h
+		src/acme/ColorUtils.h
 		)
 
 IF(IS_LINUX)
