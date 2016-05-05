@@ -43,6 +43,12 @@ ELSEIF(IS_ANDROID)
 			"proj/android/jni"
 			)
 ELSEIF(IS_IOS)
+	SET(SOURCE_FILES_PLATFORM
+			"src/bridge/ios/IosAdapter.cpp" "src/bridge/ios/IosAdapter.h"
+			proj/ios/ColorUtils.h)
+	SET(INCLUDE_DIRS_PLATFORM
+			"proj/ios/"
+			)
 ENDIF(IS_LINUX)
 
 SET(INCLUDE_DIRS_CORE
