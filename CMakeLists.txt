@@ -46,7 +46,6 @@ ELSEIF(IS_IOS)
 ENDIF(IS_LINUX)
 
 SET(INCLUDE_DIRS_CORE
-		"libs/SQLiteCpp/include"
 		"src/"
 		)
 
