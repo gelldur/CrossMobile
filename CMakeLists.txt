@@ -39,7 +39,7 @@ ELSEIF(ANDROID)
 			"/home/dawid/Android/Sdk/ndk-bundle/platforms/android-21/arch-x86/usr/include/"
 			"proj/android/jni"
 			)
-ELSEIF(IOS)
+ELSEIF(MAC_IOS)
 	SET(SOURCE_FILES_PLATFORM
 			"src/bridge/ios/IosAdapter.cpp" "src/bridge/ios/IosAdapter.h"
 			proj/ios/ColorUtils.h
