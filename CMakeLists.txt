@@ -43,7 +43,7 @@ ELSEIF(MAC_IOS)
 	SET(SOURCE_FILES_PLATFORM
 			"src/bridge/ios/IosAdapter.cpp" "src/bridge/ios/IosAdapter.h"
 			proj/ios/ColorUtils.h
-			)
+			proj/ios/Utils.h)
 	SET(INCLUDE_DIRS_PLATFORM
 			"proj/ios/"
 			)
