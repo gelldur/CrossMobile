@@ -1,3 +1,6 @@
 [submodule "libs/jsoncpp"]
 	path = libs/jsoncpp
 	url = https://github.com/open-source-parsers/jsoncpp.git
+[submodule "libs/cpprestsdk"]
+	path = libs/cpprestsdk
+	url = https://github.com/Microsoft/cpprestsdk.git
