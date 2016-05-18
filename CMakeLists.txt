@@ -21,7 +21,7 @@ SET(SOURCE_FILES_CORE
 
 IF(LINUX)
 	SET(SOURCE_FILES_PLATFORM
-			src/bridge/linux/LinuxAdapter.cpp src/bridge/linux/LinuxAdapter.h
+			proj/linux/LinuxAdapter.cpp proj/linux/LinuxAdapter.h
 			proj/linux/log.h
 			)
 	SET(INCLUDE_DIRS_PLATFORM
