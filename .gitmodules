@@ -1,3 +1,6 @@
 [submodule "libs/jsoncpp"]
 	path = libs/jsoncpp
 	url = https://github.com/open-source-parsers/jsoncpp.git
+[submodule "libs/poco"]
+	path = libs/poco
+	url = https://github.com/pocoproject/poco.git
