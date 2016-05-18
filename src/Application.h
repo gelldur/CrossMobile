@@ -7,6 +7,8 @@
 #include <string>
 #include <bridge/NativeAdapter.h>
 
+#include "UILoop.h"
+
 class Application
 {
 public:
@@ -17,6 +19,16 @@ public:
 
 	virtual void startScreen(const std::string& screenName);
 
+	UILoop& getUILoop()
+	{
+		return _uiLoop;
+	}
+
+	static Application* getInstance()
+	{
+		return _instance;
+	}
+
 protected:
 	NativeAdapter* getNativeAdapter() const
 	{
@@ -24,7 +36,9 @@ protected:
 	}
 
 private:
+	static Application* _instance;
 	NativeAdapter* _nativeAdapter;
+	UILoop _uiLoop;
 };
 
 

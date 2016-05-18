@@ -94,3 +94,10 @@ Screen* Director::findScreen(const std::string& screenName)
 	}
 	return _screens[screenName];
 }
+
+void Director::onTickUI()
+{
+	_app->getUILoop().onTick();
+}
+
+

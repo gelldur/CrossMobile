@@ -16,6 +16,7 @@ SET(SOURCE_FILES_CORE
 		src/interface/DataSetAdapter.h
 		src/Screen.cpp src/Screen.h
 		src/acme/ColorUtils.h
+		src/UILoop.h
 		)
 
 IF(LINUX)

@@ -30,6 +30,8 @@ public:
 
 	void onStartApplication(Application* app);
 
+	void onTickUI();
+
 	Screen* findScreen(const std::string& screenName);
 
 private:

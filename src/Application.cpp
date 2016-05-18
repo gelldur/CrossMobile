@@ -5,9 +5,12 @@
 #include <log.h>
 #include "Application.h"
 
+Application* Application::_instance = nullptr;
+
 Application::Application(NativeAdapter* nativeAdapter)
 		: _nativeAdapter(nativeAdapter)
 {
+	_instance = this;
 }
 
 void Application::onCreate()
