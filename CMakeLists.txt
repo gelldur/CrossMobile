@@ -5,6 +5,15 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 # Set core files
 SET(SOURCE_FILES_CORE
+		src/acme/ColorUtils.h
+		src/api/adapter/Response.h
+		src/api/exception/ApiException.cpp src/api/exception/ApiException.h
+		src/api/exception/ApiException.cpp src/api/exception/ApiException.h
+		src/api/exception/ValidateException.cpp src/api/exception/ValidateException.h
+		src/api/exception/ValidateException.cpp src/api/exception/ValidateException.h
+		src/api/method/CommonMethod.cpp src/api/method/CommonMethod.h
+		src/api/Server.cpp src/api/Server.h
+		src/api/UrlBuilder.cpp src/api/UrlBuilder.h
 		src/Application.cpp src/Application.h
 		src/bridge/NativeAdapter.h
 		src/bridge/NativeView.cpp src/bridge/NativeView.h
@@ -13,9 +22,9 @@ SET(SOURCE_FILES_CORE
 		src/data/provider/Provider.cpp src/data/provider/Provider.h
 		src/data/receiver/Receiver.cpp src/data/receiver/Receiver.h
 		src/Director.cpp src/Director.h
+		src/exception/ExcaptionHelper.h
 		src/interface/DataSetAdapter.h
 		src/Screen.cpp src/Screen.h
-		src/acme/ColorUtils.h
 		src/UILoop.h
 		src/acme/LambdaObserver.cpp src/acme/LambdaObserver.h
 		)
