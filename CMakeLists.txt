@@ -78,11 +78,6 @@ IF(LINUX)
 	SET(BUILD_SAMPLES OFF CACHE BOOL "" FORCE)
 	SET(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 
-	ADD_SUBDIRECTORY("libs/cpprestsdk/Release")
-	TARGET_LINK_LIBRARIES(DexodeEngine cpprest)
-	TARGET_INCLUDE_DIRECTORIES(DexodeEngine PUBLIC
-			libs/cpprestsdk/Release/include
-			)
 
 
 ENDIF(LINUX)
