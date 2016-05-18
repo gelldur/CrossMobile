@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <cstdio>
+
 #define  DLOG(...)  fprintf(stderr,"DLOG:\t");fprintf(stderr,__VA_ARGS__);fprintf(stderr,"\n")
 #define  ILOG(...)  fprintf(stderr,"ILOG:\t");fprintf(stderr,__VA_ARGS__);fprintf(stderr,"\n")
 #define  WLOG(...)  fprintf(stderr,"WLOG:\t");fprintf(stderr,__VA_ARGS__);fprintf(stderr,"\n")

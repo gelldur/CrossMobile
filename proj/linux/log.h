@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <cstdio>
+
 #define  DLOG(...)  printf("DLOG:\t");printf(__VA_ARGS__);printf("\n")
 #define  ILOG(...)  printf("ILOG:\t");printf(__VA_ARGS__);printf("\n")
 #define  WLOG(...)  printf("WLOG:\t");printf(__VA_ARGS__);printf("\n")
