@@ -17,6 +17,7 @@ SET(SOURCE_FILES_CORE
 		src/Screen.cpp src/Screen.h
 		src/acme/ColorUtils.h
 		src/UILoop.h
+		src/acme/LambdaObserver.cpp src/acme/LambdaObserver.h
 		)
 
 IF(LINUX)
