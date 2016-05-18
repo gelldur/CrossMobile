@@ -10,7 +10,7 @@
 class DataProviderComponent : public Receiver
 {
 public:
-	DataProviderComponent(Provider* provider, Receiver* receiver);
+	DataProviderComponent(Provider* provider, Receiver* receiver = nullptr);
 
 	void onResume();
 	void onPause();
