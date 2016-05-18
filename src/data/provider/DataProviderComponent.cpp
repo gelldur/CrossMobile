@@ -4,6 +4,8 @@
 
 #include "DataProviderComponent.h"
 
+#include <log.h>
+
 DataProviderComponent::DataProviderComponent(Provider* provider, Receiver* receiver)
 		: _provider(provider)
 		, _receiver(receiver)
@@ -23,6 +25,7 @@ void DataProviderComponent::onPause()
 void DataProviderComponent::onRequestData()
 {
 	_provider->onRequestData();
+
 }
 
 void DataProviderComponent::onStartLoading()
@@ -39,6 +42,10 @@ void DataProviderComponent::onReceive(Provider* provider)
 	{
 		_receiver->onReceive(provider);
 	}
+	else
+	{
+		WLOG("No receiver setted!");
+	}
 }
 
 void DataProviderComponent::onError(Provider* provider)
@@ -46,5 +53,9 @@ void DataProviderComponent::onError(Provider* provider)
 	if (_receiver != nullptr)
 	{
 		_receiver->onError(provider);
+	}
+	else
+	{
+		WLOG("No receiver setted!");
 	}
 }
