@@ -16,11 +16,18 @@ public:
 
 	void setReceiver(Receiver* receiver);
 
+	void onEvent(const void* sender, int& dummy);
+
 protected:
 	Receiver* getReceiver()
 	{
 		return _receiver;
 	}
+
+	void registerCheck();
+	void unregisterCheck();
+
+	virtual bool checkDone() = 0;
 
 private:
 	Receiver* _receiver = nullptr;
