@@ -5,12 +5,20 @@
 #pragma once
 
 #include <data/receiver/Receiver.h>
+#include "api/Async.h"
 
-class Provider
+namespace Poco
+{
+class Runnable;
+}
+
+class Provider : public Api::Async
 {
 public:
-	virtual ~Provider() = default;
-	virtual void onRequestData() = 0;
+	friend class BackroundHelper;
+
+	virtual ~Provider();
+	virtual void onRequestData();
 
 	virtual void onCancel();
 
@@ -24,13 +32,10 @@ protected:
 		return _receiver;
 	}
 
-	void registerCheck();
-	void unregisterCheck();
-
-	virtual bool checkDone() = 0;
-
 private:
 	Receiver* _receiver = nullptr;
+	Poco::Runnable* _runnable = nullptr;
+
+	void registerCheck();
+	void unregisterCheck();
 };
-
-
