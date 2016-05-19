@@ -29,6 +29,7 @@ SET(SOURCE_FILES_CORE
 		src/acme/text/Utf8.cpp src/acme/text/Utf8.h
 		src/acme/text/StringFastUtils.cpp src/acme/text/StringFastUtils.h
 		src/acme/LambdaObserver.cpp src/acme/LambdaObserver.h
+		src/acme/Assert.h
 		src/api/ApiThreadPool.cpp src/api/ApiThreadPool.h
 		)
 
