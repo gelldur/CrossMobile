@@ -6,6 +6,7 @@
 
 #include <string>
 #include <bridge/NativeAdapter.h>
+#include <api/ApiThreadPool.h>
 
 #include "UILoop.h"
 
@@ -24,6 +25,11 @@ public:
 		return _uiLoop;
 	}
 
+	ApiThreadPool& getApiThreadPool()
+	{
+		return _apiThreadPool;
+	}
+
 	static Application* getInstance()
 	{
 		return _instance;
@@ -39,6 +45,7 @@ private:
 	static Application* _instance;
 	NativeAdapter* _nativeAdapter;
 	UILoop _uiLoop;
+	ApiThreadPool _apiThreadPool;
 };
 
 
