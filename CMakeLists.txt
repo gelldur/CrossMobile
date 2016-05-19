@@ -26,6 +26,8 @@ SET(SOURCE_FILES_CORE
 		src/interface/DataSetAdapter.h
 		src/Screen.cpp src/Screen.h
 		src/UILoop.h
+		src/acme/text/Utf8.cpp src/acme/text/Utf8.h
+		src/acme/text/StringFastUtils.cpp src/acme/text/StringFastUtils.h
 		src/acme/LambdaObserver.cpp src/acme/LambdaObserver.h
 		)
 
