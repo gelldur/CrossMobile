@@ -32,6 +32,7 @@ SET(SOURCE_FILES_CORE
 		src/api/Async.h
 		src/acme/Assert.h
 		src/api/ApiThreadPool.cpp src/api/ApiThreadPool.h
+		src/acme/DebugUtils.cpp src/acme/DebugUtils.h
 		)
 
 IF(LINUX)
