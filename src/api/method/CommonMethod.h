@@ -21,6 +21,7 @@ public:
 	std::istream& requestGet(const Server& server, const std::string& pathAndQuery);
 
 	void toJson(std::istream& stream, Json::Value& rootOut);
+	void toJson(const std::string& document, Json::Value& rootOut);
 
 	void process(std::unique_ptr<Response>& response);
 
@@ -29,5 +30,4 @@ public:
 private:
 
 };
-
 

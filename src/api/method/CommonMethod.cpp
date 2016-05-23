@@ -4,6 +4,8 @@
 
 #include "CommonMethod.h"
 
+#include <sstream>
+
 #include <Poco/Net/HTTPResponse.h>
 
 #include <log.h>
@@ -52,4 +54,9 @@ void CommonMethod::toJson(std::istream& stream, Json::Value& rootOut)
 	}
 }
 
-
+void CommonMethod::toJson(const std::string& document, Json::Value& rootOut)
+{
+	//Method used only for debug. You should use toJson(std::istream&,...)
+	std::stringstream tmpStream(document);
+	toJson(tmpStream, rootOut);
+}
