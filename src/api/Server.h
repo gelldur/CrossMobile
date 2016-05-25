@@ -11,6 +11,7 @@ class Server
 {
 public:
 	Server();
+	Server(bool isDebugable);
 
 	static void setDefaultDebugable(bool isDebugableDefault);
 	static void setDefaultHost(const std::string& host);
@@ -25,7 +26,6 @@ public:
 		return _session;
 	}
 
-
 	bool isDebugable() const
 	{
 		return _isDebugable;
@@ -35,7 +35,7 @@ private:
 	static bool defaultDebugable;
 	static std::string defaultHost;
 
-	bool _isDebugable = defaultDebugable;
+	bool _isDebugable;
 
 	int _timeoutRead = 15;
 	int _timeoutConnect = 15;

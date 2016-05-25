@@ -8,9 +8,14 @@ bool Server::defaultDebugable = false;
 std::string Server::defaultHost;
 
 Server::Server()
-		: _session(new Poco::Net::HTTPClientSession(_host))
+		: Server(defaultDebugable)
 {
+}
 
+Server::Server(bool isDebugable)
+		: _isDebugable(isDebugable)
+		, _session(new Poco::Net::HTTPClientSession(_host))
+{
 }
 
 void Server::setDefaultDebugable(bool isDebugableDefault)
