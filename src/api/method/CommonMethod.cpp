@@ -10,6 +10,8 @@
 
 #include <log.h>
 
+std::deque<std::string> CommonMethod::_mockedResponses;
+
 std::istream& CommonMethod::requestGet(const Server& server, const std::string& pathAndQuery)
 {
 	using Poco::Net::HTTPRequest;
@@ -22,6 +24,14 @@ std::istream& CommonMethod::requestGet(const Server& server, const std::string& 
 	if (server.isDebugable())
 	{
 		DLOG("Request: %s%s", server.getHost().c_str(), request.getURI().c_str());
+	}
+
+	if (_mockedResponses.empty() == false)
+	{
+		_mockedResponse.str(_mockedResponses.front());
+		_mockedResponse.clear();
+		_mockedResponses.pop_front();
+		return _mockedResponse;
 	}
 
 	server.getSession()->sendRequest(request);
@@ -59,4 +69,9 @@ void CommonMethod::toJson(const std::string& document, Json::Value& rootOut)
 	//Method used only for debug. You should use toJson(std::istream&,...)
 	std::stringstream tmpStream(document);
 	toJson(tmpStream, rootOut);
+}
+
+void CommonMethod::addMockedResponse(const std::string& response)
+{
+	_mockedResponses.emplace_back(response);
 }

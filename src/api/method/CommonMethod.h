@@ -5,6 +5,7 @@
 #pragma once
 
 #include <memory>
+#include <sstream>
 
 #include <Poco/Net/HTTPRequest.h>
 #include <Poco/Net/HTTPResponse.h>
@@ -27,7 +28,11 @@ public:
 
 	void throwIfNeedStatusException(std::unique_ptr<Response>& response);
 
-private:
+	static void addMockedResponse(const std::string& response);
 
+private:
+	//TODO do it better way
+	static std::deque<std::string> _mockedResponses;
+	std::stringstream _mockedResponse;
 };
 
