@@ -33,6 +33,7 @@ SET(SOURCE_FILES_CORE
 		src/acme/Assert.h
 		src/api/ApiThreadPool.cpp src/api/ApiThreadPool.h
 		src/acme/DebugUtils.cpp src/acme/DebugUtils.h
+		src/screen/StateManager.cpp src/screen/StateManager.h
 		src/acme/Macros.h
 		)
 
