@@ -1,12 +1,30 @@
 //
 // Created by pingu on 1/14/16.
 //
-
-#include <log.h>
-#include <assert.h>
 #include "Director.h"
 
+#include "log.h"
+#include "acme/Macros.h"
 #include "screen/StateManager.h"
+
+Director* Director::_instance = nullptr;
+
+void Director::create()
+{
+	_instance = new Director();
+}
+
+void Director::destroy()
+{
+	SAFE_DELETE(_instance);
+}
+
+Director::~Director()
+{
+	SAFE_DELETE(_app);
+	//TODO ;)
+}
+
 void Director::pushScreen(const std::string& screenName, Screen* screen)
 {
 	DLOG("Director: pushScreen(%s)", screenName.c_str());

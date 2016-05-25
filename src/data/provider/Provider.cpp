@@ -9,6 +9,7 @@
 #include <log.h>
 #include <Poco/Delegate.h>
 #include <Poco/Runnable.h>
+#include <Director.h>
 #include "Application.h"
 
 //TODO make thread safe
@@ -57,7 +58,7 @@ void Provider::onRequestData()
 		return;
 	}
 	_runnable = new BackroundHelper(this);
-	Application::getInstance()->getApiThreadPool().start(*_runnable);
+	Director::getInstance().getApp()->getApiThreadPool().start(*_runnable);
 	registerCheck();
 }
 
@@ -96,10 +97,10 @@ void Provider::onEvent(const void* sender, int& dummy)
 
 void Provider::registerCheck()
 {
-	Application::getInstance()->getUILoop().uiTick += Poco::delegate(this, &Provider::onEvent);
+	Director::getInstance().getApp()->getUILoop().uiTick += Poco::delegate(this, &Provider::onEvent);
 }
 
 void Provider::unregisterCheck()
 {
-	Application::getInstance()->getUILoop().uiTick -= Poco::delegate(this, &Provider::onEvent);
+	Director::getInstance().getApp()->getUILoop().uiTick -= Poco::delegate(this, &Provider::onEvent);
 }

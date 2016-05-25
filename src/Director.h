@@ -14,11 +14,15 @@ public:
 	Director(Director const&) = delete;
 	void operator=(Director const&) = delete;
 
+	~Director();
+
 	static Director& getInstance()
 	{
-		static Director instance;
-		return instance;
+		return *_instance;
 	}
+
+	static void create();
+	static void destroy();
 
 	void pushScreen(const std::string& screenName, Screen* screen);
 	void popScreen(const std::string& screenName);
@@ -34,10 +38,17 @@ public:
 
 	Screen* findScreen(const std::string& screenName);
 
+	Application* getApp() const
+	{
+		return _app;
+	}
+
 private:
+	static Director* _instance;
 	Director() = default;
 
-	Application* _app;
+	Application* _app = nullptr;
+	Screen* _activeScreen = nullptr;
 	std::map<std::string, Screen*> _screens;
 };
 
