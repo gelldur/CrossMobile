@@ -7,6 +7,7 @@
 #include <sstream>
 
 #include <Poco/Net/HTTPResponse.h>
+#include <Poco/Net/MediaType.h>
 
 #include <log.h>
 
@@ -19,11 +20,9 @@ std::istream& CommonMethod::requestGet(const Server& server, const std::string& 
 	using Poco::Net::HTTPMessage;
 
 	HTTPRequest request(HTTPRequest::HTTP_GET, pathAndQuery, HTTPMessage::HTTP_1_1);
-	HTTPResponse response;
-
 	if (server.isDebugable())
 	{
-		DLOG("Request: %s%s", server.getHost().c_str(), request.getURI().c_str());
+		DLOG("Request[GET]: %s%s", server.getHost().c_str(), request.getURI().c_str());
 	}
 
 	if (_mockedResponses.empty() == false)
@@ -35,6 +34,81 @@ std::istream& CommonMethod::requestGet(const Server& server, const std::string& 
 	}
 
 	server.getSession()->sendRequest(request);
+	HTTPResponse response;
+	return server.getSession()->receiveResponse(response);
+}
+
+std::istream& CommonMethod::requestPostForm(const Server& server, const std::string& pathAndQuery
+											, const std::map<std::string, std::string>& params)
+{
+	using Poco::Net::HTTPRequest;
+	using Poco::Net::HTTPResponse;
+	using Poco::Net::HTTPMessage;
+
+	HTTPRequest request(HTTPRequest::HTTP_POST, pathAndQuery, HTTPMessage::HTTP_1_1);
+	request.setContentType("application/x-www-form-urlencoded");
+
+	if (server.isDebugable())
+	{
+		DLOG("Request[POST]: %s%s", server.getHost().c_str(), request.getURI().c_str());
+	}
+	if (_mockedResponses.empty() == false)
+	{
+		_mockedResponse.str(_mockedResponses.front());
+		_mockedResponse.clear();
+		_mockedResponses.pop_front();
+		return _mockedResponse;
+	}
+
+	std::string urlForm;
+	if (params.empty() == false)
+	{
+		for (auto& element : params)
+		{
+			urlForm += (element.first + '=' + element.second + '&');
+		}
+		urlForm.pop_back();
+	}
+	if (server.isDebugable())
+	{
+		DLOG("\tBody: %s", urlForm.c_str());
+	}
+	request.setContentLength(urlForm.length());
+
+	auto& bodyData = server.getSession()->sendRequest(request);
+	bodyData << urlForm;
+	HTTPResponse response;
+	return server.getSession()->receiveResponse(response);
+}
+
+std::istream& CommonMethod::requestPostJson(const Server& server, const std::string& pathAndQuery
+											, const std::string& json)
+{
+	using Poco::Net::HTTPRequest;
+	using Poco::Net::HTTPResponse;
+	using Poco::Net::HTTPMessage;
+
+	HTTPRequest request(HTTPRequest::HTTP_POST, pathAndQuery, HTTPMessage::HTTP_1_1);
+	request.setContentType("application/json");
+
+	if (server.isDebugable())
+	{
+		DLOG("Request[POST]: %s%s", server.getHost().c_str(), request.getURI().c_str());
+		DLOG("\tBody: %s", json.c_str());
+	}
+	if (_mockedResponses.empty() == false)
+	{
+		_mockedResponse.str(_mockedResponses.front());
+		_mockedResponse.clear();
+		_mockedResponses.pop_front();
+		return _mockedResponse;
+	}
+
+	request.setContentLength(json.length());
+
+	auto& bodyData = server.getSession()->sendRequest(request);
+	bodyData << json;
+	HTTPResponse response;
 	return server.getSession()->receiveResponse(response);
 }
 

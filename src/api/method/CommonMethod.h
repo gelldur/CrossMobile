@@ -20,6 +20,9 @@ class CommonMethod
 {
 public:
 	std::istream& requestGet(const Server& server, const std::string& pathAndQuery);
+	std::istream& requestPostForm(const Server& server, const std::string& pathAndQuery
+								  , const std::map<std::string, std::string>& params);
+	std::istream& requestPostJson(const Server& server, const std::string& pathAndQuery, const std::string& json);
 
 	void toJson(std::istream& stream, Json::Value& rootOut);
 	void toJson(const std::string& document, Json::Value& rootOut);
