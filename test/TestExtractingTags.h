@@ -1,8 +1,0 @@
-//
-// Created by dawid on 10/29/15.
-//
-
-#ifndef QPONY_TESTEXTRACTINGTAGS_H
-#define QPONY_TESTEXTRACTINGTAGS_H
-
-#endif //QPONY_TESTEXTRACTINGTAGS_H

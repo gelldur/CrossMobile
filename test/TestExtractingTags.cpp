@@ -2,9 +2,8 @@
 // Created by dawid on 10/29/15.
 //
 
-#include "TestExtractingTags.h"
-#include "gtest/gtest.h"
-#include "Functions.h"
+#include <gtest/gtest.h>
+#include <acme/text/StringFastUtils.h>
 
 TEST(ExtractingTags, Simple)
 {
