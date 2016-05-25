@@ -16,9 +16,8 @@
 class Screen
 {
 public:
-	Screen(NativeAdapter* nativeAdapter, const std::string screenName)
-			: _nativeAdapter(nativeAdapter)
-			, _screenName(screenName)
+	Screen(const std::string screenName)
+			: _screenName(screenName)
 	{
 	}
 
@@ -26,7 +25,6 @@ public:
 
 	void onEnter()
 	{
-		_nativeAdapter->onStartScreen(this);
 	}
 
 	void onExit()
@@ -56,9 +54,19 @@ public:
 		return _registredComponents[name];
 	}
 
-	NativeAdapter* getNativeAdapter()
+	enum State
 	{
-		return _nativeAdapter;
+		EXIT = 0, ENTER = 1, CREATE = 3, RESUME = 7, PAUSE = 8, DESTROY = 11
+	};
+
+	void setState(State state)
+	{
+		_state = state;
+	}
+
+	State getState() const
+	{
+		return _state;
 	}
 
 protected:
@@ -69,7 +77,7 @@ protected:
 	}
 
 private:
+	State _state = EXIT;
 	std::string _screenName;
-	NativeAdapter* _nativeAdapter;
 	std::map<std::string, Component*> _registredComponents;
 };

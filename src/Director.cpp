@@ -6,6 +6,7 @@
 #include <assert.h>
 #include "Director.h"
 
+#include "screen/StateManager.h"
 void Director::pushScreen(const std::string& screenName, Screen* screen)
 {
 	DLOG("Director: pushScreen(%s)", screenName.c_str());
@@ -18,7 +19,8 @@ void Director::pushScreen(const std::string& screenName, Screen* screen)
 	}
 
 	_screens[screenName] = screen;
-	screen->onEnter();
+
+	StateManager::onEnter(screen);
 }
 
 void Director::onCreateScreen(const std::string& screenName)
@@ -29,7 +31,8 @@ void Director::onCreateScreen(const std::string& screenName)
 	{
 		return;
 	}
-	screen->onCreate();
+
+	StateManager::onCreate(screen);
 }
 
 void Director::onResumeScreen(const std::string& screenName)
@@ -40,7 +43,17 @@ void Director::onResumeScreen(const std::string& screenName)
 	{
 		return;
 	}
-	screen->onResume();
+
+	if (StateManager::willResume(screen))
+	{
+		if (_activeScreen != nullptr)
+		{
+			StateManager::onPause(_activeScreen);
+		}
+
+		_activeScreen = screen;
+		StateManager::onResume(screen);
+	}
 }
 
 void Director::onPauseScreen(const std::string& screenName)
@@ -51,7 +64,10 @@ void Director::onPauseScreen(const std::string& screenName)
 	{
 		return;
 	}
-	screen->onPause();
+	if (StateManager::onPause(screen))
+	{
+		_activeScreen = nullptr;
+	}
 }
 
 void Director::onDestroyScreen(const std::string& screenName)
@@ -62,9 +78,9 @@ void Director::onDestroyScreen(const std::string& screenName)
 	{
 		return;
 	}
-	screen->onDestroy();
+	StateManager::onDestroy(screen);
 	_screens.erase(screenName);
-	screen->onExit();
+	StateManager::onExit(screen);
 	delete screen;
 }
 
@@ -72,7 +88,6 @@ void Director::popScreen(const std::string& screenName)
 {
 
 }
-
 
 void Director::onStartApplication(Application* app)
 {
