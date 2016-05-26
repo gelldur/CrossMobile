@@ -6,7 +6,7 @@
 
 #include <jni.h>
 #include <bridge/NativeAdapter.h>
-#include <bridge/android/JniObject.h>
+#include "JniObject.h"
 
 class AndroidAdapter : public NativeAdapter
 {

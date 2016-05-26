@@ -4,7 +4,7 @@
 
 #include <Director.h>
 #include <log.h>
-#include <bridge/android/AndroidAdapter.h>
+#include "AndroidAdapter.h"
 #include <interface/DataSetAdapter.h>
 #include <init.h>
 
