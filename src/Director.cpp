@@ -3,9 +3,11 @@
 //
 #include "Director.h"
 
-#include "log.h"
-#include "acme/Macros.h"
-#include "screen/StateManager.h"
+#include <log.h>
+#include <acme/Macros.h>
+#include <screen/StateManager.h>
+
+#include "Application.h"
 
 Director* Director::_instance = nullptr;
 

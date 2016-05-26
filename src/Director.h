@@ -6,7 +6,7 @@
 
 #include <map>
 #include "Screen.h"
-#include "Application.h"
+class Application;
 
 class Director
 {
