@@ -29,7 +29,6 @@ public:
 			_provider->onDoInBackground();
 		}
 		isReady = true;
-		delete this;//self destruct!
 	}
 
 	std::atomic<bool> isReady;
