@@ -9,14 +9,14 @@
 namespace ViewHelper
 {
 
-void loadImage(NativeObject* view, const std::string& url)
+void loadImage(NativeObject& view, const std::string& url)
 {
 	WLOG("Function %s not implemented: %s:%d", __func__, __FILE__, __LINE__);
 }
 
-void setText(NativeObject* view, const std::string& text)
+void setText(NativeObject& view, const std::string& text)
 {
-	auto& textView = view->getComponent<TextProtocol>();
+	auto& textView = view.getComponent<TextProtocol>();
 	textView.setText(text);
 }
 

@@ -11,8 +11,8 @@
 namespace ViewHelper
 {
 
-void loadImage(NativeObject* view, const std::string& url);
-void setText(NativeObject* view, const std::string& text);
+void loadImage(NativeObject& view, const std::string& url);
+void setText(NativeObject& view, const std::string& text);
 
 }
 
