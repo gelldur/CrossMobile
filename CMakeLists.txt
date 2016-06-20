@@ -16,7 +16,6 @@ SET(SOURCE_FILES_CORE
 		src/api/UrlBuilder.cpp src/api/UrlBuilder.h
 		src/Application.cpp src/Application.h
 		src/bridge/NativeAdapter.h
-		src/bridge/NativeView.cpp src/bridge/NativeView.h
 		src/Component.cpp src/Component.h
 		src/data/provider/DataProviderComponent.cpp src/data/provider/DataProviderComponent.h
 		src/data/provider/Provider.cpp src/data/provider/Provider.h
