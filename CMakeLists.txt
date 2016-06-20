@@ -34,13 +34,27 @@ SET(SOURCE_FILES_CORE
 		src/acme/DebugUtils.cpp src/acme/DebugUtils.h
 		src/screen/StateManager.cpp src/screen/StateManager.h
 		src/acme/Macros.h
+		src/utils/ViewHelper.cpp src/utils/ViewHelper.h
+		src/component/view/TextProtocol.h
+		src/bridge/NativeObject.cpp src/bridge/NativeObject.h
+		src/component/Container.h
+		src/component/view/Visibility.h
+		src/utils/Utils.h
+		src/component/view/NullTextProtocol.h
+		src/component/view/NullVisibility.h
+		src/component/NullContainer.h
 		)
 
 IF(LINUX)
 	SET(SOURCE_FILES_PLATFORM
 			proj/linux/LinuxAdapter.cpp proj/linux/LinuxAdapter.h
 			proj/linux/log.h
+			proj/linux/bridge/Context.cpp proj/linux/bridge/Context.h
+			proj/linux/component/view/TextProtocol.cpp
+			proj/linux/component/Container.cpp
+			proj/linux/component/view/Visibility.cpp
 			)
+
 	SET(INCLUDE_DIRS_PLATFORM
 			proj/linux
 			)
@@ -53,6 +67,7 @@ ELSEIF(ANDROID)
 			proj/android/jni/Bridge.cpp
 			proj/android/jni/JniObject.cpp proj/android/jni/JniObject.h
 			)
+
 	SET(INCLUDE_DIRS_PLATFORM
 			"/home/dawid/Android/Sdk/ndk-bundle/platforms/android-21/arch-x86/usr/include/"
 			"proj/android/jni"
@@ -61,7 +76,13 @@ ELSEIF(MAC_IOS)
 	SET(SOURCE_FILES_PLATFORM
 			"proj/ios/IosAdapter.cpp" "proj/ios/IosAdapter.h"
 			proj/ios/ColorUtils.h
-			proj/ios/Utils.h)
+			proj/ios/Utils.h
+			proj/ios/bridge/Context.mm proj/ios/bridge/Context.h
+			proj/ios/component/view/TextProtocol.mm
+			proj/ios/component/Container.mm
+			proj/ios/component/view/Visibility.mm
+			)
+
 	SET(INCLUDE_DIRS_PLATFORM
 			"proj/ios/"
 			)
