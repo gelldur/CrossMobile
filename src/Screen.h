@@ -16,7 +16,7 @@
 class Screen
 {
 public:
-	Screen(const std::string screenName)
+	Screen(const std::string& screenName)
 			: _screenName(screenName)
 	{
 	}
