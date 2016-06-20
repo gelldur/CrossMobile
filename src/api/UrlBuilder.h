@@ -59,3 +59,9 @@ private:
 	Poco::URI _builder;
 };
 
+template<>
+inline UrlBuilder& UrlBuilder::appendQuery<std::string>(const std::string& key, const std::string& value)
+{
+	_builder.addQueryParameter(key, value);
+	return *this;
+}
