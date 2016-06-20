@@ -9,13 +9,7 @@
 class IosAdapter : public NativeAdapter
 {
 public:
-	IosAdapter();
-	virtual ~IosAdapter() = default;
-
 	virtual void onStartScreen(Screen* screen) override;
-
-	virtual NativeView* findViewByTag(const std::string& tag) override;
-private:
 };
 
 

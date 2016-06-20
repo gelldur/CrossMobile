@@ -8,15 +8,9 @@
 
 class LinuxAdapter : public NativeAdapter
 {
-
 public:
 	virtual void onStartScreen(Screen* screen) override
 	{
-	}
-
-	virtual NativeView* findViewByTag(const std::string& tag) override
-	{
-		return nullptr;
 	}
 };
 

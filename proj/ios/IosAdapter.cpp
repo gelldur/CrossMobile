@@ -5,16 +5,8 @@
 #include <log.h>
 #include "IosAdapter.h"
 
-IosAdapter::IosAdapter()
-{
-}
-
 void IosAdapter::onStartScreen(Screen* screen)
 {
 	//id object = [[NSClassFromString(@"NameofClass") alloc] init];
-}
-
-NativeView* IosAdapter::findViewByTag(const std::string& tag)
-{
-	return nullptr;
+	WLOG("Function %s not implemented: %s:%d", __func__, __FILE__, __LINE__);
 }
