@@ -18,6 +18,7 @@ public:
 
 	static Director& getInstance()
 	{
+		assert(_instance != nullptr);
 		return *_instance;
 	}
 

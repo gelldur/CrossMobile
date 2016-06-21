@@ -4,4 +4,8 @@
 
 #include "Component.h"
 
+Component::~Component()
+{
+	_owner = nullptr;
+}
 

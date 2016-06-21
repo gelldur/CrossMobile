@@ -17,27 +17,55 @@ class Context;
 class NativeObject
 {
 public:
-	NativeObject(const std::string& tag, Context* context)
-			: _context(context)
+	static NativeObject* nullObject;
+
+	NativeObject(const std::string& tag, std::shared_ptr<Context> context);
+	NativeObject(NativeObject&& other);
+
+	~NativeObject();
+
+	NativeObject(const NativeObject& other) = delete;
+	NativeObject& operator=(const NativeObject& other) = delete;
+
+	void addComponentWithId(int id, std::unique_ptr<Component>&& component);
+
+	const std::string& getTag() const
 	{
+		return _tag;
 	}
 
-	NativeObject(NativeObject const&) = delete;
-	NativeObject& operator=(NativeObject const&) = delete;
+	Context* getContext() const
+	{
+		assert(_context != nullptr);
+		return _context.get();
+	}
 
-	void addComponent(int id, std::unique_ptr<Component> component);
+	template<class T>
+	NativeObject& addComponent(std::unique_ptr<T>&& component)
+	{
+		static_assert(std::is_base_of<Component, T>(), "T must be child of Component");
+
+		if (_context == nullptr)
+		{
+			WLOG("NullObject(%s) ignoring call: %s in: %s:%d", getTag().c_str(), __func__, __FILE__, __LINE__);
+			return *this;
+		}
+
+		addComponentWithId(getIdForType<T>(), std::move(component));
+		return *this;
+	}
 
 	template<class T, class... Args>
-	void addComponent(Args&& ... args)
+	NativeObject& addComponent(Args&& ... args)
 	{
 		if (_context == nullptr)
 		{
-			WLOG("NullObject(%s) ignoring call: %s in: %s:%d", getTag(), __func__, __FILE__, __LINE__);
-			return;
+			WLOG("NullObject(%s) ignoring call: %s in: %s:%d", getTag().c_str(), __func__, __FILE__, __LINE__);
+			return *this;
 		}
 
-		auto component = std::make_unique<T>(std::forward<Args>(args)...);
-		addComponent(getIdForType<T>(), component);
+		addComponentWithId(getIdForType<T>(), std::make_unique<T>(std::forward<Args>(args)...));
+		return *this;
 	}
 
 	template<class T>
@@ -61,21 +89,8 @@ public:
 		return *casted;
 	}
 
-	const std::string& getTag() const
-	{
-		return _tag;
-	}
-
-	Context* getContext() const
-	{
-		assert(_context != nullptr);
-		return _context;
-	}
-
-	static NativeObject* nullObject;
-
 private:
-	Context* _context;
+	std::shared_ptr<Context> _context;
 	std::string _tag;
 	std::map<int, std::unique_ptr<Component>> _components;
 };

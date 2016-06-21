@@ -11,7 +11,27 @@
 
 NativeObject* NativeObject::nullObject = new NativeObject("nullObject", nullptr);
 
-void NativeObject::addComponent(int id, std::unique_ptr<Component> component)
+NativeObject::NativeObject(const std::string& tag, std::shared_ptr<Context> context)
+		: _context(context)
+		, _tag(tag)
+{
+	DLOG("Normal ctor %s", tag.c_str());
+}
+
+NativeObject::NativeObject(NativeObject&& other)
+		: _context(std::move(other._context))
+		, _tag(std::move(other._tag))
+		, _components(std::move(other._components))
+{
+	DLOG("Move ctor %s", _tag.c_str());
+}
+
+NativeObject::~NativeObject()
+{
+	DLOG("# Dtor %s - clean:%s", _tag.c_str(), (_context == nullptr ? "yes" : "no"));
+}
+
+void NativeObject::addComponentWithId(int id, std::unique_ptr<Component>&& component)
 {
 	if (_context == nullptr)
 	{

@@ -6,7 +6,14 @@
 
 class Context
 {
+public:
+	Context()
+	{
+	}
 
+	Context(void* pointer)
+	{
+	}
 };
 
 

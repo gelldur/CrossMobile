@@ -17,21 +17,22 @@ public:
 	friend class NativeObject;
 
 	Component() = default;
-	virtual ~Component() = default;
+	virtual ~Component();
 
 	Component(Component const&) = delete;
 	Component& operator=(Component const&) = delete;
 
 	virtual const char* toString() const = 0;
 
-protected:
 	bool isNullObject() const
 	{
 		return _owner == nullptr;
 	}
 
+protected:
 	NativeObject* getOwner() const
 	{
+		assert(_owner != nullptr);
 		return _owner;
 	}
 

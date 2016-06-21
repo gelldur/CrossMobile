@@ -37,7 +37,8 @@ SET(SOURCE_FILES_CORE
 		src/utils/ViewHelper.cpp src/utils/ViewHelper.h
 		src/component/view/TextProtocol.h
 		src/bridge/NativeObject.cpp src/bridge/NativeObject.h
-		src/component/Container.h
+		src/bridge/NativeObjectBuilder.cpp src/bridge/NativeObjectBuilder.h
+		src/component/Container.cpp src/component/Container.h
 		src/component/view/Visibility.h
 		src/utils/Utils.h
 		src/component/view/NullTextProtocol.h
@@ -51,7 +52,6 @@ IF(LINUX)
 			proj/linux/log.h
 			proj/linux/bridge/Context.cpp proj/linux/bridge/Context.h
 			proj/linux/component/view/TextProtocol.cpp
-			proj/linux/component/Container.cpp
 			proj/linux/component/view/Visibility.cpp
 			)
 
@@ -79,7 +79,6 @@ ELSEIF(MAC_IOS)
 			proj/ios/Utils.h
 			proj/ios/bridge/Context.mm proj/ios/bridge/Context.h
 			proj/ios/component/view/TextProtocol.mm
-			proj/ios/component/Container.mm
 			proj/ios/component/view/Visibility.mm
 			)
 

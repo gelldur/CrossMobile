@@ -17,8 +17,3 @@ public:
 	}
 };
 
-Container& Container::getNullObject()
-{
-	static NullContainer nullObject;
-	return nullObject;
-}

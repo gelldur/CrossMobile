@@ -7,8 +7,7 @@
 TEST(ComponentTest, testNullObjects_crashTest)
 {
 	//Test for crash ;)
-	Context context;
-	NativeObject nativeObject{"MyFunnyObject", &context};
+	NativeObject nativeObject{"MyFunnyObject", std::make_shared<Context>()};
 	{
 		auto& nullVisibility = nativeObject.getComponent<Visibility>();
 		nullVisibility.setVisibility(Visibility::GONE);
@@ -20,4 +19,16 @@ TEST(ComponentTest, testNullObjects_crashTest)
 		auto& nullVisibility = nullNativeObject.getComponent<Visibility>();
 		nullVisibility.setVisibility(Visibility::GONE);
 	}
+}
+
+TEST(ComponentTest, testAddComponent)
+{
+	//Test for crash ;)
+	NativeObject nativeObject{"MyFunnyObject", std::make_shared<Context>()};
+	{
+		nativeObject.addComponent<Container>();
+	}
+
+	auto& notNull = nativeObject.getComponent<Container>();
+	EXPECT_FALSE(notNull.isNullObject());
 }
