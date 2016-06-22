@@ -39,6 +39,7 @@ SET(SOURCE_FILES_CORE
 		src/component/Container.cpp src/component/Container.h
 		src/component/view/Visibility.cpp src/component/view/Visibility.h
 		src/component/view/Text.cpp src/component/view/Text.h
+		src/component/view/Image.cpp src/component/view/Image.h
 		src/utils/Utils.h
 		)
 
@@ -74,6 +75,7 @@ ELSEIF(MAC_IOS)
 			proj/ios/bridge/Context.mm proj/ios/bridge/Context.h
 			proj/ios/component/view/Text.mm
 			proj/ios/component/view/Visibility.mm
+			proj/ios/component/view/Image.mm
 			)
 
 	SET(INCLUDE_DIRS_PLATFORM
