@@ -35,6 +35,3 @@ Container& Container::add(NativeObject&& nativeObject)
 
 	return *this;
 }
-
-
-

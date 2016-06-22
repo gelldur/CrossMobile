@@ -18,6 +18,16 @@ class create
 public:
 	create(const std::string& tag, std::shared_ptr<Context> context);
 
+	template<class... Args>
+	create(const std::string& tag, Args&& ... args)
+			: _nativeObject(tag, std::make_shared<Context>(std::forward<Args>(args)...))
+	{
+	}
+
+	create(create&&) = delete;
+	create(const create&) = delete;
+	create& operator=(const create&) = delete;
+
 	template<class T, class... Args>
 	create& addComponent(Args&& ... args)
 	{

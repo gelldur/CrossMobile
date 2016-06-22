@@ -10,7 +10,7 @@
 
 void Visibility::setVisibility(Visibility::Visible visible)
 {
-	auto context = getOwner()->getContext();
+	auto context = getContext();
 
 	UIView* view = context->getNative();
 

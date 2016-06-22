@@ -64,3 +64,10 @@ TEST(ComponentTest, testAddComponent)
 	auto& notNull = nativeObject.getComponent<Container>();
 	EXPECT_FALSE(notNull.isNullObject());
 }
+
+TEST(ComponentTest, testOfBuilders)
+{
+	auto myNative = NativeObjectBuilder::create("HelloBuilder", nativeContext).build();
+	EXPECT_TRUE(myNative.getContext() != nullptr);
+	EXPECT_EQ("HelloBuilder",myNative.getTag());
+}
