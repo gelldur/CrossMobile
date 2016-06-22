@@ -28,9 +28,6 @@ public:
 
 	Container& add(NativeObject&& nativeObject);
 
-	/**
-	 * @return nullptr if element not found
-	 */
 	virtual NativeObject& get(const std::string& tag);
 
 	size_t count() const
