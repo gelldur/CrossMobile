@@ -76,7 +76,7 @@ public:
 		if (found == _components.end())
 		{
 			auto& nullObject = T::getNullObject();
-			WLOG("Missing component: %s", nullObject.toString());
+			WLOG("Missing component: %s for %s", nullObject.toString(), _tag.c_str());
 
 			return nullObject;
 		}
