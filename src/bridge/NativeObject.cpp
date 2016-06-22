@@ -24,6 +24,10 @@ NativeObject::NativeObject(NativeObject&& other)
 		, _components(std::move(other._components))
 {
 	DLOG("Move ctor %s", _tag.c_str());
+	for (auto& component : _components)
+	{
+		component.second->_owner = this;//Changing of owner!
+	}
 }
 
 NativeObject::~NativeObject()
