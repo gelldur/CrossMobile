@@ -5,10 +5,12 @@
 #include <component/view/Visibility.h>
 #include <bridge/NativeObjectBuilder.h>
 
+void* const nativeContext = nullptr;
+
 TEST(ComponentTest, testNullObjects_crashTest)
 {
 	//Test for crash ;)
-	NativeObject nativeObject{"MyFunnyObject", std::make_shared<Context>()};
+	NativeObject nativeObject{"MyFunnyObject", std::make_shared<Context>(nativeContext)};
 	{
 		auto& nullVisibility = nativeObject.getComponent<Visibility>();
 		nullVisibility.setVisibility(Visibility::GONE);
@@ -42,7 +44,7 @@ public:
 
 TEST(ComponentTest, bugFixMoveComponents)
 {
-	auto object = NativeObjectBuilder::create("MyFunnyObject", std::make_shared<Context>())
+	auto object = NativeObjectBuilder::create("MyFunnyObject", std::make_shared<Context>(nativeContext))
 			.addComponent<TestComponent>()
 			.build();
 	auto movedObject = std::move(object);
@@ -54,7 +56,7 @@ TEST(ComponentTest, bugFixMoveComponents)
 TEST(ComponentTest, testAddComponent)
 {
 	//Test for crash ;)
-	NativeObject nativeObject{"MyFunnyObject", std::make_shared<Context>()};
+	NativeObject nativeObject{"MyFunnyObject", std::make_shared<Context>(nativeContext)};
 	{
 		nativeObject.addComponent<Container>();
 	}
