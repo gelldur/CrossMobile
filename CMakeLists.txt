@@ -34,7 +34,6 @@ SET(SOURCE_FILES_CORE
 		src/acme/DebugUtils.cpp src/acme/DebugUtils.h
 		src/screen/StateManager.cpp src/screen/StateManager.h
 		src/acme/Macros.h
-		src/utils/ViewHelper.cpp src/utils/ViewHelper.h
 		src/component/view/TextProtocol.h
 		src/bridge/NativeObject.cpp src/bridge/NativeObject.h
 		src/bridge/NativeObjectBuilder.cpp src/bridge/NativeObjectBuilder.h
