@@ -13,10 +13,6 @@ class Visibility : public Component
 {
 	using inherited = Component;
 public:
-	Visibility()
-			: inherited()
-	{
-	}
 
 	enum Visible
 	{
@@ -29,4 +25,8 @@ public:
 	static Visibility& getNullObject();
 };
 
-
+class NullVisibility : public Visibility
+{
+public:
+	virtual void setVisibility(Visible visible) override;
+};

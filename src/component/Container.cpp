@@ -5,8 +5,6 @@
 #include "Container.h"
 #include <bridge/NativeObject.h>
 
-#include "NullContainer.h"
-
 Container& Container::getNullObject()
 {
 	static NullContainer nullObject;
@@ -35,3 +33,14 @@ Container& Container::add(NativeObject&& nativeObject)
 
 	return *this;
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// NullContainer
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+NativeObject& NullContainer::get(const std::string& tag)
+{
+	WLOG("NullObject ignoring call: %s in: %s:%d", __func__, __FILE__, __LINE__);
+	return *NativeObject::nullObject;
+}
+

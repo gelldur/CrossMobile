@@ -34,15 +34,12 @@ SET(SOURCE_FILES_CORE
 		src/acme/DebugUtils.cpp src/acme/DebugUtils.h
 		src/screen/StateManager.cpp src/screen/StateManager.h
 		src/acme/Macros.h
-		src/component/view/TextProtocol.h
 		src/bridge/NativeObject.cpp src/bridge/NativeObject.h
 		src/bridge/NativeObjectBuilder.cpp src/bridge/NativeObjectBuilder.h
 		src/component/Container.cpp src/component/Container.h
-		src/component/view/Visibility.h
+		src/component/view/Visibility.cpp src/component/view/Visibility.h
+		src/component/view/Text.cpp src/component/view/Text.h
 		src/utils/Utils.h
-		src/component/view/NullTextProtocol.h
-		src/component/view/NullVisibility.h
-		src/component/NullContainer.h
 		)
 
 IF(LINUX)
@@ -50,8 +47,6 @@ IF(LINUX)
 			proj/linux/LinuxAdapter.cpp proj/linux/LinuxAdapter.h
 			proj/linux/log.h
 			proj/linux/bridge/Context.cpp proj/linux/bridge/Context.h
-			proj/linux/component/view/TextProtocol.cpp
-			proj/linux/component/view/Visibility.cpp
 			)
 
 	SET(INCLUDE_DIRS_PLATFORM
@@ -77,7 +72,7 @@ ELSEIF(MAC_IOS)
 			proj/ios/ColorUtils.h
 			proj/ios/Utils.h
 			proj/ios/bridge/Context.mm proj/ios/bridge/Context.h
-			proj/ios/component/view/TextProtocol.mm
+			proj/ios/component/view/Text.mm
 			proj/ios/component/view/Visibility.mm
 			)
 

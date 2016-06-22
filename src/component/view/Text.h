@@ -9,23 +9,27 @@
 /**
  * Implementation is environment specific
  */
-class TextProtocol : public Component
+class Text : public Component
 {
 	using inherited = Component;
 public:
-	TextProtocol()
-			: inherited()
-	{
-	}
 
 	virtual void setText(const char* text);
 	virtual void setText(const std::string& text);
 
 	virtual void setTextColor(int color);
 
-	COMPONENT_TO_STRING(TextProtocol)
+	COMPONENT_TO_STRING(Text)
 
-	static TextProtocol& getNullObject();
+	static Text& getNullObject();
 };
 
+class NullText : public Text
+{
+public:
+	virtual void setText(const char* text) override;
 
+	virtual void setText(const std::string& text) override;
+
+	virtual void setTextColor(int color) override;
+};

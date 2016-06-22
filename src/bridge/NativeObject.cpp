@@ -5,10 +5,6 @@
 #include "NativeObject.h"
 #include <Component.h>
 
-#include <component/view/NullTextProtocol.h>
-#include <component/view/NullVisibility.h>
-#include <component/NullContainer.h>
-
 NativeObject* NativeObject::nullObject = new NativeObject("nullObject", nullptr);
 
 NativeObject::NativeObject(const std::string& tag, std::shared_ptr<Context> context)

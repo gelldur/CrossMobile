@@ -13,13 +13,8 @@ void Visibility::setVisibility(Visibility::Visible visible)
 	auto context = getContext();
 
 	UIView* view = context->getNative();
-
-	if (visible == Visible::INVISIBLE)
-	{
-		[view setHidden:true];
-	}
-	else if (visible == Visible::VISIBLE)
-	{
-		[view setHidden:false];
-	}
+	const bool hidden = (visible != Visible::VISIBLE);
+	// @formatter:off
+	[view setHidden:hidden];
+	// @formatter:on
 }

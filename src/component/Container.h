@@ -42,3 +42,9 @@ public:
 private:
 	std::map<std::string, NativeObject> _managed;
 };
+
+class NullContainer : public Container
+{
+public:
+	virtual NativeObject& get(const std::string& tag) override;
+};

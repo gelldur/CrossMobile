@@ -2,7 +2,7 @@
 // Created by Dawid Drozd aka Gelldur on 6/15/16.
 //
 
-#include <component/view/TextProtocol.h>
+#include <component/view/Text.h>
 
 #include <bridge/NativeObject.h>
 #include <bridge/Context.h>
@@ -11,20 +11,22 @@
 
 #import <UIKit/UIKit.h>
 
-void TextProtocol::setText(const char* text)
+void Text::setText(const char* text)
 {
 	auto context = getContext();
 
+	// @formatter:off
 	UILabel* label = context->getNative();
 	label.text = [NSString stringWithUTF8String:text];
+	// @formatter:on
 }
 
-void TextProtocol::setText(const std::string& text)
+void Text::setText(const std::string& text)
 {
 	setText(text.c_str());
 }
 
-void TextProtocol::setTextColor(int color)
+void Text::setTextColor(int color)
 {
 	auto context = getContext();
 
