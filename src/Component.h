@@ -11,6 +11,8 @@
 
 class NativeObject;
 
+class Context;
+
 class Component
 {
 public:
@@ -36,12 +38,14 @@ protected:
 		return _owner;
 	}
 
+	Context* getContext() const;
+
 private:
 	NativeObject* _owner = nullptr;
 };
 
 //TODO check getIdForType and move to other dir
-static int counter = 0;
+extern int counter;
 
 template<class T>
 inline int getIdForType()
