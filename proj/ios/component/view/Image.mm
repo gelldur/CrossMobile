@@ -9,6 +9,7 @@
 #include <log.h>
 
 #import <UIKit/UIKit.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 void Image::loadImage(const std::string& url)
 {
