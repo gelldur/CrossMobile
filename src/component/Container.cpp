@@ -16,6 +16,7 @@ NativeObject& Container::get(const std::string& tag)
 	auto found = _managed.find(tag);
 	if (found == _managed.end())
 	{
+		WLOG("Tag not found: %s", tag.c_str());
 		return *NativeObject::nullObject;
 	}
 
