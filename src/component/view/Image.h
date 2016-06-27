@@ -9,11 +9,12 @@
 /**
  * Implementation is environment specific
  */
-class Image: public Component
+class Image : public Component
 {
 	using inherited = Component;
 public:
 	virtual void loadImage(const std::string& url);
+	virtual void image(const std::string& name);
 
 	COMPONENT_TO_STRING(Image)
 
@@ -24,4 +25,5 @@ class NullImage : public Image
 {
 public:
 	virtual void loadImage(const std::string& url) override;
+	virtual void image(const std::string& name) override;
 };
