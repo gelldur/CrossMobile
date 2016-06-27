@@ -70,12 +70,6 @@ ELSEIF(ANDROID)
 ELSEIF(MAC_IOS)
 	SET(SOURCE_FILES_PLATFORM
 			"proj/ios/IosAdapter.cpp" "proj/ios/IosAdapter.h"
-			proj/ios/ColorUtils.h
-			proj/ios/Utils.h
-			proj/ios/bridge/Context.mm proj/ios/bridge/Context.h
-			proj/ios/component/view/Text.mm
-			proj/ios/component/view/Visibility.mm
-			proj/ios/component/view/Image.mm
 			)
 
 	SET(INCLUDE_DIRS_PLATFORM
