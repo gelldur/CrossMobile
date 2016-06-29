@@ -54,7 +54,7 @@ public:
 		return _registredComponents[name];
 	}
 
-	enum State
+	enum class State
 	{
 		EXIT = 0, ENTER = 1, CREATE = 3, RESUME = 7, PAUSE = 8, DESTROY = 11
 	};
@@ -77,7 +77,7 @@ protected:
 	}
 
 private:
-	State _state = EXIT;
+	State _state = State::EXIT;
 	std::string _screenName;
 	std::map<std::string, Component*> _registredComponents;
 };
