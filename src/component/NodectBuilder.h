@@ -7,8 +7,7 @@
 #include <string>
 
 #include "Nodect.h"
-
-class Container;
+#include "Container.h"
 
 namespace NodectBuilder
 {

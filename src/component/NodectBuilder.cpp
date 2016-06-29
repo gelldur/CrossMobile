@@ -3,7 +3,6 @@
 //
 
 #include "NodectBuilder.h"
-#include <component/Container.h>
 
 namespace NodectBuilder
 {
