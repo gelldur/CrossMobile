@@ -6,7 +6,6 @@
 #include <log.h>
 #include "AndroidAdapter.h"
 #include <interface/DataSetAdapter.h>
-#include <init.h>
 
 #include "Android.h"
 

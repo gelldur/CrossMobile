@@ -5,7 +5,6 @@
 #pragma once
 
 #include <string>
-#include <bridge/NativeAdapter.h>
 #include <api/ApiThreadPool.h>
 
 #include "UILoop.h"
@@ -13,7 +12,7 @@
 class Application
 {
 public:
-	Application(NativeAdapter* nativeAdapter);
+	Application();
 	~Application() = default;
 
 	virtual void onCreate();
@@ -35,15 +34,8 @@ public:
 		return _instance;
 	}
 
-protected:
-	NativeAdapter* getNativeAdapter() const
-	{
-		return _nativeAdapter;
-	}
-
 private:
 	static Application* _instance;
-	NativeAdapter* _nativeAdapter;
 	UILoop _uiLoop;
 	ApiThreadPool _apiThreadPool;
 };

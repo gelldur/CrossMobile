@@ -4,27 +4,32 @@
 #include "Director.h"
 
 #include <log.h>
-#include <acme/Macros.h>
 #include <screen/StateManager.h>
 
+#include "Screen.h"
 #include "Application.h"
 
-Director* Director::_instance = nullptr;
+std::unique_ptr<Director> Director::_instance = nullptr;
 
-void Director::create()
+Director::Director(std::unique_ptr<Application> app)
+		: _app{std::move(app)}
 {
-	_instance = new Director();
+}
+
+void Director::create(std::unique_ptr<Application> app)
+{
+	if (_instance != nullptr)
+	{
+		WLOG("Creating new app? Probably you want release previous app instance.\nDon't worry i will handle that!");
+		destroy();
+	}
+	_instance = std::unique_ptr<Director>(new Director(std::move(app)));
+	_instance->_app->onCreate();
 }
 
 void Director::destroy()
 {
-	SAFE_DELETE(_instance);
-}
-
-Director::~Director()
-{
-	SAFE_DELETE(_app);
-	//TODO ;)
+	_instance.reset();
 }
 
 void Director::pushScreen(const std::string& screenName, Screen* screen)
@@ -109,17 +114,6 @@ void Director::popScreen(const std::string& screenName)
 
 }
 
-void Director::onStartApplication(Application* app)
-{
-	if (_app != nullptr)
-	{
-		//TODO throw exceptions
-		FLOG("App already created!");
-	}
-	_app = app;
-	app->onCreate();
-}
-
 Screen* Director::findScreen(const std::string& screenName)
 {
 	if (_screens.find(screenName) == _screens.end())
@@ -134,5 +128,3 @@ void Director::onTickUI()
 {
 	_app->getUILoop().onTick();
 }
-
-

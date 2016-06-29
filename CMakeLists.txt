@@ -15,7 +15,6 @@ SET(SOURCE_FILES_CORE
 		src/api/Server.cpp src/api/Server.h
 		src/api/UrlBuilder.cpp src/api/UrlBuilder.h
 		src/Application.cpp src/Application.h
-		src/bridge/NativeAdapter.h
 		src/Component.cpp src/Component.h
 		src/data/provider/DataProviderComponent.cpp src/data/provider/DataProviderComponent.h
 		src/data/provider/Provider.cpp src/data/provider/Provider.h
@@ -45,7 +44,6 @@ SET(SOURCE_FILES_CORE
 
 IF(LINUX)
 	SET(SOURCE_FILES_PLATFORM
-			proj/linux/LinuxAdapter.cpp proj/linux/LinuxAdapter.h
 			proj/linux/log.h
 			proj/linux/bridge/Context.cpp proj/linux/bridge/Context.h
 			)
@@ -57,7 +55,6 @@ ELSEIF(ANDROID)
 	SET(SOURCE_FILES_PLATFORM
 			proj/android/jni/log.h
 			proj/android/jni/Android.h
-			proj/android/jni/AndroidAdapter.cpp proj/android/jni/AndroidAdapter.h
 			proj/android/jni/AndroidView.cpp proj/android/jni/AndroidView.h
 			proj/android/jni/Bridge.cpp
 			proj/android/jni/JniObject.cpp proj/android/jni/JniObject.h
@@ -69,7 +66,6 @@ ELSEIF(ANDROID)
 			)
 ELSEIF(MAC_IOS)
 	SET(SOURCE_FILES_PLATFORM
-			"proj/ios/IosAdapter.cpp" "proj/ios/IosAdapter.h"
 			)
 
 	SET(INCLUDE_DIRS_PLATFORM

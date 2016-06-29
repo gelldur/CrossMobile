@@ -5,8 +5,12 @@
 #pragma once
 
 #include <map>
-#include "Screen.h"
+#include <memory>
+#include <cassert>
+
 class Application;
+
+class Screen;
 
 class Director
 {
@@ -14,7 +18,7 @@ public:
 	Director(Director const&) = delete;
 	void operator=(Director const&) = delete;
 
-	~Director();
+	~Director() = default;
 
 	static Director& getInstance()
 	{
@@ -22,7 +26,7 @@ public:
 		return *_instance;
 	}
 
-	static void create();
+	static void create(std::unique_ptr<Application> app);
 	static void destroy();
 
 	void pushScreen(const std::string& screenName, Screen* screen);
@@ -33,23 +37,21 @@ public:
 	void onPauseScreen(const std::string& screenName);
 	void onDestroyScreen(const std::string& screenName);
 
-	void onStartApplication(Application* app);
-
 	void onTickUI();
 
 	Screen* findScreen(const std::string& screenName);
 
 	Application* getApp() const
 	{
-		return _app;
+		return _app.get();
 	}
 
 private:
-	static Director* _instance;
-	Director() = default;
+	static std::unique_ptr<Director> _instance;
+	Director(std::unique_ptr<Application> app);
 
-	Application* _app = nullptr;
 	Screen* _activeScreen = nullptr;
+	std::unique_ptr<Application> _app;
 	std::map<std::string, Screen*> _screens;
 };
 
