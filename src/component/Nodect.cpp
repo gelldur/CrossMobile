@@ -3,7 +3,7 @@
 //
 
 #include "Nodect.h"
-#include <Component.h>
+#include <component/Component.h>
 
 Nodect* Nodect::nullObject = new Nodect("nullObject", nullptr);
 

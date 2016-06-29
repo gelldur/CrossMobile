@@ -9,7 +9,7 @@
 #include <memory>
 
 #include <log.h>
-#include <Component.h>
+#include <component/Component.h>
 #include <utils/Utils.h>
 
 class Context;

@@ -3,7 +3,7 @@
 //
 
 #include "Container.h"
-#include <bridge/Nodect.h>
+#include <component/Nodect.h>
 
 Container& Container::getNullObject()
 {

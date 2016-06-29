@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <Component.h>
+#include <component/Component.h>
 
 /**
  * Implementation is environment specific

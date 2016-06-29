@@ -3,8 +3,8 @@
 //
 
 #include <component/view/Visibility.h>
-#include <bridge/Nodect.h>
-#include <bridge/Context.h>
+
+#include <platform/Context.h>
 
 #import <UIKit/UIKit.h>
 

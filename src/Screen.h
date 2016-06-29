@@ -6,7 +6,7 @@
 
 #include <string>
 
-#include <bridge/Nodect.h>
+#include <component/Nodect.h>
 
 class Screen
 {

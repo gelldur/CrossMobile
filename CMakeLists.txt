@@ -15,7 +15,7 @@ SET(SOURCE_FILES_CORE
 		src/api/Server.cpp src/api/Server.h
 		src/api/UrlBuilder.cpp src/api/UrlBuilder.h
 		src/Application.cpp src/Application.h
-		src/Component.cpp src/Component.h
+		src/component/Component.cpp src/component/Component.h
 		src/data/provider/DataProviderComponent.cpp src/data/provider/DataProviderComponent.h
 		src/data/provider/Provider.cpp src/data/provider/Provider.h
 		src/data/receiver/Receiver.cpp src/data/receiver/Receiver.h
@@ -33,8 +33,8 @@ SET(SOURCE_FILES_CORE
 		src/acme/DebugUtils.cpp src/acme/DebugUtils.h
 		src/screen/StateManager.cpp src/screen/StateManager.h
 		src/acme/Macros.h
-		src/bridge/Nodect.cpp src/bridge/Nodect.h
-		src/bridge/NodectBuilder.cpp src/bridge/NodectBuilder.h
+		src/component/Nodect.cpp src/component/Nodect.h
+		src/component/NodectBuilder.cpp src/component/NodectBuilder.h
 		src/component/Container.cpp src/component/Container.h
 		src/component/view/Visibility.cpp src/component/view/Visibility.h
 		src/component/view/Text.cpp src/component/view/Text.h
@@ -45,7 +45,7 @@ SET(SOURCE_FILES_CORE
 IF(LINUX)
 	SET(SOURCE_FILES_PLATFORM
 			proj/linux/log.h
-			proj/linux/bridge/Context.cpp proj/linux/bridge/Context.h
+			proj/linux/platform/Context.cpp proj/linux/platform/Context.h
 			)
 
 	SET(INCLUDE_DIRS_PLATFORM

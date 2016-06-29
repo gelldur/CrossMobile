@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
-#include <bridge/Nodect.h>
+#include <component/Nodect.h>
 #include <component/Container.h>
-#include <bridge/Context.h>
+#include <platform/Context.h>
 #include <component/view/Visibility.h>
-#include <bridge/NodectBuilder.h>
+#include <component/NodectBuilder.h>
 #include <component/view/Image.h>
 
 void* const nativeContext = nullptr;

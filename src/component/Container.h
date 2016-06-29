@@ -6,8 +6,8 @@
 
 #include <map>
 
-#include <Component.h>
-#include <bridge/Nodect.h>
+#include <component/Component.h>
+#include <component/Nodect.h>
 
 class Nodect;
 
