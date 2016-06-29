@@ -127,6 +127,16 @@ Screen* Director::findScreen(const std::string& screenName)
 	return findScreen->second.get();
 }
 
+Screen& Director::getScreen(const std::string& screenName)
+{
+	auto screen = findScreen(screenName);
+	if (screen == nullptr)
+	{
+		throw std::runtime_error(std::string("No such screen:") + screenName);
+	}
+	return *screen;
+}
+
 void Director::onTickUI()
 {
 	_app->getUILoop().onTick();

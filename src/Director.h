@@ -45,6 +45,8 @@ public:
 
 	Screen* findScreen(const std::string& screenName);
 
+	Screen& getScreen(const std::string& screenName);
+
 	Application* getApp() const
 	{
 		return _app.get();

@@ -17,6 +17,9 @@ public:
 
 	virtual ~Screen() = default;
 
+	Screen(const Screen& other) = delete;
+	Screen& operator=(const Screen& other) = delete;
+
 	void onEnter()
 	{
 	}
