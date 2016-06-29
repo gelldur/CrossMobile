@@ -7,6 +7,7 @@
 #include <map>
 #include <memory>
 #include <cassert>
+#include "Screen.h"
 
 class Application;
 
@@ -15,6 +16,8 @@ class Screen;
 class Director
 {
 public:
+	using ScreenPtr = std::unique_ptr<Screen>;
+
 	Director(Director const&) = delete;
 	void operator=(Director const&) = delete;
 
@@ -29,7 +32,8 @@ public:
 	static void create(std::unique_ptr<Application> app);
 	static void destroy();
 
-	void pushScreen(const std::string& screenName, Screen* screen);
+	void pushScreen(const std::string& screenName, std::unique_ptr<Screen> screen);
+
 	void popScreen(const std::string& screenName);
 
 	void onCreateScreen(const std::string& screenName);
@@ -52,7 +56,7 @@ private:
 
 	Screen* _activeScreen = nullptr;
 	std::unique_ptr<Application> _app;
-	std::map<std::string, Screen*> _screens;
+	std::map<std::string, ScreenPtr> _screens;
 };
 
 

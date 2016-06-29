@@ -32,20 +32,19 @@ void Director::destroy()
 	_instance.reset();
 }
 
-void Director::pushScreen(const std::string& screenName, Screen* screen)
+void Director::pushScreen(const std::string& screenName, std::unique_ptr<Screen> screen)
 {
 	DLOG("Director: pushScreen(%s)", screenName.c_str());
 
-	auto previousScreen = _screens[screenName];
+	auto& previousScreen = _screens[screenName];
 	if (previousScreen != nullptr)
 	{
 		ELOG("Screen already exist: %s", screenName.c_str());
 		return;
 	}
+	previousScreen = std::move(screen);
 
-	_screens[screenName] = screen;
-
-	StateManager::onEnter(screen);
+	StateManager::onEnter(previousScreen.get());
 }
 
 void Director::onCreateScreen(const std::string& screenName)
@@ -98,30 +97,34 @@ void Director::onPauseScreen(const std::string& screenName)
 void Director::onDestroyScreen(const std::string& screenName)
 {
 	DLOG("Director: onDestroyScreen(%s)", screenName.c_str());
-	auto screen = findScreen(screenName);
-	if (screen == nullptr)
+	auto findScreen = _screens.find(screenName);
+	if (findScreen == _screens.end())
 	{
+		FLOG("No such screen %s", screenName.c_str());
 		return;
 	}
-	StateManager::onDestroy(screen);
-	_screens.erase(screenName);
-	StateManager::onExit(screen);
-	delete screen;
+
+	auto screen = std::move(findScreen->second);
+
+	StateManager::onDestroy(screen.get());
+	_screens.erase(findScreen);
+	StateManager::onExit(screen.get());
 }
 
 void Director::popScreen(const std::string& screenName)
 {
-
+	WLOG("Function %s not implemented: %s:%d", __func__, __FILE__, __LINE__);
 }
 
 Screen* Director::findScreen(const std::string& screenName)
 {
-	if (_screens.find(screenName) == _screens.end())
+	auto findScreen = _screens.find(screenName);
+	if (findScreen == _screens.end())
 	{
 		FLOG("No such screen %s", screenName.c_str());
 		return nullptr;
 	}
-	return _screens[screenName];
+	return findScreen->second.get();
 }
 
 void Director::onTickUI()
