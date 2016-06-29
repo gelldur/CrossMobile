@@ -1,22 +1,23 @@
 #include <gtest/gtest.h>
-#include <bridge/NativeObject.h>
+#include <bridge/Nodect.h>
 #include <component/Container.h>
 #include <bridge/Context.h>
 #include <component/view/Visibility.h>
-#include <bridge/NativeObjectBuilder.h>
+#include <bridge/NodectBuilder.h>
+#include <component/view/Image.h>
 
 void* const nativeContext = nullptr;
 
 TEST(ComponentTest, testNullObjects_crashTest)
 {
 	//Test for crash ;)
-	NativeObject nativeObject{"MyFunnyObject", std::make_shared<Context>(nativeContext)};
+	Nodect nodect{"MyFunnyObject", std::make_shared<Context>(nativeContext)};
 	{
-		auto& nullVisibility = nativeObject.getComponent<Visibility>();
+		auto& nullVisibility = nodect.getComponent<Visibility>();
 		nullVisibility.setVisibility(Visibility::GONE);
 	}
 
-	auto& nullContainer = nativeObject.getComponent<Container>();
+	auto& nullContainer = nodect.getComponent<Container>();
 	auto& nullNativeObject = nullContainer.get("myTag");
 	{
 		auto& nullVisibility = nullNativeObject.getComponent<Visibility>();
@@ -44,7 +45,7 @@ public:
 
 TEST(ComponentTest, bugFixMoveComponents)
 {
-	auto object = NativeObjectBuilder::create("MyFunnyObject", std::make_shared<Context>(nativeContext))
+	auto object = NodectBuilder::create("MyFunnyObject", std::make_shared<Context>(nativeContext))
 			.addComponent<TestComponent>()
 			.build();
 	auto movedObject = std::move(object);
@@ -56,18 +57,19 @@ TEST(ComponentTest, bugFixMoveComponents)
 TEST(ComponentTest, testAddComponent)
 {
 	//Test for crash ;)
-	NativeObject nativeObject{"MyFunnyObject", std::make_shared<Context>(nativeContext)};
+	Nodect nodect{"MyFunnyObject", std::make_shared<Context>(nativeContext)};
 	{
-		nativeObject.addComponent<Container>();
+		nodect.addComponent<Container>();
 	}
 
-	auto& notNull = nativeObject.getComponent<Container>();
+	auto& notNull = nodect.getComponent<Container>();
 	EXPECT_FALSE(notNull.isNullObject());
 }
 
 TEST(ComponentTest, testOfBuilders)
 {
-	auto myNative = NativeObjectBuilder::create("HelloBuilder", nativeContext).build();
+	auto myNative = NodectBuilder::create("HelloBuilder", nativeContext).build();
 	EXPECT_TRUE(myNative.getContext() != nullptr);
-	EXPECT_EQ("HelloBuilder",myNative.getTag());
+	EXPECT_EQ("HelloBuilder", myNative.getTag());
+}
 }

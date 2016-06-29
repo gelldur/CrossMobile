@@ -3,7 +3,7 @@
 //
 
 #include <component/view/Visibility.h>
-#include <bridge/NativeObject.h>
+#include <bridge/Nodect.h>
 #include <bridge/Context.h>
 
 #import <UIKit/UIKit.h>

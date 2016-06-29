@@ -6,11 +6,11 @@
 
 #include <string>
 
-#include "NativeObject.h"
+#include "Nodect.h"
 
 class Container;
 
-namespace NativeObjectBuilder
+namespace NodectBuilder
 {
 
 class create
@@ -20,7 +20,7 @@ public:
 
 	template<class... Args>
 	create(const std::string& tag, Args&& ... args)
-			: _nativeObject(tag, std::make_shared<Context>(std::forward<Args>(args)...))
+			: _node(tag, std::make_shared<Context>(std::forward<Args>(args)...))
 	{
 	}
 
@@ -32,16 +32,16 @@ public:
 	create& addComponent(Args&& ... args)
 	{
 		static_assert(std::is_base_of<Component, T>(), "T must be child of Component");
-		_nativeObject.addComponent<T>(std::forward<Args>(args)...);
+		_node.addComponent<T>(std::forward<Args>(args)...);
 		return *this;
 	}
 
-	create& nestObject(NativeObject&& nativeObject);
+	create& nestObject(Nodect&& nodect);
 
-	NativeObject build();
+	Nodect build();
 
 private:
-	NativeObject _nativeObject;
+	Nodect _node;
 	std::unique_ptr<Container> _containerForObject;
 };
 

@@ -4,7 +4,7 @@
 
 #include <component/view/Text.h>
 
-#include <bridge/NativeObject.h>
+#include <bridge/Nodect.h>
 #include <bridge/Context.h>
 #include <log.h>
 #include <ColorUtils.h>

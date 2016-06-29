@@ -6,14 +6,14 @@
 
 #include <string>
 
-#include <bridge/NativeObject.h>
+#include <bridge/Nodect.h>
 
 class Screen
 {
 public:
 	Screen(const std::string& screenName);
 
-	Screen(const std::string& screenName, NativeObject&& nativeObject);
+	Screen(const std::string& screenName, Nodect&& node);
 
 	virtual ~Screen() = default;
 
@@ -53,7 +53,7 @@ public:
 		return _state;
 	}
 
-	NativeObject& getNativeScreen()
+	Nodect& getNativeScreen()
 	{
 		return _screenNativeObject;
 	}
@@ -61,5 +61,5 @@ public:
 private:
 	State _state = State::EXIT;
 	std::string _screenName;
-	NativeObject _screenNativeObject;
+	Nodect _screenNativeObject;
 };

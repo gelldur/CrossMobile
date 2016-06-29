@@ -14,18 +14,18 @@
 
 class Context;
 
-class NativeObject
+class Nodect
 {
 public:
-	static NativeObject* nullObject;
+	static Nodect* nullObject;
 
-	NativeObject(const std::string& tag, std::shared_ptr<Context> context);
-	NativeObject(NativeObject&& other);
+	Nodect(const std::string& tag, std::shared_ptr<Context> context);
+	Nodect(Nodect&& other);
 
-	~NativeObject();
+	~Nodect();
 
-	NativeObject(const NativeObject& other) = delete;
-	NativeObject& operator=(const NativeObject& other) = delete;
+	Nodect(const Nodect& other) = delete;
+	Nodect& operator=(const Nodect& other) = delete;
 
 	void addComponentWithId(int id, std::unique_ptr<Component>&& component);
 
@@ -41,7 +41,7 @@ public:
 	}
 
 	template<class T>
-	NativeObject& addComponent(std::unique_ptr<T>&& component)
+	Nodect& addComponent(std::unique_ptr<T>&& component)
 	{
 		static_assert(std::is_base_of<Component, T>(), "T must be child of Component");
 
@@ -56,7 +56,7 @@ public:
 	}
 
 	template<class T, class... Args>
-	NativeObject& addComponent(Args&& ... args)
+	Nodect& addComponent(Args&& ... args)
 	{
 		if (_context == nullptr)
 		{

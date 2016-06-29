@@ -3,7 +3,7 @@
 //
 
 #include "Container.h"
-#include <bridge/NativeObject.h>
+#include <bridge/Nodect.h>
 
 Container& Container::getNullObject()
 {
@@ -11,26 +11,26 @@ Container& Container::getNullObject()
 	return nullObject;
 }
 
-NativeObject& Container::get(const std::string& tag)
+Nodect& Container::get(const std::string& tag)
 {
 	auto found = _managed.find(tag);
 	if (found == _managed.end())
 	{
 		WLOG("Tag not found: %s", tag.c_str());
-		return *NativeObject::nullObject;
+		return *Nodect::nullObject;
 	}
 
 	return found->second;
 }
 
-Container& Container::add(NativeObject&& nativeObject)
+Container& Container::add(Nodect&& nodect)
 {
-	if (_managed.find(nativeObject.getTag()) != _managed.end())
+	if (_managed.find(nodect.getTag()) != _managed.end())
 	{
-		throw std::runtime_error(std::string("Already added this tag") + nativeObject.getTag());
+		throw std::runtime_error(std::string("Already added this tag") + nodect.getTag());
 	}
-	const std::string key = nativeObject.getTag();//because of move semantics
-	_managed.emplace(key, std::move(nativeObject));
+	const std::string key = nodect.getTag();//because of move semantics
+	_managed.emplace(key, std::move(nodect));
 
 	return *this;
 }
@@ -39,9 +39,9 @@ Container& Container::add(NativeObject&& nativeObject)
 // NullContainer
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-NativeObject& NullContainer::get(const std::string& tag)
+Nodect& NullContainer::get(const std::string& tag)
 {
 	WLOG("NullObject ignoring call: %s in: %s:%d", __func__, __FILE__, __LINE__);
-	return *NativeObject::nullObject;
+	return *Nodect::nullObject;
 }
 

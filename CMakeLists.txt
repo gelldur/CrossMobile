@@ -33,8 +33,8 @@ SET(SOURCE_FILES_CORE
 		src/acme/DebugUtils.cpp src/acme/DebugUtils.h
 		src/screen/StateManager.cpp src/screen/StateManager.h
 		src/acme/Macros.h
-		src/bridge/NativeObject.cpp src/bridge/NativeObject.h
-		src/bridge/NativeObjectBuilder.cpp src/bridge/NativeObjectBuilder.h
+		src/bridge/Nodect.cpp src/bridge/Nodect.h
+		src/bridge/NodectBuilder.cpp src/bridge/NodectBuilder.h
 		src/component/Container.cpp src/component/Container.h
 		src/component/view/Visibility.cpp src/component/view/Visibility.h
 		src/component/view/Text.cpp src/component/view/Text.h

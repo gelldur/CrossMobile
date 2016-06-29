@@ -7,9 +7,9 @@
 #include <map>
 
 #include <Component.h>
-#include <bridge/NativeObject.h>
+#include <bridge/Nodect.h>
 
-class NativeObject;
+class Nodect;
 
 /**
  * Implementation is environment specific
@@ -18,7 +18,7 @@ class Container : public Component
 {
 	using inherited = Component;
 public:
-	using InitType = std::initializer_list<NativeObject>;
+	using InitType = std::initializer_list<Nodect>;
 
 	Container()
 			: inherited()
@@ -26,9 +26,10 @@ public:
 	}
 
 
-	Container& add(NativeObject&& nativeObject);
 
-	virtual NativeObject& get(const std::string& tag);
+	Container& add(Nodect&& nodect);
+
+	virtual Nodect& get(const std::string& tag);
 
 	size_t count() const
 	{
@@ -40,11 +41,11 @@ public:
 	static Container& getNullObject();
 
 private:
-	std::map<std::string, NativeObject> _managed;
+	std::map<std::string, Nodect> _managed;
 };
 
 class NullContainer : public Container
 {
 public:
-	virtual NativeObject& get(const std::string& tag) override;
+	virtual Nodect& get(const std::string& tag) override;
 };

@@ -4,7 +4,7 @@
 
 #include <component/view/Image.h>
 
-#include <bridge/NativeObject.h>
+#include <bridge/Nodect.h>
 #include <bridge/Context.h>
 #include <log.h>
 

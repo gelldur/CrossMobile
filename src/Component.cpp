@@ -3,7 +3,7 @@
 //
 
 #include "Component.h"
-#include <bridge/NativeObject.h>
+#include <bridge/Nodect.h>
 
 int counter = 0;
 

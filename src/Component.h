@@ -9,14 +9,14 @@
 
 #define COMPONENT_TO_STRING(NAME) virtual const char* toString() const override{ return #NAME;}
 
-class NativeObject;
+class Nodect;
 
 class Context;
 
 class Component
 {
 public:
-	friend class NativeObject;
+	friend class Nodect;
 
 	Component() = default;
 	virtual ~Component();
@@ -32,7 +32,7 @@ public:
 	}
 
 protected:
-	NativeObject* getOwner() const
+	Nodect* getOwner() const
 	{
 		assert(_owner != nullptr);
 		return _owner;
@@ -41,7 +41,7 @@ protected:
 	Context* getContext() const;
 
 private:
-	NativeObject* _owner = nullptr;
+	Nodect* _owner = nullptr;
 };
 
 //TODO check getIdForType and move to other dir
