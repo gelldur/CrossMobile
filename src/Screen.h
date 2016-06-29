@@ -5,21 +5,15 @@
 #pragma once
 
 #include <string>
-#include <map>
-#include <functional>
 
-#include <log.h>
-#include <bridge/NativeAdapter.h>
-
-#include "Component.h"
+#include <bridge/NativeObject.h>
 
 class Screen
 {
 public:
-	Screen(const std::string& screenName)
-			: _screenName(screenName)
-	{
-	}
+	Screen(const std::string& screenName);
+
+	Screen(const std::string& screenName, NativeObject&& nativeObject);
 
 	virtual ~Screen() = default;
 
@@ -44,16 +38,6 @@ public:
 		return _screenName;
 	}
 
-	Component* findComponent(const std::string& name)
-	{
-		if (_registredComponents.find(name) == _registredComponents.end())
-		{
-			FLOG("No such component %s", name.c_str());
-			return nullptr;
-		}
-		return _registredComponents[name];
-	}
-
 	enum class State
 	{
 		EXIT = 0, ENTER = 1, CREATE = 3, RESUME = 7, PAUSE = 8, DESTROY = 11
@@ -69,15 +53,13 @@ public:
 		return _state;
 	}
 
-protected:
-
-	void registerComponent(const std::string& name, Component* component)
+	NativeObject& getNativeScreen()
 	{
-		_registredComponents[name] = component;
+		return _screenNativeObject;
 	}
 
 private:
 	State _state = State::EXIT;
 	std::string _screenName;
-	std::map<std::string, Component*> _registredComponents;
+	NativeObject _screenNativeObject;
 };
