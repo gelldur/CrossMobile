@@ -44,4 +44,14 @@ private:
 	std::unique_ptr<Container> _containerForObject;
 };
 
+template<>
+inline create& create::addComponent<Container>()
+{
+	if (_containerForObject == nullptr)
+	{
+		_containerForObject = std::make_unique<Container>();
+	}
+	return *this;
+}
+
 }

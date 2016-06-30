@@ -14,7 +14,7 @@ create::create(const std::string& tag, std::shared_ptr<Context> context)
 
 Nodect create::build()
 {
-	if (_containerForObject != nullptr && _containerForObject->count() > 0)
+	if (_containerForObject != nullptr)
 	{
 		_node.addComponent(std::move(_containerForObject));
 	}
@@ -32,4 +32,3 @@ create& create::nestObject(Nodect&& nodect)
 }
 
 }
-
