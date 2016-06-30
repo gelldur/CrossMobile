@@ -12,13 +12,10 @@ public:
 	{
 	}
 
-	id getNative()
-	{
-		return _nativeObject;
-	}
+	id getNative();
 
 private:
-	id _nativeObject;
+	__weak id _nativeObject;
 };
 
 
