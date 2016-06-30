@@ -41,6 +41,7 @@ SET(SOURCE_FILES_CORE
 		src/component/view/Image.cpp src/component/view/Image.h
 		src/utils/Utils.h
 		src/screen/ScreenHelper.h
+		src/component/view/List.cpp src/component/view/List.h
 		)
 
 IF(LINUX)
