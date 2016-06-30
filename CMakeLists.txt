@@ -34,6 +34,7 @@ SET(SOURCE_FILES_CORE
 		src/screen/StateManager.cpp src/screen/StateManager.h
 		src/acme/Macros.h
 		src/component/Nodect.cpp src/component/Nodect.h
+		src/component/NodectHelper.cpp src/component/NodectHelper.h
 		src/component/NodectBuilder.cpp src/component/NodectBuilder.h
 		src/component/Container.cpp src/component/Container.h
 		src/component/view/Visibility.cpp src/component/view/Visibility.h
