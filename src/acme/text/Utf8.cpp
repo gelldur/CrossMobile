@@ -212,7 +212,7 @@ void normalizeString(std::string& text)
 		Utf8::initNationalLettersMap();
 		once = false;
 	}
-	for (int i = 0; i < text.length(); ++i)
+	for (unsigned i = 0; i < text.length(); ++i)
 	{
 		int size = getLetterByteSize(reinterpret_cast<const unsigned char* const>(text.c_str() + i));
 		if (size > 1)

@@ -39,7 +39,7 @@ std::istream& CommonMethod::requestGet(const Server& server, const std::string& 
 }
 
 std::istream& CommonMethod::requestPostForm(const Server& server, const std::string& pathAndQuery
-											, const std::map<std::string, std::string>& params)
+		, const std::map<std::string, std::string>& params)
 {
 	using Poco::Net::HTTPRequest;
 	using Poco::Net::HTTPResponse;
@@ -82,7 +82,7 @@ std::istream& CommonMethod::requestPostForm(const Server& server, const std::str
 }
 
 std::istream& CommonMethod::requestPostJson(const Server& server, const std::string& pathAndQuery
-											, const std::string& json)
+		, const std::string& json)
 {
 	using Poco::Net::HTTPRequest;
 	using Poco::Net::HTTPResponse;

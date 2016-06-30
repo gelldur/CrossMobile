@@ -20,7 +20,7 @@
 			return [UIColor yellowColor];
 		case 6:
 			return [UIColor orangeColor];
-		case 7:
+		default:
 			return [UIColor magentaColor];
 	}
 }

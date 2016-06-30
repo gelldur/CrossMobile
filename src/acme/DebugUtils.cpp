@@ -12,7 +12,7 @@ namespace Debug
 std::string print(std::istream& stream)
 {
 	std::string tmpContent(std::istreambuf_iterator<char>(stream), {});
-	DLOG(tmpContent.c_str());
+	DLOG("%s", tmpContent.c_str());
 
 	return tmpContent;
 }

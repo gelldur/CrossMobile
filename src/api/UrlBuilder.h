@@ -44,7 +44,7 @@ public:
 		}
 		std::stringstream stream;
 		stream << '[' << values[0];
-		for (int i = 1; i < values.size(); ++i)
+		for (unsigned i = 1; i < values.size(); ++i)
 		{
 			stream << ',' << values[i];
 		}

@@ -22,6 +22,6 @@ bool onPause(Screen* screen);
 
 bool onDestroy(Screen* screen);
 
-};
+}
 
 

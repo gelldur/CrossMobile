@@ -13,7 +13,7 @@ class Application
 {
 public:
 	Application();
-	~Application() = default;
+	virtual ~Application() = default;
 
 	virtual void onCreate();
 

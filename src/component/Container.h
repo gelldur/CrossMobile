@@ -20,10 +20,6 @@ class Container : public Component
 public:
 	using InitType = std::initializer_list<Nodect>;
 
-	Container()
-			: inherited()
-	{
-	}
 
 
 

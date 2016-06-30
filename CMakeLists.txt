@@ -113,3 +113,6 @@ SET(ENABLE_PAGECOMPILER_FILE2PAGE OFF CACHE BOOL "Enable File2Page" FORCE)
 
 ADD_SUBDIRECTORY("libs/poco")
 TARGET_LINK_LIBRARIES(DexodeEngine PocoNet PocoUtil)
+
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Werror")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-long-long -Wno-unused-private-field -Wnon-virtual-dtor")

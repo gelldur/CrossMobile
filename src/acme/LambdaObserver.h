@@ -12,7 +12,6 @@
 template<class N>
 struct LObserver
 {
-
 	typedef std::function<void(const Poco::AutoPtr<N>&)> Lambda;
 
 	LObserver(const Lambda& callback)

@@ -8,6 +8,8 @@ template<class Type>
 class DataSetAdapter
 {
 public:
+	virtual ~DataSetAdapter() = default;
+
 	virtual int getCount() const = 0;
 	virtual Type getItem(const int position) = 0;
 };

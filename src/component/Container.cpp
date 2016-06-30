@@ -27,7 +27,7 @@ Container& Container::add(Nodect&& nodect)
 {
 	if (_managed.find(nodect.getTag()) != _managed.end())
 	{
-		throw std::runtime_error(std::string("Already added this tag") + nodect.getTag());
+		throw std::runtime_error(std::string("Already added this tag: ") + nodect.getTag());
 	}
 	const std::string key = nodect.getTag();//because of move semantics
 	_managed.emplace(key, std::move(nodect));
