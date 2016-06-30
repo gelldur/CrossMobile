@@ -1,11 +1,18 @@
 #include <gtest/gtest.h>
 #include <component/Nodect.h>
-#include <platform/Context.h>
 #include <component/view/Visibility.h>
 #include <component/NodectBuilder.h>
 #include <component/view/Image.h>
 
 void* const nativeContext = nullptr;
+
+class Context //for tests
+{
+public:
+	Context(void* pointer)
+	{
+	}
+};
 
 TEST(ComponentTest, testNullObjects_crashTest)
 {
