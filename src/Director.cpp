@@ -5,6 +5,7 @@
 
 #include <log.h>
 #include <screen/StateManager.h>
+#include <exception/Fail.h>
 
 #include "Screen.h"
 #include "Application.h"
@@ -39,7 +40,7 @@ void Director::pushScreen(const std::string& screenName, std::unique_ptr<Screen>
 	auto& previousScreen = _screens[screenName];
 	if (previousScreen != nullptr)
 	{
-		ELOG("Screen already exist: %s", screenName.c_str());
+		Fail(__FILE__, __func__, __LINE__).add("Screen already exist:").add(screenName).report();
 		return;
 	}
 	previousScreen = std::move(screen);
@@ -49,10 +50,10 @@ void Director::pushScreen(const std::string& screenName, std::unique_ptr<Screen>
 
 void Director::onCreateScreen(const std::string& screenName)
 {
-	DLOG("Director: onCreateScreen(%s)", screenName.c_str());
 	auto screen = findScreen(screenName);
 	if (screen == nullptr)
 	{
+		Fail(__FILE__, __func__, __LINE__).add("No such screen:").add(screenName).report();
 		return;
 	}
 
@@ -61,10 +62,10 @@ void Director::onCreateScreen(const std::string& screenName)
 
 void Director::onResumeScreen(const std::string& screenName)
 {
-	DLOG("Director: onResumeScreen(%s)", screenName.c_str());
 	auto screen = findScreen(screenName);
 	if (screen == nullptr)
 	{
+		Fail(__FILE__, __func__, __LINE__).add("No such screen:").add(screenName).report();
 		return;
 	}
 
@@ -82,10 +83,10 @@ void Director::onResumeScreen(const std::string& screenName)
 
 void Director::onPauseScreen(const std::string& screenName)
 {
-	DLOG("Director: onPauseScreen(%s)", screenName.c_str());
 	auto screen = findScreen(screenName);
 	if (screen == nullptr)
 	{
+		Fail(__FILE__, __func__, __LINE__).add("No such screen:").add(screenName).report();
 		return;
 	}
 	if (StateManager::onPause(screen))
@@ -96,11 +97,10 @@ void Director::onPauseScreen(const std::string& screenName)
 
 void Director::onDestroyScreen(const std::string& screenName)
 {
-	DLOG("Director: onDestroyScreen(%s)", screenName.c_str());
 	auto findScreen = _screens.find(screenName);
 	if (findScreen == _screens.end())
 	{
-		FLOG("No such screen %s", screenName.c_str());
+		Fail(__FILE__, __func__, __LINE__).add("No such screen:").add(screenName).report();
 		return;
 	}
 
@@ -122,6 +122,7 @@ Screen* Director::findScreen(const std::string& screenName)
 	if (findScreen == _screens.end())
 	{
 		FLOG("No such screen %s", screenName.c_str());
+		DLOG("%s:%s:%d", __FILE__, __func__, __LINE__);
 		return nullptr;
 	}
 	return findScreen->second.get();
@@ -132,7 +133,7 @@ Screen& Director::getScreen(const std::string& screenName)
 	auto screen = findScreen(screenName);
 	if (screen == nullptr)
 	{
-		throw std::runtime_error(std::string("No such screen:") + screenName);
+		Fail(__FILE__, __func__, __LINE__).add("No such screen:").add(screenName).report();
 	}
 	return *screen;
 }
