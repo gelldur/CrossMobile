@@ -2,9 +2,8 @@
 // Created by Dawid Drozd aka Gelldur on 6/17/16.
 //
 
-#include <component/view/Visibility.h>
-
 #include <platform/Context.h>
+#include <component/view/Visibility.h>
 
 #import <UIKit/UIKit.h>
 

@@ -36,6 +36,7 @@ public:
 
 private:
 	static Application* _instance;
+
 	UILoop _uiLoop;
 	ApiThreadPool _apiThreadPool;
 };
