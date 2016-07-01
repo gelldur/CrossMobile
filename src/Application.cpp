@@ -4,16 +4,11 @@
 
 #include "Application.h"
 
-#include <cassert>
-
 #include <log.h>
-
-Application* Application::_instance = nullptr;
+#include <Director.h>
 
 Application::Application()
 {
-	assert(_instance == nullptr && "Fix me ;)");
-	_instance = this;
 }
 
 void Application::onCreate()
@@ -25,3 +20,11 @@ void Application::startScreen(const std::string& screenName)
 {
 	WLOG("Function %s not implemented: %s:%d", __func__, __FILE__, __LINE__);
 }
+
+Application* Application::getInstance()
+{
+	assert(Director::getInstance().getApp() != nullptr);
+	return Director::getInstance().getApp();
+}
+
+

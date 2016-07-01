@@ -29,14 +29,8 @@ public:
 		return _apiThreadPool;
 	}
 
-	static Application* getInstance()
-	{
-		return _instance;
-	}
-
+	static Application* getInstance();
 private:
-	static Application* _instance;
-
 	UILoop _uiLoop;
 	ApiThreadPool _apiThreadPool;
 };

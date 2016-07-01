@@ -49,6 +49,7 @@ public:
 
 	Application* getApp() const
 	{
+		assert(_app != nullptr);
 		return _app.get();
 	}
 
