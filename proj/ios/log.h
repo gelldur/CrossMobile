@@ -6,8 +6,8 @@
 
 #include <cstdio>
 
-#define  DLOG(...)  fprintf(stderr,"DLOG:\t");fprintf(stderr,__VA_ARGS__);fprintf(stderr,"\n")
-#define  ILOG(...)  fprintf(stderr,"ILOG:\t");fprintf(stderr,__VA_ARGS__);fprintf(stderr,"\n")
-#define  WLOG(...)  fprintf(stderr,"WLOG:\t");fprintf(stderr,__VA_ARGS__);fprintf(stderr,"\n")
-#define  ELOG(...)  fprintf(stderr,"ELOG:\t");fprintf(stderr,__VA_ARGS__);fprintf(stderr,"\n")
-#define  FLOG(...)  fprintf(stderr,"FLOG:\t");fprintf(stderr,__VA_ARGS__);fprintf(stderr,"\n")
+#define  DLOG(...)  fprintf(stderr,"DLOG:\t");fprintf(stderr,__VA_ARGS__);fprintf(stderr,"\n");fflush(stderr)
+#define  ILOG(...)  fprintf(stderr,"ILOG:\t");fprintf(stderr,__VA_ARGS__);fprintf(stderr,"\n");fflush(stderr)
+#define  WLOG(...)  fprintf(stderr,"WLOG:\t");fprintf(stderr,__VA_ARGS__);fprintf(stderr,"\n");fflush(stderr)
+#define  ELOG(...)  fprintf(stderr,"ELOG:\t");fprintf(stderr,__VA_ARGS__);fprintf(stderr,"\n");fflush(stderr)
+#define  FLOG(...)  fprintf(stderr,"FLOG:\t");fprintf(stderr,__VA_ARGS__);fprintf(stderr,"\n");fflush(stderr)
