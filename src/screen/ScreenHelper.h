@@ -10,7 +10,7 @@ namespace ScreenHelper
 {
 
 template<class T>
-T& getScreen(const char* screenName)
+T& getScreenByName(const char* screenName)
 {
 	return dynamic_cast<T&>(Director::getInstance().getScreen(screenName));
 }
@@ -18,9 +18,9 @@ T& getScreen(const char* screenName)
 #ifdef PLATFORM_IOS
 
 template<class T>
-T& getScreen(id screenController)
+T& getScreen(BaseScreenController* screenController)
 {
-	return getScreen<T>([screenController getName]);
+	return getScreenByName<T>([screenController getName]);
 }
 
 #endif
