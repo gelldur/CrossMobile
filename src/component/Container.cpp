@@ -35,6 +35,19 @@ Container& Container::add(Nodect&& nodect)
 	return *this;
 }
 
+bool Container::remove(const std::string& tag)
+{
+	auto found = _managed.find(tag);
+	if (found == _managed.end())
+	{
+		WLOG("Not removed, not found: %s", tag.c_str());
+		return false;
+	}
+
+	_managed.erase(found);
+	return true;
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // NullContainer
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,4 +57,12 @@ Nodect& NullContainer::get(const std::string& tag)
 	WLOG("NullObject ignoring call: %s in: %s:%d", __func__, __FILE__, __LINE__);
 	return *Nodect::nullObject;
 }
+
+bool NullContainer::remove(const std::string& tag)
+{
+	WLOG("NullObject ignoring call: %s in: %s:%d", __func__, __FILE__, __LINE__);
+	return false;
+}
+
+
 

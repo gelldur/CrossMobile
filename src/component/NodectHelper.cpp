@@ -18,4 +18,10 @@ void nest(Nodect& owner, Nodect&& nodect)
 	owner.getComponent<Container>().add(std::move(nodect));
 }
 
+Nodect& remove(Nodect& owner, const std::string& nodectName)
+{
+	owner.getComponent<Container>().remove(nodectName);
+	return owner;
+}
+
 }

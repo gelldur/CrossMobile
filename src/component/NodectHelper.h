@@ -13,6 +13,8 @@ Nodect& find(Nodect& nodect, const std::string& tag);
 
 void nest(Nodect& owner, Nodect&& nodect);
 
+Nodect& remove(Nodect& owner, const std::string& nodectName);
+
 }
 
 
