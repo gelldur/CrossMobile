@@ -1,8 +1,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.3)
 PROJECT(DexodeEngine)
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-
 # Set core files
 SET(SOURCE_FILES_CORE
 		src/acme/ColorUtils.h
@@ -114,5 +112,6 @@ SET(POCO_STATIC ON CACHE BOOL "Enable File2Page" FORCE)
 ADD_SUBDIRECTORY("libs/poco")
 TARGET_LINK_LIBRARIES(DexodeEngine PocoNet PocoUtil)
 
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Werror")
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-long-long -Wno-unused-private-field -Wnon-virtual-dtor")
