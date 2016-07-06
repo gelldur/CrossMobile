@@ -18,7 +18,7 @@ void List::reloadData()
 {
 	auto context = getContext();
 
-	UITableView* list = context->getNative();
+	id list = context->getNative();
 
 	// @formatter:off
 	[list reloadData];
