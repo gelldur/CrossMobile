@@ -14,6 +14,7 @@ DataProviderComponent::DataProviderComponent(std::shared_ptr<Provider> provider,
 
 DataProviderComponent::~DataProviderComponent()
 {
+	_provider->cancel();
 	_receiver = nullptr;
 }
 
@@ -25,6 +26,7 @@ void DataProviderComponent::onResume()
 void DataProviderComponent::onPause()
 {
 	_provider->setReceiver(nullptr);
+	_provider->cancel();
 }
 
 void DataProviderComponent::onRequestData()

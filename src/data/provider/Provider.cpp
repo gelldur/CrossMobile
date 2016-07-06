@@ -99,8 +99,11 @@ void Provider::onRequestData(std::shared_ptr<Provider>& thisProvider)
 
 void Provider::cancel()
 {
-	_state = State::CANCELED;
-	onCancel();
+	if (_state != State::CANCELED)
+	{
+		setState(State::CANCELED);
+		onCancel();
+	}
 }
 
 void Provider::onCancel()
