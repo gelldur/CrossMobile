@@ -11,7 +11,12 @@ class Fail
 public:
 	Fail(const char* fileName, const char* functionName, int lineNumber);
 
-	Fail& add(const std::string& message);
+	template<class T>
+	Fail& add(const T& message)
+	{
+		_stream << message;
+		return *this;
+	}
 
 	void report();
 

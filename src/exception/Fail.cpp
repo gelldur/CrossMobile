@@ -21,13 +21,9 @@ Fail::Fail(const char* fileName, const char* functionName, int lineNumber)
 	_stream << _fileName << " " << _fileName << ":" << _lineNumber;
 }
 
-Fail& Fail::add(const std::string& message)
-{
-	_stream << message;
-	return *this;
-}
-
 void Fail::report()
 {
-	throw std::runtime_error(_stream.str());
+	auto message = _stream.str();
+	ILOG("Fail: %s", message.c_str());
+	throw std::runtime_error(message);
 }
