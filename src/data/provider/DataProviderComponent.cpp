@@ -6,10 +6,15 @@
 
 #include <log.h>
 
-DataProviderComponent::DataProviderComponent(Provider* provider, Receiver* receiver)
+DataProviderComponent::DataProviderComponent(std::shared_ptr<Provider> provider, Receiver* receiver)
 		: _provider(provider)
 		, _receiver(receiver)
 {
+}
+
+DataProviderComponent::~DataProviderComponent()
+{
+	_receiver = nullptr;
 }
 
 void DataProviderComponent::onResume()
@@ -24,8 +29,7 @@ void DataProviderComponent::onPause()
 
 void DataProviderComponent::onRequestData()
 {
-	_provider->onRequestData();
-
+	_provider->onRequestData(_provider);
 }
 
 void DataProviderComponent::onStartLoading()
@@ -44,7 +48,7 @@ void DataProviderComponent::onReceive(Provider* provider)
 	}
 	else
 	{
-		WLOG("No receiver setted!");
+		WLOG("[DataProviderComponent] No receiver setted!");
 	}
 }
 
@@ -56,6 +60,7 @@ void DataProviderComponent::onError(Provider* provider)
 	}
 	else
 	{
-		WLOG("No receiver setted!");
+		WLOG("[DataProviderComponent] No receiver setted!");
 	}
 }
+

@@ -4,13 +4,14 @@
 
 #pragma once
 
-
+#include <memory>
 #include "Provider.h"
 
 class DataProviderComponent : public Receiver
 {
 public:
-	DataProviderComponent(Provider* provider, Receiver* receiver = nullptr);
+	DataProviderComponent(std::shared_ptr<Provider> provider, Receiver* receiver = nullptr);
+	~DataProviderComponent();
 
 	void onResume();
 	void onPause();
@@ -24,7 +25,7 @@ public:
 	void onStopLoading();
 
 private:
-	Provider* _provider = nullptr;
+	std::shared_ptr<Provider> _provider;
 	Receiver* _receiver = nullptr;
 };
 
