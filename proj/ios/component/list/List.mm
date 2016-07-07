@@ -5,9 +5,7 @@
 #include <component/view/List.h>
 
 #include <platform/Context.h>
-#include <log.h>
-
-#import <UIKit/UIKit.h>
+#import <component/list/ListProtocol.h>
 
 namespace Dexode
 {
@@ -18,7 +16,7 @@ void List::reloadData()
 {
 	auto context = getContext();
 
-	id list = context->getNative();
+	id<ListProtocol> list = context->getNative();
 
 	// @formatter:off
 	[list reloadData];
