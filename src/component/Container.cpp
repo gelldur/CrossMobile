@@ -54,13 +54,13 @@ bool Container::remove(const std::string& tag)
 
 Nodect& NullContainer::get(const std::string& tag)
 {
-	WLOG("NullObject ignoring call: %s in: %s:%d", __func__, __FILE__, __LINE__);
+	WLOG("NullObject ignoring call: %s(%s) in: %s:%d", __func__, tag.c_str(), __FILE__, __LINE__);
 	return *Nodect::nullObject;
 }
 
 bool NullContainer::remove(const std::string& tag)
 {
-	WLOG("NullObject ignoring call: %s in: %s:%d", __func__, __FILE__, __LINE__);
+	WLOG("NullObject ignoring call: %s(%s) in: %s:%d", __func__, tag.c_str(), __FILE__, __LINE__);
 	return false;
 }
 

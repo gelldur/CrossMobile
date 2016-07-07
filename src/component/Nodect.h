@@ -47,7 +47,8 @@ public:
 
 		if (_context == nullptr)
 		{
-			WLOG("NullObject(%s) ignoring call: %s in: %s:%d", getTag().c_str(), __func__, __FILE__, __LINE__);
+			WLOG("NullObject(%s) ignoring call: %s(%s) in: %s:%d", getTag().c_str(), __func__, component->toString()
+				 , __FILE__, __LINE__);
 			return *this;
 		}
 
@@ -60,7 +61,7 @@ public:
 	{
 		if (_context == nullptr)
 		{
-			WLOG("NullObject(%s) ignoring call: %s in: %s:%d", getTag().c_str(), __func__, __FILE__, __LINE__);
+			WLOG("NullObject(%s) ignoring call: %s(...) in: %s:%d", getTag().c_str(), __func__, __FILE__, __LINE__);
 			return *this;
 		}
 
