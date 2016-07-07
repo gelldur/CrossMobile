@@ -109,6 +109,7 @@ void Provider::cancel()
 void Provider::onCancel()
 {
 	//TODO implement
+	DLOG("OnCancel");
 }
 
 void Provider::onEvent(const void* sender, int& dummy)
@@ -137,6 +138,10 @@ void Provider::onEvent(const void* sender, int& dummy)
 		else if (_state == State::DONE)
 		{
 			getReceiver()->onReceive(this);
+		}
+		else if (_state == State::CANCELED)
+		{
+			DLOG("Task canceled");
 		}
 		else
 		{
