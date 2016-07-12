@@ -46,6 +46,7 @@ SET(SOURCE_FILES_CORE
 		src/acme/text/StringUtils.cpp src/acme/text/StringUtils.h
 		src/component/view/Layout.cpp src/component/view/Layout.h
 		src/component/view/Loading.cpp src/component/view/Loading.h
+		src/component/common/Config.cpp src/component/common/Config.h
 		)
 
 IF(LINUX)
