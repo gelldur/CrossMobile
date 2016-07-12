@@ -45,6 +45,7 @@ SET(SOURCE_FILES_CORE
 		src/acme/text/AttributedText.cpp src/acme/text/AttributedText.h
 		src/acme/text/StringUtils.cpp src/acme/text/StringUtils.h
 		src/component/view/Layout.cpp src/component/view/Layout.h
+		src/component/view/Loading.cpp src/component/view/Loading.h
 		)
 
 IF(LINUX)
