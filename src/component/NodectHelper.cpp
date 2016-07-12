@@ -24,4 +24,9 @@ Nodect& remove(Nodect& owner, const std::string& nodectName)
 	return owner;
 }
 
+void clear(Nodect& owner)
+{
+	owner.getComponent<Container>().removeAll();
+}
+
 }

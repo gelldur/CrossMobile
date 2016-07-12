@@ -28,6 +28,7 @@ public:
 	virtual Nodect& get(const std::string& tag);
 
 	virtual bool remove(const std::string& tag);
+	virtual void removeAll();
 
 	size_t count() const
 	{
@@ -47,4 +48,5 @@ class NullContainer : public Container
 public:
 	virtual Nodect& get(const std::string& tag) override;
 	virtual bool remove(const std::string& tag) override;
+	virtual void removeAll() override;
 };

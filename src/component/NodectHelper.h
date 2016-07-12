@@ -15,6 +15,8 @@ void nest(Nodect& owner, Nodect&& nodect);
 
 Nodect& remove(Nodect& owner, const std::string& nodectName);
 
+void clear(Nodect& owner);
+
 }
 
 

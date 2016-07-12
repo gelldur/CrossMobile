@@ -48,6 +48,11 @@ bool Container::remove(const std::string& tag)
 	return true;
 }
 
+void Container::removeAll()
+{
+	_managed.clear();
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // NullContainer
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -64,5 +69,7 @@ bool NullContainer::remove(const std::string& tag)
 	return false;
 }
 
-
-
+void NullContainer::removeAll()
+{
+	WLOG("NullObject ignoring call: %s in: %s:%d", __func__, __FILE__, __LINE__);
+}
