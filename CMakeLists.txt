@@ -42,6 +42,8 @@ SET(SOURCE_FILES_CORE
 		src/screen/ScreenHelper.h
 		src/component/view/List.cpp src/component/view/List.h
 		src/exception/Fail.cpp src/exception/Fail.h
+		src/acme/text/AttributedText.cpp src/acme/text/AttributedText.h
+		src/acme/text/StringUtils.cpp src/acme/text/StringUtils.h
 		)
 
 IF(LINUX)

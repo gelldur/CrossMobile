@@ -6,6 +6,8 @@
 
 #include <component/Component.h>
 
+class AttributedText;
+
 /**
  * Implementation is environment specific
  */
@@ -18,6 +20,8 @@ public:
 	virtual void setText(const std::string& text);
 
 	virtual void setTextColor(int color);
+
+	virtual void setTextAttributed(const AttributedText& attributedText);
 
 	COMPONENT_TO_STRING(Text)
 
@@ -32,4 +36,6 @@ public:
 	virtual void setText(const std::string& text) override;
 
 	virtual void setTextColor(int color) override;
+
+	virtual void setTextAttributed(const AttributedText& attributedText) override;
 };

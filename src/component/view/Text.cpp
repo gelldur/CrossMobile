@@ -24,6 +24,11 @@ void Text::setTextColor(int color)
 	WLOG("Function %s not implemented: %s:%d", __func__, __FILE__, __LINE__);
 }
 
+void Text::setTextAttributed(const AttributedText& attributedText)
+{
+	WLOG("Function %s not implemented: %s:%d", __func__, __FILE__, __LINE__);
+}
+
 #endif
 
 Text& Text::getNullObject()
@@ -47,6 +52,11 @@ void NullText::setText(const std::string& text)
 }
 
 void NullText::setTextColor(int color)
+{
+	WLOG("NullObject ignoring call: %s in: %s:%d", __func__, __FILE__, __LINE__);
+}
+
+void NullText::setTextAttributed(const AttributedText& attributedText)
 {
 	WLOG("NullObject ignoring call: %s in: %s:%d", __func__, __FILE__, __LINE__);
 }
