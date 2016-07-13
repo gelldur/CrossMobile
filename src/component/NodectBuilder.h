@@ -37,6 +37,11 @@ public:
 
 	create& nestObject(Nodect&& nodect);
 
+	create& nest(Nodect&& nodect)
+	{
+		return nestObject(std::move(nodect));
+	}
+
 	Nodect build();
 
 private:
