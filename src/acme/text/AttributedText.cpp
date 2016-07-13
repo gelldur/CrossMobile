@@ -22,7 +22,8 @@ AttributedText& AttributedText::appendImage(const std::string& name)
 	return *this;
 }
 
-
-
-
-
+AttributedText& AttributedText::space(const int count)
+{
+	_text.emplace_back(ElementType::TEXT, std::string(count, ' '));
+	return *this;
+}

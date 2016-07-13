@@ -13,6 +13,7 @@ public:
 	AttributedText& append(const char* text);
 	AttributedText& append(const std::string& text);
 	AttributedText& appendImage(const std::string& name);
+	AttributedText& space(const int count = 1);
 
 	enum class ElementType
 	{
