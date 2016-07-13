@@ -22,6 +22,7 @@ public:
 	Nodect();
 	Nodect(const std::string& tag, std::shared_ptr<Context> context);
 	Nodect(Nodect&& other);
+	Nodect& operator=(Nodect&& other);
 
 	~Nodect();
 

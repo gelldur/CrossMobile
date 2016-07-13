@@ -32,6 +32,21 @@ Nodect::Nodect(Nodect&& other)
 	}
 }
 
+Nodect& Nodect::operator=(Nodect&& other)
+{
+	_context = std::move(other._context);
+	_tag = std::move(other._tag);
+	_components = std::move(other._components);
+
+	//DLOG("Move asign %s", _tag.c_str());
+	for (auto& component : _components)
+	{
+		component.second->_owner = this;//Changing of owner!
+	}
+
+	return *this;
+}
+
 //Nodect::Nodect(const Nodect& other)
 //		: _context(other._context)
 //		, _tag(other._tag + "_cpy")
