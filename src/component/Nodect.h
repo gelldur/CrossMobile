@@ -19,6 +19,7 @@ class Nodect
 public:
 	static Nodect* nullObject;
 
+	Nodect();
 	Nodect(const std::string& tag, std::shared_ptr<Context> context);
 	Nodect(Nodect&& other);
 

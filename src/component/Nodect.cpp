@@ -7,6 +7,12 @@
 
 Nodect* Nodect::nullObject = new Nodect("nullObject", nullptr);
 
+Nodect::Nodect()
+		: _context(nullptr)
+		, _tag("nullObject-ctor")
+{
+}
+
 Nodect::Nodect(const std::string& tag, std::shared_ptr<Context> context)
 		: _context(context)
 		, _tag(tag)
