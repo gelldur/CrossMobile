@@ -39,6 +39,8 @@ public:
 
 	void onEvent(const void* sender, int& dummy);
 
+	bool isReady();
+
 protected:
 	Receiver* getReceiver()
 	{

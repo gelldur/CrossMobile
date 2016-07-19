@@ -188,4 +188,8 @@ bool Provider::isCanceled()
 	return _state == State::CANCELED;
 }
 
-
+bool Provider::isReady()
+{
+	std::lock_guard<std::mutex> lock(_mutex);
+	return _state == State::IDLE;
+}
