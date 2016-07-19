@@ -47,6 +47,7 @@ SET(SOURCE_FILES_CORE
 		src/component/view/Layout.cpp src/component/view/Layout.h
 		src/component/view/Loading.cpp src/component/view/Loading.h
 		src/component/common/Config.cpp src/component/common/Config.h
+		src/data/Preferences.cpp src/data/Preferences.h
 		)
 
 IF(LINUX)

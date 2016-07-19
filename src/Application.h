@@ -6,6 +6,7 @@
 
 #include <string>
 #include <api/ApiThreadPool.h>
+#include <data/Preferences.h>
 
 #include "UILoop.h"
 
@@ -29,10 +30,16 @@ public:
 		return _apiThreadPool;
 	}
 
+	Preferences& getPreferences()
+	{
+		return _preferences;
+	}
+
 	static Application* getInstance();
 private:
 	UILoop _uiLoop;
 	ApiThreadPool _apiThreadPool;
+	Preferences _preferences;
 };
 
 
