@@ -60,8 +60,3 @@ void NullText::setTextAttributed(const AttributedText& attributedText)
 {
 	WLOG("NullObject ignoring call: %s in: %s:%d", __func__, __FILE__, __LINE__);
 }
-
-
-
-
-
