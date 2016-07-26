@@ -12,6 +12,14 @@ public:
 	virtual ~Receiver() = default;
 	virtual void onReceive(Provider* provider) = 0;
 	virtual void onError(Provider* provider) = 0;
+
+	virtual void onStartLoading()
+	{
+	}
+
+	virtual void onStopLoading()
+	{
+	}
 };
 
 

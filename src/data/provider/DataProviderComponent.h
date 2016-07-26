@@ -21,10 +21,11 @@ public:
 	virtual void onReceive(Provider* provider) override;
 	virtual void onError(Provider* provider) override;
 
-	void onStartLoading();
-	void onStopLoading();
+	virtual void onStartLoading() override;
+	virtual void onStopLoading() override;
 
 private:
+	bool _isLoading = false;
 	std::shared_ptr<Provider> _provider;
 	Receiver* _receiver = nullptr;
 };

@@ -4,6 +4,7 @@
 
 #include "DataProviderComponent.h"
 
+#include <cassert>
 #include <log.h>
 
 DataProviderComponent::DataProviderComponent(std::shared_ptr<Provider> provider, Receiver* receiver)
@@ -36,10 +37,22 @@ void DataProviderComponent::onRequestData()
 
 void DataProviderComponent::onStartLoading()
 {
+	assert(_isLoading == false);
+	if (_receiver != nullptr && _isLoading == false)
+	{
+		_receiver->onStartLoading();
+		_isLoading = true;
+	}
 }
 
 void DataProviderComponent::onStopLoading()
 {
+	assert(_isLoading == true);
+	if (_receiver != nullptr && _isLoading == true)
+	{
+		_receiver->onStopLoading();
+		_isLoading = false;
+	}
 }
 
 void DataProviderComponent::onReceive(Provider* provider)

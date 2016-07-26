@@ -93,6 +93,7 @@ void Provider::onRequestData(std::shared_ptr<Provider>& thisProvider)
 	assert(thisProvider.get() == this);
 
 	_runnable = new BackroundHelper(thisProvider);
+	_receiver->onStartLoading();
 	Director::getInstance().getApp()->getApiThreadPool().start(*_runnable);
 	registerCheck();
 }
@@ -110,6 +111,10 @@ void Provider::onCancel()
 {
 	//TODO implement
 	DLOG("OnCancel");
+	if (_receiver != nullptr)
+	{
+		_receiver->onStopLoading();
+	}
 }
 
 void Provider::onEvent(const void* sender, int& dummy)
@@ -128,15 +133,17 @@ void Provider::onEvent(const void* sender, int& dummy)
 
 	onPostExecute();
 
-	if (getReceiver() != nullptr)
+	if (_receiver != nullptr)
 	{
 		if (_state == State::ERROR)
 		{
+			_receiver->onStopLoading();
 			//TODO add catches?
 			getReceiver()->onError(this);
 		}
 		else if (_state == State::DONE)
 		{
+			_receiver->onStopLoading();
 			getReceiver()->onReceive(this);
 		}
 		else if (_state == State::CANCELED)
