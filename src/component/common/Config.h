@@ -9,7 +9,7 @@
 #include <map>
 #include <string>
 
-namespace Dexode
+namespace CrossMobile
 {
 namespace Component
 {

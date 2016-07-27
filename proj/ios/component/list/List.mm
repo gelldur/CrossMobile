@@ -7,7 +7,7 @@
 #include <platform/Context.h>
 #import <component/list/ListProtocol.h>
 
-namespace Dexode
+namespace CrossMobile
 {
 namespace Component
 {

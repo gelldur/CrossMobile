@@ -6,7 +6,7 @@
 
 #include <log.h>
 
-namespace Dexode
+namespace CrossMobile
 {
 namespace Component
 {
@@ -33,13 +33,13 @@ Config& Config::getNullObject()
 // NullImage
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int Dexode::Component::NullConfig::getValue(const std::string& name, const int defaultValue)
+int CrossMobile::Component::NullConfig::getValue(const std::string& name, const int defaultValue)
 {
 	WLOG("NullObject ignoring call: %s in: %s:%d", __func__, __FILE__, __LINE__);
 	return defaultValue;
 }
 
-void Dexode::Component::NullConfig::setValue(const std::string& name, const int value)
+void CrossMobile::Component::NullConfig::setValue(const std::string& name, const int value)
 {
 	WLOG("NullObject ignoring call: %s in: %s:%d", __func__, __FILE__, __LINE__);
 }

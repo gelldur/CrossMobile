@@ -6,7 +6,7 @@
 
 #include <log.h>
 
-namespace Dexode
+namespace CrossMobile
 {
 namespace Component
 {
