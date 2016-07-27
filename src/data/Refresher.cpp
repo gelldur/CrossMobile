@@ -66,13 +66,11 @@ void Refresher::onTick(const void* sender, int& dummy)
 	long long nowInSecs = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
 
 	std::vector<Callback> repeatCallbacks;
-	DLOG("Now: %lld", nowInSecs);
 	while (_callbacks.empty() == false)
 	{
 		auto& top = _callbacks.top();
 		if (top.time <= nowInSecs)
 		{
-			DLOG("Top time: %lld", top.time);
 			top.call();
 			if (top.repeat > 1)
 			{
