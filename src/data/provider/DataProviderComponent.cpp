@@ -32,7 +32,14 @@ void DataProviderComponent::onPause()
 
 void DataProviderComponent::onRequestData()
 {
-	_provider->onRequestData(_provider);
+	if (_provider->isReady())
+	{
+		_provider->onRequestData(_provider);
+	}
+	else
+	{
+		WLOG("Provider is busy");
+	}
 }
 
 void DataProviderComponent::onStartLoading()
