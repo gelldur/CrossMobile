@@ -7,7 +7,10 @@
 #include <log.h>
 #include <Director.h>
 
+#include <Poco/Path.h>
+
 Application::Application(CrossMobile::Platform::Bridge* bridge)
+		: _preferences(Poco::Path(bridge->getWritablePath()).append("prefs.db").toString())
 		, _bridge(bridge)
 {
 	DLOG("PATH: %s", bridge->getWritablePath().c_str());
