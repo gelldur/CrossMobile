@@ -14,6 +14,7 @@ namespace Platform
 
 class IosBridge : public Bridge
 {
+public:
 	virtual std::string getWritablePath() const override;
 };
 
