@@ -49,6 +49,7 @@ SET(SOURCE_FILES_CORE
 		src/component/common/Config.cpp src/component/common/Config.h
 		src/data/Preferences.cpp src/data/Preferences.h
 		src/data/Refresher.cpp src/data/Refresher.h
+		src/platform/Bridge.cpp src/platform/Bridge.h
 		)
 
 IF(LINUX)
