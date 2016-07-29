@@ -6,8 +6,36 @@
 
 #include <log.h>
 
-std::string CrossMobile::Platform::DummyBridge::getWritablePath() const
+#ifdef PLATFORM_IOS
+
+#include <platform/IosBridge.h>
+
+#endif
+
+namespace CrossMobile
+{
+
+namespace Platform
+{
+
+CrossMobile::Platform::Bridge* Bridge::create()
+{
+#ifdef PLATFORM_IOS
+	return new IosBridge();
+#else
+	return new DummyBridge();
+#endif
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// DummyBridge
+///////////////////////////////////////////////////////////////////////////////
+
+std::string DummyBridge::getWritablePath() const
 {
 	WLOG("Function %s not implemented: %s:%d", __func__, __FILE__, __LINE__);
 	return "";
+}
+
+}
 }

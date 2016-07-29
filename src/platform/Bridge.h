@@ -19,6 +19,8 @@ public:
 	{
 	}
 
+	static Bridge* create();
+
 	virtual std::string getWritablePath() const = 0;
 };
 
