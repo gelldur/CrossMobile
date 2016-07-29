@@ -9,7 +9,13 @@
 #include <memory>
 #include <string>
 
-#include <Poco/Data/Session.h>
+namespace Poco
+{
+namespace Data
+{
+class Session;
+}
+}
 
 class Preferences
 {
