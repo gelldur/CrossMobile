@@ -70,22 +70,22 @@ ELSEIF(ANDROID)
 			)
 
 	SET(INCLUDE_DIRS_PLATFORM
-			"/home/dawid/Android/Sdk/ndk-bundle/platforms/android-21/arch-x86/usr/include/"
-			"proj/android/jni"
+			/home/dawid/Android/Sdk/ndk-bundle/platforms/android-21/arch-x86/usr/include/
+			proj/android/jni
 			)
 ELSEIF(MAC_IOS)
 	SET(SOURCE_FILES_PLATFORM
 			)
 
 	SET(INCLUDE_DIRS_PLATFORM
-			"proj/ios/"
+			proj/ios/
 			)
 ELSE()
 	MESSAGE(FATAL_ERROR "Set build platform, CMake will exit.")
 ENDIF(LINUX)
 
 SET(INCLUDE_DIRS_CORE
-		"src/"
+		src/
 		)
 
 ADD_LIBRARY(CrossMobile ${SOURCE_FILES_CORE} ${SOURCE_FILES_PLATFORM})
