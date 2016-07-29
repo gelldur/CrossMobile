@@ -3,7 +3,7 @@
 #include <data/Preferences.h>
 #include <platform/Bridge.h>
 
-std::string writablePath = std::unique_ptr<CrossMobile::Platform::Bridge>(
+static std::string writablePath = std::unique_ptr<CrossMobile::Platform::Bridge>(
 		CrossMobile::Platform::Bridge::create())->getWritablePath();
 
 TEST(PreferencesTest, defaultValues)
