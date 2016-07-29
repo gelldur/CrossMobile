@@ -5,15 +5,18 @@
 #pragma once
 
 #include <string>
+#include <memory>
+
 #include <api/ApiThreadPool.h>
 #include <data/Preferences.h>
+#include <platform/Bridge.h>
 
 #include "UILoop.h"
 
 class Application
 {
 public:
-	Application();
+	Application(CrossMobile::Platform::Bridge* bridge);
 	virtual ~Application() = default;
 
 	virtual void onCreate();
@@ -35,11 +38,12 @@ public:
 		return _preferences;
 	}
 
+	CrossMobile::Platform::Bridge& getBridge();
+
 	static Application* getInstance();
 private:
 	UILoop _uiLoop;
 	ApiThreadPool _apiThreadPool;
 	Preferences _preferences;
+	std::unique_ptr<CrossMobile::Platform::Bridge> _bridge;
 };
-
-

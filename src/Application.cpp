@@ -7,8 +7,10 @@
 #include <log.h>
 #include <Director.h>
 
-Application::Application()
+Application::Application(CrossMobile::Platform::Bridge* bridge)
+		, _bridge(bridge)
 {
+	DLOG("PATH: %s", bridge->getWritablePath().c_str());
 }
 
 void Application::onCreate()
@@ -27,4 +29,11 @@ Application* Application::getInstance()
 	return Director::getInstance().getApp();
 }
 
-
+CrossMobile::Platform::Bridge& Application::getBridge()
+{
+	if (_bridge)
+	{
+		return *_bridge;
+	}
+	throw std::runtime_error("Bridge is not set!");
+}
