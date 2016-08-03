@@ -35,11 +35,13 @@ public:
 		catch (std::exception& exception)
 		{
 			DLOG("Exception in background task!\n%s", exception.what());
+			isReady = true;
 			throw;
 		}
 		catch (...)
 		{
 			DLOG("Exception in background task!");
+			isReady = true;
 			throw;
 		}
 		isReady = true;
