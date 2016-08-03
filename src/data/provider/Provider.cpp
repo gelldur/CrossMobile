@@ -11,6 +11,7 @@
 #include <Poco/Runnable.h>
 #include <Director.h>
 #include <exception/Fail.h>
+#include <acme/guard/ChangeOnEnd.h>
 #include "Application.h"
 
 //TODO make thread safe
@@ -28,6 +29,7 @@ public:
 
 	virtual void run() override
 	{
+		ChangeOnEnd<std::atomic<bool>, bool> guard(isReady, true);
 		try
 		{
 			runTask();
@@ -35,16 +37,13 @@ public:
 		catch (std::exception& exception)
 		{
 			DLOG("Exception in background task!\n%s", exception.what());
-			isReady = true;
 			throw;
 		}
 		catch (...)
 		{
 			DLOG("Exception in background task!");
-			isReady = true;
 			throw;
 		}
-		isReady = true;
 	}
 
 	void runTask()
