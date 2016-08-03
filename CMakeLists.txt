@@ -50,6 +50,7 @@ SET(SOURCE_FILES_CORE
 		src/data/Preferences.cpp src/data/Preferences.h
 		src/data/Refresher.cpp src/data/Refresher.h
 		src/platform/Bridge.cpp src/platform/Bridge.h
+		src/acme/guard/ChangeOnEnd.h
 		)
 
 IF(LINUX)
