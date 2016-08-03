@@ -131,10 +131,16 @@ void CommonMethod::throwIfNeedStatusException(std::unique_ptr<Response>& respons
 void CommonMethod::toJson(std::istream& stream, Json::Value& rootOut)
 {
 	Json::Reader reader;
-	if (reader.parse(stream, rootOut, false) == false)
+
+	std::string content;
+	std::getline(stream, content, (char) EOF);
+
+	if (reader.parse(content.data(), content.data() + content.size(), rootOut, false) == false)
 	{
+		ELOG("JSON:\n%s", content.c_str());
+
 		ELOG("Error parsing json: %s", reader.getFormattedErrorMessages().c_str());
-		throw std::exception();
+		throw std::runtime_error(reader.getFormattedErrorMessages().c_str());
 	}
 }
 
