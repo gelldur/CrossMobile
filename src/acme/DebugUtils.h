@@ -10,5 +10,6 @@ namespace Debug
 {
 
 std::string print(std::istream& stream);
+std::string toString(std::istream& stream);
 
 }

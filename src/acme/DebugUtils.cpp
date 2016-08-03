@@ -11,9 +11,12 @@ namespace Debug
 
 std::string print(std::istream& stream)
 {
-	std::string tmpContent(std::istreambuf_iterator<char>(stream), {});
-	DLOG("%s", tmpContent.c_str());
+	return toString(stream);
+}
 
+std::string toString(std::istream& stream)
+{
+	std::string tmpContent(std::istreambuf_iterator<char>(stream), {});
 	return tmpContent;
 }
 
