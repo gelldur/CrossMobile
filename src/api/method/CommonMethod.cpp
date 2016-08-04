@@ -114,7 +114,6 @@ std::istream& CommonMethod::requestPostJson(const Server& server, const std::str
 
 void CommonMethod::process(std::unique_ptr<Response>& response)
 {
-	const auto code = response->getCode();
 	if (response->isSuccessful() == false)
 	{
 		return;
