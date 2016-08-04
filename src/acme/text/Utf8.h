@@ -28,7 +28,7 @@ std::string toUpperCase(const std::string& letters);
  * @param text
  * @return letters count in text. No matter what language it must only be coded in UTF-8
  */
-unsigned length(const std::string& text);
+size_t length(const std::string& text);
 
 /**
  * Remove last letter from std::string. This method support UTF-8
@@ -56,7 +56,7 @@ std::string getLastLetter(const std::string& text);
 std::string getFirstLetter(const std::string& text);
 
 unsigned short getLetterByteSize(const unsigned char* const pPosition);
-unsigned int getPositionBeforeLastLetter(const std::string& text);
+size_t getPositionBeforeLastLetter(const std::string& text);
 
 void initNationalLettersMap();
 

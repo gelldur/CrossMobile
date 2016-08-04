@@ -7,7 +7,7 @@
 
 char buffer[2048];
 
-void extractWord(std::vector<std::string>& processedTags, const char* text, int length)
+void extractWord(std::vector<std::string>& processedTags, const char* text, long length)
 {
 	strncpy(buffer, text, length);
 	buffer[length] = '\0';
@@ -15,17 +15,20 @@ void extractWord(std::vector<std::string>& processedTags, const char* text, int 
 	processedTags.push_back(buffer);
 }
 
-const std::vector<std::string> process(const char* text, int minimumTagLength, const std::vector<int>& skipPosition)
+const std::vector<std::string> process(
+		const char* text
+		, long minimumTagLength
+		, const std::vector<long>& skipPosition)
 {
 	const char* cText = text;
 
 	std::vector<std::string> processedTags;
 	processedTags.reserve(64);
 
-	int previousStringStart = 0;
-	int i = -1;
+	long previousStringStart = 0;
+	long i = -1;
 
-	int skipIndex = 0;
+	long skipIndex = 0;
 
 	while (text[++i] != '\0')
 	{
@@ -38,9 +41,10 @@ const std::vector<std::string> process(const char* text, int minimumTagLength, c
 				&& text[i + 4] == 'p'
 				&& text[i + 5] == ';')
 			{
-				if (i - previousStringStart >= minimumTagLength)
+				long tagLength = i - previousStringStart;
+				if (tagLength >= minimumTagLength)
 				{
-					extractWord(processedTags, cText + previousStringStart, i - previousStringStart);
+					extractWord(processedTags, cText + previousStringStart, tagLength);
 				}
 
 				previousStringStart = i + 6;
@@ -90,8 +94,10 @@ const std::vector<std::string> process(const char* text, int minimumTagLength, c
 /**
  * Returns vector of tags.
  */
-const std::vector<std::string> processTags(const char* nativeString, int minimumTagLength
-										   , const std::vector<int>& skipPosition)
+const std::vector<std::string> processTags(
+		const char* nativeString
+		, long minimumTagLength
+		, const std::vector<long>& skipPosition)
 {
 	std::string normalizedString(nativeString);
 	Utf8::normalizeString(normalizedString);
@@ -100,7 +106,7 @@ const std::vector<std::string> processTags(const char* nativeString, int minimum
 
 std::regex htmlCodes("<[^>]*>");
 
-const std::vector<std::string> processTagsStripHtml(const char* nativeString, int minimumTagLength)
+const std::vector<std::string> processTagsStripHtml(const char* nativeString, long minimumTagLength)
 {
 	std::string normalizedString(nativeString);
 	Utf8::normalizeString(normalizedString);
@@ -110,8 +116,8 @@ const std::vector<std::string> processTagsStripHtml(const char* nativeString, in
 	//Find all html codes
 	std::cmatch matches;
 
-	std::vector<int> skipChars;
-	int offset = 0;
+	std::vector<long> skipChars;
+	long offset = 0;
 	while (std::regex_search(text + offset, matches, htmlCodes))
 	{
 		if (matches.size() < 1)
@@ -119,10 +125,10 @@ const std::vector<std::string> processTagsStripHtml(const char* nativeString, in
 			break;
 		}
 
-		for (unsigned i = 0; i < matches.size(); ++i)
+		for (unsigned long i = 0; i < matches.size(); ++i)
 		{
-			const int position = matches.position(i) + offset;
-			const int length = matches.length(i);
+			const long position = matches.position(i) + offset;
+			const long length = matches.length(i);
 
 			skipChars.push_back(position);
 			skipChars.push_back(position + length);

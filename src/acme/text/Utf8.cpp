@@ -18,9 +18,9 @@ std::map<std::string, std::string> m_capitalSmallLetters;
 std::map<std::string, std::string> m_smallCapitalLetters;
 std::map<std::string, std::string> m_nationalLettersToASCII;
 
-unsigned length(const string& text)
+size_t length(const string& text)
 {
-	unsigned size = text.size();
+	size_t size = text.size();
 	const char* pChar = text.c_str();
 	const char* pLastChar = pChar + size;
 	assert(*pLastChar == '\0');
@@ -51,7 +51,7 @@ bool pop(string& text)
 	}
 
 	//we have at least 1 sign
-	unsigned position = getPositionBeforeLastLetter(text);
+	size_t position = getPositionBeforeLastLetter(text);
 
 	text.erase(text.begin() + position, text.end());
 
@@ -66,7 +66,7 @@ string getLastLetter(const string& text)
 	}
 
 	//we have at least 1 sign
-	unsigned position = getPositionBeforeLastLetter(text);
+	size_t position = getPositionBeforeLastLetter(text);
 
 	return string(text.begin() + position, text.end());
 }
@@ -121,14 +121,14 @@ unsigned short getLetterByteSize(const unsigned char* const pPosition)
 	}
 }
 
-unsigned int getPositionBeforeLastLetter(const string& text)
+size_t getPositionBeforeLastLetter(const string& text)
 {
 	if (text.empty())
 	{
 		return 0;
 	}
 
-	unsigned position = text.size() - 1;
+	size_t position = text.size() - 1;
 
 	while (position > 0
 		   && getLetterByteSize((const unsigned char*) text.c_str() + position) == 0)
