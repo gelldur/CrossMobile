@@ -78,4 +78,3 @@ TEST(ComponentTest, testOfBuilders)
 	EXPECT_TRUE(myNative.getContext() != nullptr);
 	EXPECT_EQ("HelloBuilder", myNative.getTag());
 }
-}
