@@ -52,6 +52,7 @@ SET(SOURCE_FILES_CORE
 		src/platform/Bridge.cpp src/platform/Bridge.h
 		src/acme/guard/ChangeOnEnd.h
 		src/component/touch/Click.cpp src/component/touch/Click.h
+		src/component/view/Button.cpp src/component/view/Button.h
 		)
 
 IF(LINUX)
