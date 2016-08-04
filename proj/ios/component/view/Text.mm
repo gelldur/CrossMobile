@@ -42,6 +42,7 @@ void Text::setTextAttributed(const AttributedText& attributedText)
 		NSAttributedString* attachmentString;
 		if(element.type == AttributedText::ElementType::IMAGE_LOCAL)
 		{
+			//TODO http://stackoverflow.com/questions/26105803/center-nstextattachment-image-next-to-single-line-uilabel
 			NSTextAttachment* attachment = [[NSTextAttachment alloc] init];
             attachment.image = [UIImage imageNamed:stringConvert(element.value)];
             attachmentString = [NSAttributedString attributedStringWithAttachment:attachment];
