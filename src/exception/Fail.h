@@ -18,6 +18,12 @@ public:
 		return *this;
 	}
 
+	Fail& br()
+	{
+		_stream << '\n';
+		return *this;
+	}
+
 	void report();
 
 private:
