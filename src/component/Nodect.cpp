@@ -66,6 +66,13 @@ Nodect& Nodect::operator=(Nodect&& other)
 Nodect::~Nodect()
 {
 	//DLOG("# Dtor %s - clean:%s", _tag.c_str(), (_context == nullptr ? "yes" : "no"));
+	if (_components.empty() == false)
+	{
+		for (auto& component : _components)
+		{
+			component.second->onExit();
+		}
+	}
 }
 
 void Nodect::addComponentWithId(int id, std::unique_ptr<Component>&& component)
@@ -83,4 +90,5 @@ void Nodect::addComponentWithId(int id, std::unique_ptr<Component>&& component)
 	assert(component->_owner == nullptr);
 	component->_owner = this;
 	_components[id] = std::move(component);
+	_components[id]->onEnter();
 }

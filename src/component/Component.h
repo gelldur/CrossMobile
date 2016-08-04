@@ -40,6 +40,20 @@ protected:
 
 	Context* getContext() const;
 
+	/**
+	 * Called when Component is added to Nodect
+	 */
+	virtual void onEnter()
+	{
+	}
+
+	/**
+	 * Called when Component is removed to Nodect
+	 */
+	virtual void onExit()
+	{
+	}
+
 private:
 	Nodect* _owner = nullptr;
 };
