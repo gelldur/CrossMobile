@@ -10,7 +10,7 @@
 #include <Poco/Data/SQLite/Connector.h>
 
 #include <log.h>
-#include <utils/Utils.h>
+#include <acme/MakeUnique.h>
 
 Preferences::Preferences(const std::string& databaseName, const std::string& tableName)
 		: TABLE_NAME(tableName)

@@ -17,7 +17,6 @@ SET(SOURCE_FILES_CORE
 		src/data/provider/Provider.cpp src/data/provider/Provider.h
 		src/data/receiver/Receiver.cpp src/data/receiver/Receiver.h
 		src/Director.cpp src/Director.h
-		src/interface/DataSetAdapter.h
 		src/Screen.cpp src/Screen.h
 		src/UILoop.h
 		src/acme/text/Utf8.cpp src/acme/text/Utf8.h
@@ -35,7 +34,7 @@ SET(SOURCE_FILES_CORE
 		src/component/view/Visibility.cpp src/component/view/Visibility.h
 		src/component/view/Text.cpp src/component/view/Text.h
 		src/component/view/Image.cpp src/component/view/Image.h
-		src/utils/Utils.h
+		src/acme/MakeUnique.h
 		src/screen/ScreenHelper.h
 		src/component/view/List.cpp src/component/view/List.h
 		src/exception/Fail.cpp src/exception/Fail.h
