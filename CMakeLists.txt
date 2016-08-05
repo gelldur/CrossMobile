@@ -49,6 +49,7 @@ SET(SOURCE_FILES_CORE
 		src/acme/guard/ChangeOnEnd.h
 		src/component/touch/Click.cpp src/component/touch/Click.h
 		src/component/view/Button.cpp src/component/view/Button.h
+		src/component/adapter/ListDataSourceComponent.cpp src/component/adapter/ListDataSourceComponent.h
 		)
 
 IF(LINUX)
