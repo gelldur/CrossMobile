@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <Screen.h>
+#include <screen/Screen.h>
 #include "screen/StateManager.h"
 
 typedef Screen::State State;

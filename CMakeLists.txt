@@ -17,7 +17,7 @@ SET(SOURCE_FILES_CORE
 		src/data/provider/Provider.cpp src/data/provider/Provider.h
 		src/data/receiver/Receiver.cpp src/data/receiver/Receiver.h
 		src/Director.cpp src/Director.h
-		src/Screen.cpp src/Screen.h
+		src/screen/Screen.cpp src/screen/Screen.h
 		src/UILoop.h
 		src/acme/text/Utf8.cpp src/acme/text/Utf8.h
 		src/acme/text/StringFastUtils.cpp src/acme/text/StringFastUtils.h

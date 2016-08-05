@@ -7,7 +7,7 @@
 #include <screen/StateManager.h>
 #include <exception/Fail.h>
 
-#include "Screen.h"
+#include "screen/Screen.h"
 #include "Application.h"
 
 std::unique_ptr<Director> Director::_instance = nullptr;
