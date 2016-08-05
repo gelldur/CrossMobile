@@ -32,7 +32,7 @@ SET(SOURCE_FILES_CORE
 		src/component/Nodect.cpp src/component/Nodect.h
 		src/component/NodectHelper.cpp src/component/NodectHelper.h
 		src/component/NodectBuilder.cpp src/component/NodectBuilder.h
-		src/component/Container.cpp src/component/Container.h
+		src/component/common/Container.cpp src/component/common/Container.h
 		src/component/view/Visibility.cpp src/component/view/Visibility.h
 		src/component/view/Text.cpp src/component/view/Text.h
 		src/component/view/Image.cpp src/component/view/Image.h
