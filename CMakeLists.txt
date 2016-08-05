@@ -4,6 +4,17 @@ PROJECT(CrossMobile)
 # Set core files
 SET(SOURCE_FILES_CORE
 		src/acme/ColorUtils.h
+		src/acme/DebugUtils.cpp src/acme/DebugUtils.h
+		src/acme/guard/ChangeOnEnd.h
+		src/acme/LambdaObserver.cpp src/acme/LambdaObserver.h
+		src/acme/Macros.h
+		src/acme/MakeUnique.h
+		src/acme/text/AttributedText.cpp src/acme/text/AttributedText.h
+		src/acme/text/StringFastUtils.cpp src/acme/text/StringFastUtils.h
+		src/acme/text/StringUtils.cpp src/acme/text/StringUtils.h
+		src/acme/text/Utf8.cpp src/acme/text/Utf8.h
+		src/api/ApiThreadPool.cpp src/api/ApiThreadPool.h
+		src/api/Async.h
 		src/api/exception/ApiException.cpp src/api/exception/ApiException.h
 		src/api/exception/ApiException.cpp src/api/exception/ApiException.h
 		src/api/exception/ValidateException.cpp src/api/exception/ValidateException.h
@@ -12,44 +23,33 @@ SET(SOURCE_FILES_CORE
 		src/api/Server.cpp src/api/Server.h
 		src/api/UrlBuilder.cpp src/api/UrlBuilder.h
 		src/Application.cpp src/Application.h
+		src/component/adapter/ListDataSourceComponent.cpp src/component/adapter/ListDataSourceComponent.h
+		src/component/common/Config.cpp src/component/common/Config.h
+		src/component/common/Container.cpp src/component/common/Container.h
 		src/component/Component.cpp src/component/Component.h
+		src/component/Nodect.cpp src/component/Nodect.h
+		src/component/NodectBuilder.cpp src/component/NodectBuilder.h
+		src/component/NodectHelper.cpp src/component/NodectHelper.h
+		src/component/touch/Click.cpp src/component/touch/Click.h
+		src/component/view/Button.cpp src/component/view/Button.h
+		src/component/view/Image.cpp src/component/view/Image.h
+		src/component/view/Layout.cpp src/component/view/Layout.h
+		src/component/view/List.cpp src/component/view/List.h
+		src/component/view/Loading.cpp src/component/view/Loading.h
+		src/component/view/Text.cpp src/component/view/Text.h
+		src/component/view/Visibility.cpp src/component/view/Visibility.h
+		src/data/Preferences.cpp src/data/Preferences.h
 		src/data/provider/DataProviderComponent.cpp src/data/provider/DataProviderComponent.h
 		src/data/provider/Provider.cpp src/data/provider/Provider.h
 		src/data/receiver/Receiver.cpp src/data/receiver/Receiver.h
-		src/Director.cpp src/Director.h
-		src/screen/Screen.cpp src/screen/Screen.h
-		src/UILoop.h
-		src/acme/text/Utf8.cpp src/acme/text/Utf8.h
-		src/acme/text/StringFastUtils.cpp src/acme/text/StringFastUtils.h
-		src/acme/LambdaObserver.cpp src/acme/LambdaObserver.h
-		src/api/Async.h
-		src/api/ApiThreadPool.cpp src/api/ApiThreadPool.h
-		src/acme/DebugUtils.cpp src/acme/DebugUtils.h
-		src/screen/StateManager.cpp src/screen/StateManager.h
-		src/acme/Macros.h
-		src/component/Nodect.cpp src/component/Nodect.h
-		src/component/NodectHelper.cpp src/component/NodectHelper.h
-		src/component/NodectBuilder.cpp src/component/NodectBuilder.h
-		src/component/common/Container.cpp src/component/common/Container.h
-		src/component/view/Visibility.cpp src/component/view/Visibility.h
-		src/component/view/Text.cpp src/component/view/Text.h
-		src/component/view/Image.cpp src/component/view/Image.h
-		src/acme/MakeUnique.h
-		src/screen/ScreenHelper.h
-		src/component/view/List.cpp src/component/view/List.h
-		src/exception/Fail.cpp src/exception/Fail.h
-		src/acme/text/AttributedText.cpp src/acme/text/AttributedText.h
-		src/acme/text/StringUtils.cpp src/acme/text/StringUtils.h
-		src/component/view/Layout.cpp src/component/view/Layout.h
-		src/component/view/Loading.cpp src/component/view/Loading.h
-		src/component/common/Config.cpp src/component/common/Config.h
-		src/data/Preferences.cpp src/data/Preferences.h
 		src/data/Refresher.cpp src/data/Refresher.h
+		src/Director.cpp src/Director.h
+		src/exception/Fail.cpp src/exception/Fail.h
 		src/platform/Bridge.cpp src/platform/Bridge.h
-		src/acme/guard/ChangeOnEnd.h
-		src/component/touch/Click.cpp src/component/touch/Click.h
-		src/component/view/Button.cpp src/component/view/Button.h
-		src/component/adapter/ListDataSourceComponent.cpp src/component/adapter/ListDataSourceComponent.h
+		src/screen/Screen.cpp src/screen/Screen.h
+		src/screen/ScreenHelper.h
+		src/screen/StateManager.cpp src/screen/StateManager.h
+		src/UILoop.h
 		)
 
 IF(LINUX)
