@@ -112,21 +112,6 @@ std::istream& CommonMethod::requestPostJson(const Server& server, const std::str
 	return server.getSession()->receiveResponse(response);
 }
 
-void CommonMethod::process(std::unique_ptr<Response>& response)
-{
-	if (response->isSuccessful() == false)
-	{
-		return;
-	}
-}
-
-void CommonMethod::throwIfNeedStatusException(std::unique_ptr<Response>& response)
-{
-	if (response->getCode() >= 200 && response->getCode() < 300)
-	{
-	}
-}
-
 void CommonMethod::toJson(std::istream& stream, Json::Value& rootOut)
 {
 	Json::Reader reader;

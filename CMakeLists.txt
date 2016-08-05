@@ -4,7 +4,6 @@ PROJECT(CrossMobile)
 # Set core files
 SET(SOURCE_FILES_CORE
 		src/acme/ColorUtils.h
-		src/api/adapter/Response.h
 		src/api/exception/ApiException.cpp src/api/exception/ApiException.h
 		src/api/exception/ApiException.cpp src/api/exception/ApiException.h
 		src/api/exception/ValidateException.cpp src/api/exception/ValidateException.h
@@ -26,7 +25,6 @@ SET(SOURCE_FILES_CORE
 		src/acme/text/StringFastUtils.cpp src/acme/text/StringFastUtils.h
 		src/acme/LambdaObserver.cpp src/acme/LambdaObserver.h
 		src/api/Async.h
-		src/acme/Assert.h
 		src/api/ApiThreadPool.cpp src/api/ApiThreadPool.h
 		src/acme/DebugUtils.cpp src/acme/DebugUtils.h
 		src/screen/StateManager.cpp src/screen/StateManager.h
