@@ -17,7 +17,6 @@ SET(SOURCE_FILES_CORE
 		src/data/provider/Provider.cpp src/data/provider/Provider.h
 		src/data/receiver/Receiver.cpp src/data/receiver/Receiver.h
 		src/Director.cpp src/Director.h
-		src/exception/ExcaptionHelper.h
 		src/interface/DataSetAdapter.h
 		src/Screen.cpp src/Screen.h
 		src/UILoop.h
