@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <mutex>
+#include <atomic>
 #include <memory>
 
 #include <data/receiver/Receiver.h>
@@ -20,6 +20,7 @@ class Provider : public Api::Async
 public:
 	friend class BackroundHelper;
 
+	Provider();
 	virtual ~Provider();
 	/**
 	 * Pass here provider shared_ptr that owns this provider
@@ -50,10 +51,9 @@ protected:
 	virtual void onCancel();
 
 private:
-	State _state = State::IDLE;
+	std::atomic<State> _state;
 	Receiver* _receiver = nullptr;
 	Poco::Runnable* _runnable = nullptr;
-	std::mutex _mutex;
 
 	void registerCheck();
 	void unregisterCheck();

@@ -4,8 +4,6 @@
 
 #include "Provider.h"
 
-#include <atomic>
-
 #include <log.h>
 #include <Poco/Delegate.h>
 #include <Poco/Runnable.h>
@@ -69,6 +67,11 @@ private:
 	std::shared_ptr<Provider> _provider;
 };
 
+Provider::Provider()
+		: _state(State::IDLE)
+{
+}
+
 Provider::~Provider()
 {
 	if (_runnable != nullptr)
@@ -101,6 +104,11 @@ void Provider::onRequestData(std::shared_ptr<Provider>& thisProvider)
 
 void Provider::cancel()
 {
+	if (isReady())
+	{
+		//Skip if doing nothing
+		return;
+	}
 	if (_state != State::CANCELED)
 	{
 		setState(State::CANCELED);
@@ -153,7 +161,7 @@ void Provider::onEvent(const void* sender, int& dummy)
 		}
 		else
 		{
-			Fail(__FILE__, __func__, __LINE__).add("Wrong state:").add(static_cast<int>(_state)).report();
+			Fail(__FILE__, __func__, __LINE__).add("Wrong state:").add(static_cast<int>(_state.load())).report();
 		}
 	}
 	else
@@ -182,7 +190,6 @@ void Provider::unregisterCheck()
 
 void Provider::setState(State state)
 {
-	std::lock_guard<std::mutex> lock(_mutex);
 	if (_state == State::CANCELED && state != State::IDLE)
 	{
 		return;
@@ -192,12 +199,10 @@ void Provider::setState(State state)
 
 bool Provider::isCanceled()
 {
-	std::lock_guard<std::mutex> lock(_mutex);
 	return _state == State::CANCELED;
 }
 
 bool Provider::isReady()
 {
-	std::lock_guard<std::mutex> lock(_mutex);
 	return _state == State::IDLE;
 }
