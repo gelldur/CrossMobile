@@ -4,7 +4,6 @@
 
 #include "ListDataSourceComponent.h"
 
-#include <model/match/Match.h>
 #include <log.h>
 
 #ifndef PLATFORM_IOS

@@ -4,14 +4,12 @@
 
 #pragma once
 
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
 
 #include <component/Component.h>
 #include <component/adapter/ListDataSource.h>
-
-class Match;
 
 class ListDataSourceComponent : public Component
 {
@@ -19,7 +17,7 @@ class ListDataSourceComponent : public Component
 public:
 	virtual void setData(std::unique_ptr<ListDataSource>&& list);
 
-	COMPONENT_TO_STRING(MatchesAdapterWrapper);
+	COMPONENT_TO_STRING(ListDataSourceComponent);
 
 	static ListDataSourceComponent& getNullObject();
 };
