@@ -23,7 +23,10 @@ Preferences::Preferences(const std::string& databaseName, const std::string& tab
 
 Preferences::~Preferences()
 {
-	_session->close();
+	if (_session != nullptr)
+	{
+		_session->close();
+	}
 	Poco::Data::SQLite::Connector::unregisterConnector();
 }
 
