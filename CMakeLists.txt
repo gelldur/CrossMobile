@@ -63,17 +63,15 @@ IF(LINUX)
 			proj/linux
 			)
 ELSEIF(ANDROID)
+	SET(PLATFORM_ANDROID_SRC proj/android/library/src/main/native)
 	SET(SOURCE_FILES_PLATFORM
-			proj/android/jni/log.h
-			proj/android/jni/Android.h
-			proj/android/jni/AndroidView.cpp proj/android/jni/AndroidView.h
-			proj/android/jni/Bridge.cpp
-			proj/android/jni/JniObject.cpp proj/android/jni/JniObject.h
+			${PLATFORM_ANDROID_SRC}/log.h
+			${PLATFORM_ANDROID_SRC}/Android.h
+			${PLATFORM_ANDROID_SRC}/platform/AndroidBridge.cpp ${PLATFORM_ANDROID_SRC}/platform/AndroidBridge.h
 			)
 
 	SET(INCLUDE_DIRS_PLATFORM
-			/home/dawid/Android/Sdk/ndk-bundle/platforms/android-21/arch-x86/usr/include/
-			proj/android/jni
+			${PLATFORM_ANDROID_SRC}
 			)
 ELSEIF(MAC_IOS)
 	SET(SOURCE_FILES_PLATFORM

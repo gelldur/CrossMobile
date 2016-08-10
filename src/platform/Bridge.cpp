@@ -7,9 +7,9 @@
 #include <log.h>
 
 #ifdef PLATFORM_IOS
-
 #include <platform/IosBridge.h>
-
+#elseif PLATFORM_ANDROID
+#include <platform/AndroidBridge.h>
 #endif
 
 namespace CrossMobile
@@ -22,7 +22,10 @@ CrossMobile::Platform::Bridge* Bridge::create()
 {
 #ifdef PLATFORM_IOS
 	return new IosBridge();
+#elseif PLATFORM_ANDROID
+	return new AndroidBridge();
 #else
+	WLOG("Create DummyBridge");
 	return new DummyBridge();
 #endif
 }

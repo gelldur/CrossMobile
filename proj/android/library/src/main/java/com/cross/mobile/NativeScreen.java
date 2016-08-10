@@ -1,9 +1,7 @@
-package com.dexode.engine;
+package com.cross.mobile;
 
 import android.app.Activity;
 import android.os.Bundle;
-
-import com.esportlivescore.R;
 
 import java.lang.reflect.Field;
 
@@ -43,12 +41,10 @@ public abstract class NativeScreen extends Activity {
 
 	public Object findViewByTag(String tag) {
 		try {
-			final Field field = R.id.class.getField(tag);
+			final Field field = null;//R.id.class.getField(tag);
 			final int anInt = field.getInt(null);
 			return findViewById(anInt);
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		System.out.println("FAIL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
