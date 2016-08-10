@@ -101,8 +101,18 @@ void Preferences::clean()
 
 void Preferences::recreate()
 {
-	_session = std::make_unique<Poco::Data::Session>("SQLite", DATABSE_FILE_NAME.c_str());
-
+	try
+	{
+		_session = std::make_unique<Poco::Data::Session>("SQLite", DATABSE_FILE_NAME.c_str());
+	}
+	catch (const std::exception& ex)
+	{
+		ELOG("Can't create session: %s", ex.what());
+	}
+	catch (...)
+	{
+		ELOG("Can't create session");
+	}
 	if (_session == nullptr)
 	{
 		ELOG("Session not created\nNo storage");
