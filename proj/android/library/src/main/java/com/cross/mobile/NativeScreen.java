@@ -3,16 +3,14 @@ package com.cross.mobile;
 import android.app.Activity;
 import android.os.Bundle;
 
-import java.lang.reflect.Field;
-
 /**
  * Created by Dawid Drozd aka Gelldur on 06.02.16.
  */
 public abstract class NativeScreen extends Activity {
 
-	public NativeScreen() {
-		_screenName = getClass().getSimpleName();
-		_activityComponent = new ActivityComponent(_screenName);
+	public NativeScreen(String screenName) {
+		_screenName = screenName;
+		_activityComponent = new ActivityComponent();
 	}
 
 	@Override
@@ -37,26 +35,6 @@ public abstract class NativeScreen extends Activity {
 	protected void onDestroy() {
 		_activityComponent.onDestroy(this, _screenName);
 		super.onDestroy();
-	}
-
-	public Object findViewByTag(String tag) {
-		try {
-			final Field field = null;//R.id.class.getField(tag);
-			final int anInt = field.getInt(null);
-			return findViewById(anInt);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		System.out.println("FAIL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		return null;
-	}
-
-	public void addComponent(String name, Object object) {
-		_activityComponent.addComponent(name, object);
-	}
-
-	public ActivityComponent getActivityComponent() {
-		return _activityComponent;
 	}
 
 	private ActivityComponent _activityComponent;
