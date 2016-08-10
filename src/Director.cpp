@@ -33,7 +33,12 @@ void Director::destroy()
 	_instance.reset();
 }
 
-void Director::pushScreen(const std::string& screenName, std::unique_ptr<Screen> screen)
+void Director::pushScreen(const std::string& screenName, Screen* screen)
+{
+	pushScreen(screenName, std::unique_ptr<Screen>(screen));
+}
+
+void Director::pushScreen(const std::string& screenName, std::unique_ptr<Screen>&& screen)
 {
 	DLOG("Director: pushScreen(%s)", screenName.c_str());
 

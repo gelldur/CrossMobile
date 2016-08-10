@@ -50,6 +50,7 @@ SET(SOURCE_FILES_CORE
 		src/screen/ScreenHelper.h
 		src/screen/StateManager.cpp src/screen/StateManager.h
 		src/UILoop.h
+		src/screen/ScreenCreator.cpp src/screen/ScreenCreator.h
 		)
 
 IF(LINUX)

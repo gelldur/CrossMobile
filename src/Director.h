@@ -7,11 +7,10 @@
 #include <map>
 #include <memory>
 #include <cassert>
-#include "screen/Screen.h"
+
+#include <screen/Screen.h>
 
 class Application;
-
-class Screen;
 
 class Director
 {
@@ -32,7 +31,8 @@ public:
 	static void create(std::unique_ptr<Application> app);
 	static void destroy();
 
-	void pushScreen(const std::string& screenName, std::unique_ptr<Screen> screen);
+	void pushScreen(const std::string& screenName, std::unique_ptr<Screen>&& screen);
+	void pushScreen(const std::string& screenName, Screen* screen);
 
 	void popScreen(const std::string& screenName);
 

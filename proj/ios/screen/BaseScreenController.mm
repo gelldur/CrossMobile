@@ -2,13 +2,13 @@
 
 #include <string>
 
+#include <Application.h>
 #include <Director.h>
 #include <component/NodectBuilder.h>
 #include <platform/Context.h>
 #include <screen/Screen.h>
 
 #include <log.h>
-#include <screen/ScreenCreator.h>
 
 @implementation BaseScreenController
 {
@@ -24,9 +24,12 @@
 	}
 
 	_screenName = std::string([name UTF8String]);
-	auto screen = ScreenCreator::create(_screenName,
+
+	auto& director = Director::getInstance();
+	auto screen = director.getApp()->getScreenCreator()->create(_screenName,
 		NodectBuilder::create(_screenName, self).addComponent<Container>().build()); // Don't store in proprty!
-	Director::getInstance().pushScreen(screen->getName(), std::move(screen));
+
+	director.pushScreen(screen->getName(), std::move(screen));
 
 	return self;
 }

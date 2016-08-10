@@ -9,9 +9,10 @@
 
 #include <Poco/Path.h>
 
-Application::Application(CrossMobile::Platform::Bridge* bridge)
+Application::Application(CrossMobile::Platform::Bridge* bridge, ScreenCreator* screenCreator)
 		: _preferences(Poco::Path(bridge->getWritablePath()).append("prefs.db").toString())
 		, _bridge(bridge)
+		, _screenCreator(screenCreator)
 {
 	DLOG("PATH: %s", bridge->getWritablePath().c_str());
 }
@@ -39,4 +40,9 @@ CrossMobile::Platform::Bridge& Application::getBridge()
 		return *_bridge;
 	}
 	throw std::runtime_error("Bridge is not set!");
+}
+
+const std::unique_ptr<ScreenCreator>& Application::getScreenCreator() const
+{
+	return _screenCreator;
 }
