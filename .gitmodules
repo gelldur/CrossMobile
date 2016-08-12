@@ -7,3 +7,6 @@
 [submodule "libs/googletest"]
 	path = libs/googletest
 	url = https://github.com/google/googletest.git
+[submodule "proj/android/library/src/main/libs-native/jniobject"]
+	path = proj/android/library/src/main/libs-native/jniobject
+	url = https://github.com/gelldur/jniobject.git
