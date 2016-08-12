@@ -65,6 +65,7 @@ IF(LINUX)
 ELSEIF(ANDROID)
 	SET(PLATFORM_ANDROID_SRC proj/android/library/src/main/native)
 	SET(SOURCE_FILES_PLATFORM
+			proj/android/library/src/main/libs-native/jniobject/src/JniObject.cpp proj/android/library/src/main/libs-native/jniobject/src/JniObject.h
 			${PLATFORM_ANDROID_SRC}/log.h
 			${PLATFORM_ANDROID_SRC}/Android.h
 			${PLATFORM_ANDROID_SRC}/platform/AndroidBridge.cpp ${PLATFORM_ANDROID_SRC}/platform/AndroidBridge.h
@@ -74,6 +75,7 @@ ELSEIF(ANDROID)
 
 	SET(INCLUDE_DIRS_PLATFORM
 			${PLATFORM_ANDROID_SRC}
+			proj/android/library/src/main/libs-native/jniobject/src/
 			)
 ELSEIF(MAC_IOS)
 	SET(SOURCE_FILES_PLATFORM
