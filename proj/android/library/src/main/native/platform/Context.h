@@ -4,20 +4,20 @@
 
 #pragma once
 
-#include <Android.h>
+#include <JniObject.h>
 
 class Context
 {
 public:
-	Context(jobject nativeObject)
+	Context(JniObject nativeObject)
 			: _nativeObject(nativeObject)
 	{
 	}
 
-	jobject getNative();
+	JniObject& getNative();
 
 private:
-	jobject _nativeObject;
+	JniObject _nativeObject;
 };
 
 

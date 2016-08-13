@@ -6,7 +6,7 @@
 
 #include <log.h>
 
-#ifndef PLATFORM_IOS
+#if !defined PLATFORM_IOS && !defined PLATFORM_ANDROID
 
 void Image::loadImage(const std::string& url)
 {

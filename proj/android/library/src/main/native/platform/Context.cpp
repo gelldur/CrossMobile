@@ -6,11 +6,11 @@
 
 #include <exception/Fail.h>
 
-jobject Context::getNative()
+JniObject& Context::getNative()
 {
-	if(_nativeObject == NULL)
+	if (_nativeObject == false)
 	{
-		Fail(__FILE__,__func__,__LINE__).report();
+		Fail(__FILE__, __func__, __LINE__).report();
 	}
 	return _nativeObject;
 }
