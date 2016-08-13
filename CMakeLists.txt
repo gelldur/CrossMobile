@@ -63,17 +63,19 @@ IF(LINUX)
 			proj/linux
 			)
 ELSEIF(ANDROID)
+	SET(PLATFORM_ANDROID_SRC proj/android/library/src/main/native)
 	SET(SOURCE_FILES_PLATFORM
-			proj/android/jni/log.h
-			proj/android/jni/Android.h
-			proj/android/jni/AndroidView.cpp proj/android/jni/AndroidView.h
-			proj/android/jni/Bridge.cpp
-			proj/android/jni/JniObject.cpp proj/android/jni/JniObject.h
+			proj/android/library/src/main/libs-native/jniobject/src/JniObject.cpp proj/android/library/src/main/libs-native/jniobject/src/JniObject.h
+			${PLATFORM_ANDROID_SRC}/log.h
+			${PLATFORM_ANDROID_SRC}/Android.h
+			${PLATFORM_ANDROID_SRC}/platform/AndroidBridge.cpp ${PLATFORM_ANDROID_SRC}/platform/AndroidBridge.h
+			${PLATFORM_ANDROID_SRC}/platform/Context.cpp ${PLATFORM_ANDROID_SRC}/platform/Context.h
+			${PLATFORM_ANDROID_SRC}/ActivityComponent.cpp
 			)
 
 	SET(INCLUDE_DIRS_PLATFORM
-			/home/dawid/Android/Sdk/ndk-bundle/platforms/android-21/arch-x86/usr/include/
-			proj/android/jni
+			${PLATFORM_ANDROID_SRC}
+			proj/android/library/src/main/libs-native/jniobject/src/
 			)
 ELSEIF(MAC_IOS)
 	SET(SOURCE_FILES_PLATFORM
@@ -90,7 +92,12 @@ SET(INCLUDE_DIRS_CORE
 		src/
 		)
 
-ADD_LIBRARY(CrossMobile ${SOURCE_FILES_CORE} ${SOURCE_FILES_PLATFORM})
+IF(ANDROID)
+	ADD_LIBRARY(CrossMobile SHARED ${SOURCE_FILES_CORE} ${SOURCE_FILES_PLATFORM})
+	TARGET_LINK_LIBRARIES(CrossMobile log android)
+ELSE()
+	ADD_LIBRARY(CrossMobile STATIC ${SOURCE_FILES_CORE} ${SOURCE_FILES_PLATFORM})
+ENDIF(ANDROID)
 
 TARGET_INCLUDE_DIRECTORIES(CrossMobile PUBLIC
 		${INCLUDE_DIRS_CORE}
@@ -110,7 +117,7 @@ SET(ENABLE_MONGODB OFF CACHE BOOL "Enable MongoDB" FORCE)
 SET(ENABLE_NETSSL OFF CACHE BOOL "Enable NetSSL" FORCE)
 SET(ENABLE_CRYPTO OFF CACHE BOOL "Enable Crypto" FORCE)
 SET(ENABLE_DATA ON CACHE BOOL "Enable Data" FORCE)
-SET(ENABLE_DATA_SQLITE ON CACHE BOOL "Enable Data SQlite" FORCE)
+SET(ENABLE_DATA_SQLITE OFF CACHE BOOL "Enable Data SQlite" FORCE)
 SET(ENABLE_DATA_MYSQL OFF CACHE BOOL "Enable Data MySQL" FORCE)
 SET(ENABLE_DATA_ODBC OFF CACHE BOOL "Enable Data ODBC" FORCE)
 SET(ENABLE_ZIP OFF CACHE BOOL "Enable Zip" FORCE)
@@ -119,8 +126,8 @@ SET(ENABLE_PAGECOMPILER_FILE2PAGE OFF CACHE BOOL "Enable File2Page" FORCE)
 SET(POCO_STATIC ON CACHE BOOL "Enable File2Page" FORCE)
 
 ADD_SUBDIRECTORY("libs/poco")
-TARGET_LINK_LIBRARIES(CrossMobile PocoNet PocoUtil PocoData PocoDataSQLite)
+TARGET_LINK_LIBRARIES(CrossMobile PocoNet PocoUtil PocoData)#PocoDataSQLite
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Werror")
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-long-long -Wno-unused-private-field -Wnon-virtual-dtor")
+#SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Werror")
+#SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-long-long -Wno-unused-private-field -Wnon-virtual-dtor")

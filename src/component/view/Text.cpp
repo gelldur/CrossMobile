@@ -7,7 +7,7 @@
 
 #include <log.h>
 
-#ifndef PLATFORM_IOS
+#if !defined PLATFORM_IOS && !defined PLATFORM_ANDROID
 
 void Text::setText(const char* text)
 {

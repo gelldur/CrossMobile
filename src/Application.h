@@ -31,7 +31,7 @@ public:
 
 	ApiThreadPool& getApiThreadPool()
 	{
-		return _apiThreadPool;
+		return *_apiThreadPool;
 	}
 
 	Preferences& getPreferences()
@@ -44,9 +44,10 @@ public:
 	CrossMobile::Platform::Bridge& getBridge();
 
 	static Application* getInstance();
+
 private:
 	UILoop _uiLoop;
-	ApiThreadPool _apiThreadPool;
+	std::unique_ptr<ApiThreadPool> _apiThreadPool;
 	Preferences _preferences;
 	std::unique_ptr<CrossMobile::Platform::Bridge> _bridge;
 	std::unique_ptr<ScreenCreator> _screenCreator;
