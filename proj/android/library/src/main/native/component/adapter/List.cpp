@@ -21,9 +21,6 @@ AdapterList* extractAdapterList(jlong listObjectPointer)
 				.add("missing listObject").report();
 	}
 
-	DLOG("I have: %s -> %s == %d", listObject->type().name(), typeid(std::shared_ptr<AdapterList>).name()
-		 , listObject->type() == typeid(std::shared_ptr<AdapterList>));
-
 	std::shared_ptr<AdapterList>* adapterList = FixAny::Android_Fix_AnyCast<std::shared_ptr<AdapterList>>(listObject);
 	if (adapterList == nullptr)
 	{
