@@ -3,11 +3,42 @@
 #include <data/Preferences.h>
 #include <platform/Bridge.h>
 
-static std::string writablePath = std::unique_ptr<CrossMobile::Platform::Bridge>(
-		CrossMobile::Platform::Bridge::create())->getWritablePath();
-
-TEST(PreferencesTest, defaultValues)
+class PreferencesTest : public ::testing::Test
 {
+protected:
+	// Per-test-case set-up.
+	// Called before the first test in this test case.
+	// Can be omitted if not needed.
+	static void SetUpTestCase()
+	{
+		writablePath = std::unique_ptr<CrossMobile::Platform::Bridge>(
+				CrossMobile::Platform::Bridge::create())->getWritablePath();
+	}
+
+	// Per-test-case tear-down.
+	// Called after the last test in this test case.
+	// Can be omitted if not needed.
+	static void TearDownTestCase()
+	{
+	}
+
+	// You can define per-test set-up and tear-down logic as usual.
+	virtual void SetUp()
+	{
+	}
+
+	virtual void TearDown()
+	{
+	}
+
+	static std::string writablePath;
+};
+
+std::string PreferencesTest::writablePath;
+
+TEST_F(PreferencesTest, defaultValues)
+{
+
 	Preferences testPrefs(writablePath + "test_default.db");
 	testPrefs.clean();
 
@@ -17,8 +48,11 @@ TEST(PreferencesTest, defaultValues)
 	EXPECT_EQ("caa", testPrefs.getValue("testB", ""));
 }
 
-TEST(PreferencesTest, empty)
+TEST_F(PreferencesTest, empty)
 {
+	std::string writablePath = std::unique_ptr<CrossMobile::Platform::Bridge>(
+			CrossMobile::Platform::Bridge::create())->getWritablePath();
+
 	Preferences testPrefs(writablePath + "test_empty.db");
 	testPrefs.clean();
 
@@ -35,7 +69,7 @@ TEST(PreferencesTest, empty)
 	EXPECT_EQ("a", testPrefs.getValue("", ""));
 }
 
-TEST(PreferencesTest, oddChars)
+TEST_F(PreferencesTest, oddChars)
 {
 	Preferences testPrefs(writablePath + "test_oddChars.db");
 	testPrefs.clean();
@@ -53,7 +87,7 @@ TEST(PreferencesTest, oddChars)
 	EXPECT_EQ("\\", testPrefs.getValue("\\", ""));
 }
 
-TEST(PreferencesTest, readWrite)
+TEST_F(PreferencesTest, readWrite)
 {
 	Preferences testPrefs(writablePath + "test_readWrite.db");
 	testPrefs.clean();
@@ -80,7 +114,7 @@ TEST(PreferencesTest, readWrite)
 	EXPECT_EQ("ccA", testPrefs.getValue("testC", ""));
 }
 
-TEST(PreferencesTest, writeLongText)
+TEST_F(PreferencesTest, writeLongText)
 {
 	Preferences testPrefs(writablePath + "test_writeLongText.db");
 	testPrefs.clean();
@@ -108,7 +142,7 @@ TEST(PreferencesTest, writeLongText)
 	EXPECT_EQ(value, testPrefs.getValue(key, ""));
 }
 
-TEST(PreferencesTest, recreateDatabase)
+TEST_F(PreferencesTest, recreateDatabase)
 {
 	{
 		Preferences testClean(writablePath + "test_recreate.db");
@@ -135,7 +169,7 @@ TEST(PreferencesTest, recreateDatabase)
 	}
 }
 
-TEST(PreferencesTest, multipleWrites)
+TEST_F(PreferencesTest, multipleWrites)
 {
 	Preferences testPrefs(writablePath + "test_multipleWrites.db");
 	testPrefs.clean();
@@ -157,7 +191,7 @@ TEST(PreferencesTest, multipleWrites)
 	EXPECT_EQ("gg", testPrefs.getValue("testA", "1"));
 }
 
-TEST(PreferencesTest, bigLetters)
+TEST_F(PreferencesTest, bigLetters)
 {
 	Preferences testPrefs(writablePath + "test_bigLetters.db");
 	testPrefs.clean();
