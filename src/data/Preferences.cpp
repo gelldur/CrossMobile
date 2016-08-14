@@ -7,7 +7,7 @@
 #include<cstdio>
 
 #include <Poco/Data/Session.h>
-//#include <Poco/Data/SQLite/Connector.h>
+#include <Poco/Data/SQLite/Connector.h>
 
 #include <log.h>
 #include <acme/MakeUnique.h>
@@ -16,7 +16,7 @@ Preferences::Preferences(const std::string& databaseName, const std::string& tab
 		: TABLE_NAME(tableName)
 		, DATABSE_FILE_NAME(databaseName)
 {
-	//	Poco::Data::SQLite::Connector::registerConnector();
+	Poco::Data::SQLite::Connector::registerConnector();
 
 	recreate();
 }
@@ -27,7 +27,7 @@ Preferences::~Preferences()
 	{
 		_session->close();
 	}
-	//	Poco::Data::SQLite::Connector::unregisterConnector();
+	Poco::Data::SQLite::Connector::unregisterConnector();
 }
 
 void Preferences::setValue(const std::string& key, const std::string& value)
