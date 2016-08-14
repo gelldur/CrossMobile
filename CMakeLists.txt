@@ -23,10 +23,13 @@ SET(SOURCE_FILES_CORE
 		src/api/Server.cpp src/api/Server.h
 		src/api/UrlBuilder.cpp src/api/UrlBuilder.h
 		src/Application.cpp src/Application.h
+		src/component/adapter/AdapterList.cpp src/component/adapter/AdapterList.h
 		src/component/adapter/ListDataSourceComponent.cpp src/component/adapter/ListDataSourceComponent.h
 		src/component/common/Config.cpp src/component/common/Config.h
 		src/component/common/Container.cpp src/component/common/Container.h
+		src/component/common/Pool.cpp src/component/common/Pool.h
 		src/component/Component.cpp src/component/Component.h
+		src/component/ComponentSerializer.cpp src/component/ComponentSerializer.h
 		src/component/Nodect.cpp src/component/Nodect.h
 		src/component/NodectBuilder.cpp src/component/NodectBuilder.h
 		src/component/NodectHelper.cpp src/component/NodectHelper.h
@@ -47,10 +50,10 @@ SET(SOURCE_FILES_CORE
 		src/exception/Fail.cpp src/exception/Fail.h
 		src/platform/Bridge.cpp src/platform/Bridge.h
 		src/screen/Screen.cpp src/screen/Screen.h
+		src/screen/ScreenCreator.cpp src/screen/ScreenCreator.h
 		src/screen/ScreenHelper.h
 		src/screen/StateManager.cpp src/screen/StateManager.h
 		src/UILoop.h
-		src/screen/ScreenCreator.cpp src/screen/ScreenCreator.h
 		)
 
 IF(LINUX)
@@ -64,13 +67,20 @@ IF(LINUX)
 			)
 ELSEIF(ANDROID)
 	SET(PLATFORM_ANDROID_SRC proj/android/library/src/main/native)
+	SET(PLATFORM_ANDROID_SRC_OBJECTJNI proj/android/library/src/main/libs-native/jniobject/src/)
 	SET(SOURCE_FILES_PLATFORM
-			proj/android/library/src/main/libs-native/jniobject/src/JniObject.cpp proj/android/library/src/main/libs-native/jniobject/src/JniObject.h
-			${PLATFORM_ANDROID_SRC}/log.h
+			${PLATFORM_ANDROID_SRC_OBJECTJNI}/JniObject.cpp ${PLATFORM_ANDROID_SRC_OBJECTJNI}/JniObject.h
+			${PLATFORM_ANDROID_SRC}/ActivityComponent.cpp
 			${PLATFORM_ANDROID_SRC}/Android.h
+			${PLATFORM_ANDROID_SRC}/component/adapter/List.cpp
+			${PLATFORM_ANDROID_SRC}/component/NodectBridge.cpp ${PLATFORM_ANDROID_SRC}/component/NodectBridge.h
+			${PLATFORM_ANDROID_SRC}/component/view/Image.cpp
+			${PLATFORM_ANDROID_SRC}/component/view/Text.cpp
+			${PLATFORM_ANDROID_SRC}/Extractor.cpp
+			${PLATFORM_ANDROID_SRC}/FixAny.h
+			${PLATFORM_ANDROID_SRC}/log.h
 			${PLATFORM_ANDROID_SRC}/platform/AndroidBridge.cpp ${PLATFORM_ANDROID_SRC}/platform/AndroidBridge.h
 			${PLATFORM_ANDROID_SRC}/platform/Context.cpp ${PLATFORM_ANDROID_SRC}/platform/Context.h
-			${PLATFORM_ANDROID_SRC}/ActivityComponent.cpp
 			)
 
 	SET(INCLUDE_DIRS_PLATFORM
@@ -103,6 +113,12 @@ TARGET_INCLUDE_DIRECTORIES(CrossMobile PUBLIC
 		${INCLUDE_DIRS_CORE}
 		${INCLUDE_DIRS_PLATFORM}
 		)
+
+IF(DEVELOPER_ANDROID)
+	TARGET_INCLUDE_DIRECTORIES(CrossMobile PUBLIC
+			$ENV{NDK_ROOT}/platforms/android-9/arch-arm/usr/include/
+			)
+ENDIF()
 
 SET(JSONCPP_WITH_TESTS OFF CACHE BOOL "" FORCE)
 SET(JSONCPP_WITH_POST_BUILD_UNITTEST OFF CACHE BOOL "" FORCE)
