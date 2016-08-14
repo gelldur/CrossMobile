@@ -8,7 +8,7 @@
 namespace NodectHelper
 {
 
-Nodect& find(Nodect& nodect, const std::string& tag)
+Nodect& find(const Nodect& nodect, const std::string& tag)
 {
 	return nodect.getComponent<Container>().get(tag);
 }

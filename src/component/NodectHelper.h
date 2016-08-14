@@ -9,7 +9,7 @@
 namespace NodectHelper
 {
 
-Nodect& find(Nodect& nodect, const std::string& tag);
+Nodect& find(const Nodect& nodect, const std::string& tag);
 
 void nest(Nodect& owner, Nodect&& nodect);
 
