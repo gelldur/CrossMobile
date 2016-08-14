@@ -14,3 +14,16 @@ JniObject& Context::getNative()
 	}
 	return _nativeObject;
 }
+
+void Context::setApplicationContext(jobject appContext)
+{
+	auto& _appContext = getApplicationContext();
+	_appContext.clear();
+	_appContext.init(appContext);
+}
+
+JniObject& Context::getApplicationContext()
+{
+	static JniObject _appContext;
+	return _appContext;
+}

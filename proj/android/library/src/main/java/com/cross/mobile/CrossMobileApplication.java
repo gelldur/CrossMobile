@@ -1,5 +1,6 @@
 package com.cross.mobile;
 
+import android.content.Context;
 import android.support.annotation.Keep;
 
 /**
@@ -10,5 +11,5 @@ import android.support.annotation.Keep;
 @Keep
 public class CrossMobileApplication {
 	@Keep
-	public native void onCreate();
+	public native void onCreate(Context appContext);
 }
