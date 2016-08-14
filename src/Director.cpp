@@ -7,7 +7,7 @@
 #include <screen/StateManager.h>
 #include <exception/Fail.h>
 
-#include "screen/Screen.h"
+#include <screen/Screen.h>
 #include "Application.h"
 
 std::unique_ptr<Director> Director::_instance = nullptr;
@@ -33,9 +33,9 @@ void Director::destroy()
 	_instance.reset();
 }
 
-void Director::pushScreen(const std::string& screenName, Screen* screen)
+void Director::pushScreen(Screen* screen)
 {
-	pushScreen(screenName, std::unique_ptr<Screen>(screen));
+	pushScreen(screen->getName(), std::unique_ptr<Screen>(screen));
 }
 
 void Director::pushScreen(const std::string& screenName, std::unique_ptr<Screen>&& screen)
