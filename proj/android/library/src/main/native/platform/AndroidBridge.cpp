@@ -3,7 +3,10 @@
 //
 
 #include "AndroidBridge.h"
+
 #include <log.h>
+#include <JniObject.h>
+#include <platform/Context.h>
 
 namespace CrossMobile
 {
@@ -13,8 +16,11 @@ namespace Platform
 
 std::string AndroidBridge::getWritablePath() const
 {
-	WLOG("Function %s not implemented: %s:%d", __func__, __FILE__, __LINE__);
-	return "";
+	auto& appContext = Context::getApplicationContext();
+
+	JniObject file = appContext.call("getFilesDir", JniObject("java.io.File"));
+	std::string path = file.call("getPath", std::string(""));
+	return path;
 }
 
 }
