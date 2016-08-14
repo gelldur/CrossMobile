@@ -1,0 +1,1 @@
+javah -classpath ../proj/android/library/src/main/java/:$ANDROID_SDK_ROOT/platforms/android-23/android.jar com.cross.mobile.Test
