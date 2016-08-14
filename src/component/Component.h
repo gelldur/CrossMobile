@@ -8,7 +8,8 @@
 #include <cassert>
 #include <typeinfo>
 
-#define COMPONENT_TO_STRING(NAME) virtual const char* toString() const override{ return #NAME;}
+#define COMPONENT_TO_STRING(COMPONENT_NAME) virtual const char* toString() const override{ return #COMPONENT_NAME;}\
+static const char* myName() { return #COMPONENT_NAME;}
 
 class Nodect;
 

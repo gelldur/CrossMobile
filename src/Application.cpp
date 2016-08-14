@@ -6,6 +6,7 @@
 
 #include <log.h>
 #include <Director.h>
+#include <component/ComponentSerializer.h>
 
 #include <Poco/Path.h>
 
@@ -15,6 +16,7 @@ Application::Application(CrossMobile::Platform::Bridge* bridge, ScreenCreator* s
 		, _screenCreator(screenCreator)
 {
 	DLOG("PATH: %s", bridge->getWritablePath().c_str());
+	ComponentSerializer::init();
 }
 
 void Application::onCreate()
