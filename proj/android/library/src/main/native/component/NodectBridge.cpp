@@ -49,25 +49,3 @@ Nodect deserializeNodect(JniObject& nodectHelper)
 	}
 	return builder.build();
 }
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/*
- * Class:     com_cross_mobile_component_NodectBridge
- * Method:    nest
- * Signature: (JLcom/cross/mobile/component/NodectHelper;)V
- */
-JNIEXPORT void JNICALL Java_com_cross_mobile_component_NodectBridge_nest
-		(JNIEnv* env, jclass clazz, jlong nativeObjectPointer, jobject nodectHelperRaw)
-{
-	Nodect* nodect = reinterpret_cast<Nodect*>(nativeObjectPointer);
-
-	JniObject nodectHelper(nodectHelperRaw);
-	NodectHelper::nest(*nodect, deserializeNodect(nodectHelper));
-}
-
-#ifdef __cplusplus
-}
-#endif

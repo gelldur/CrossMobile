@@ -68,15 +68,13 @@ IF(LINUX)
 ELSEIF(ANDROID)
 	SET(PLATFORM_ANDROID_SRC proj/android/library/src/main/native)
 	SET(PLATFORM_ANDROID_SRC_OBJECTJNI proj/android/library/src/main/libs-native/jniobject/src/)
+
 	SET(SOURCE_FILES_PLATFORM
 			${PLATFORM_ANDROID_SRC_OBJECTJNI}/JniObject.cpp ${PLATFORM_ANDROID_SRC_OBJECTJNI}/JniObject.h
-			${PLATFORM_ANDROID_SRC}/ActivityComponent.cpp
 			${PLATFORM_ANDROID_SRC}/Android.h
-			${PLATFORM_ANDROID_SRC}/component/adapter/List.cpp
 			${PLATFORM_ANDROID_SRC}/component/NodectBridge.cpp ${PLATFORM_ANDROID_SRC}/component/NodectBridge.h
 			${PLATFORM_ANDROID_SRC}/component/view/Image.cpp
 			${PLATFORM_ANDROID_SRC}/component/view/Text.cpp
-			${PLATFORM_ANDROID_SRC}/Extractor.cpp
 			${PLATFORM_ANDROID_SRC}/FixAny.h
 			${PLATFORM_ANDROID_SRC}/log.h
 			${PLATFORM_ANDROID_SRC}/platform/AndroidBridge.cpp ${PLATFORM_ANDROID_SRC}/platform/AndroidBridge.h
@@ -102,12 +100,7 @@ SET(INCLUDE_DIRS_CORE
 		src/
 		)
 
-IF(ANDROID)
-	ADD_LIBRARY(CrossMobile SHARED ${SOURCE_FILES_CORE} ${SOURCE_FILES_PLATFORM})
-	TARGET_LINK_LIBRARIES(CrossMobile log android)
-ELSE()
-	ADD_LIBRARY(CrossMobile STATIC ${SOURCE_FILES_CORE} ${SOURCE_FILES_PLATFORM})
-ENDIF(ANDROID)
+ADD_LIBRARY(CrossMobile STATIC ${SOURCE_FILES_CORE} ${SOURCE_FILES_PLATFORM})
 
 TARGET_INCLUDE_DIRECTORIES(CrossMobile PUBLIC
 		${INCLUDE_DIRS_CORE}
@@ -142,8 +135,8 @@ SET(ENABLE_PAGECOMPILER_FILE2PAGE OFF CACHE BOOL "Enable File2Page" FORCE)
 SET(POCO_STATIC ON CACHE BOOL "Enable File2Page" FORCE)
 
 ADD_SUBDIRECTORY("libs/poco")
-TARGET_LINK_LIBRARIES(CrossMobile PocoNet PocoUtil PocoData)#PocoDataSQLite
+TARGET_LINK_LIBRARIES(CrossMobile PocoNet PocoUtil PocoData PocoDataSQLite)
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-#SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Werror")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic")#Add -Werror
 #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-long-long -Wno-unused-private-field -Wnon-virtual-dtor")
