@@ -6,6 +6,7 @@
 
 #include <string>
 #include <cassert>
+#include <typeinfo>
 
 #define COMPONENT_TO_STRING(NAME) virtual const char* toString() const override{ return #NAME;}
 
@@ -58,13 +59,10 @@ private:
 	Nodect* _owner = nullptr;
 };
 
-//TODO check getIdForType and move to other dir
-extern int counter;
-
 template<class T>
-inline int getIdForType()
+inline size_t getIdForType()
 {
-	static int id = ++counter;
+	static size_t id = typeid(T).hash_code();
 	return id;
 }
 

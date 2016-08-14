@@ -5,8 +5,6 @@
 #include "Component.h"
 #include <component/Nodect.h>
 
-int counter = 0;
-
 Component::~Component()
 {
 	_owner = nullptr;
