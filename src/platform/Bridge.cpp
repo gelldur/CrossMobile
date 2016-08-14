@@ -8,7 +8,7 @@
 
 #ifdef PLATFORM_IOS
 #include <platform/IosBridge.h>
-#elseif PLATFORM_ANDROID
+#elif PLATFORM_ANDROID
 #include <platform/AndroidBridge.h>
 #endif
 
@@ -22,7 +22,7 @@ CrossMobile::Platform::Bridge* Bridge::create()
 {
 #ifdef PLATFORM_IOS
 	return new IosBridge();
-#elseif PLATFORM_ANDROID
+#elif PLATFORM_ANDROID
 	return new AndroidBridge();
 #else
 	WLOG("Create DummyBridge");
