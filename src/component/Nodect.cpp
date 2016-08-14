@@ -75,7 +75,7 @@ Nodect::~Nodect()
 	}
 }
 
-void Nodect::addComponentWithId(int id, std::unique_ptr<Component>&& component)
+void Nodect::addComponentWithId(size_t id, std::unique_ptr<Component>&& component)
 {
 	if (_context == nullptr)
 	{

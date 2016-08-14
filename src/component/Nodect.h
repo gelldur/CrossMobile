@@ -29,7 +29,7 @@ public:
 	Nodect(const Nodect& other) = delete;
 	Nodect& operator=(const Nodect& other) = delete;
 
-	void addComponentWithId(int id, std::unique_ptr<Component>&& component);
+	void addComponentWithId(size_t id, std::unique_ptr<Component>&& component);
 
 	const std::string& getTag() const
 	{
@@ -72,15 +72,14 @@ public:
 	}
 
 	template<class T>
-	T& getComponent()
+	T& getComponent() const
 	{
-		const int id = getIdForType<T>();
+		const size_t id = getIdForType<T>();
 		auto found = _components.find(id);
 		if (found == _components.end())
 		{
 			auto& nullObject = T::getNullObject();
 			WLOG("Missing component: %s for %s", nullObject.toString(), _tag.c_str());
-
 			return nullObject;
 		}
 
@@ -95,5 +94,5 @@ public:
 private:
 	std::shared_ptr<Context> _context;
 	std::string _tag;
-	std::map<int, std::unique_ptr<Component>> _components;
+	std::map<size_t, std::unique_ptr<Component>> _components;
 };
