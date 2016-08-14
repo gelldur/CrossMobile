@@ -18,7 +18,7 @@ Fail::Fail(const char* fileName, const char* functionName, int lineNumber)
 	{
 		_fileName.erase(0, srcPosition);
 	}
-	_stream << _fileName << " " << _fileName << ":" << _lineNumber;
+	_stream << _fileName << " " << _fileName << ":" << _lineNumber << " ";
 }
 
 void Fail::report()
