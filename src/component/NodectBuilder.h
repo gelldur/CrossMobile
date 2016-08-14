@@ -35,6 +35,8 @@ public:
 		return *this;
 	}
 
+	create& addComponentByName(const std::string& componentName);
+
 	create& nestObject(Nodect&& nodect);
 
 	create& nest(Nodect&& nodect)

@@ -3,6 +3,7 @@
 //
 
 #include "NodectBuilder.h"
+#include "ComponentSerializer.h"
 
 namespace NodectBuilder
 {
@@ -28,6 +29,12 @@ create& create::nestObject(Nodect&& nodect)
 		_containerForObject = std::make_unique<Container>();
 	}
 	_containerForObject->add(std::move(nodect));
+	return *this;
+}
+
+create& create::addComponentByName(const std::string& componentName)
+{
+	ComponentSerializer::addComponentByName(*this, componentName);
 	return *this;
 }
 
