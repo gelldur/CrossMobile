@@ -8,7 +8,7 @@
 
 JniObject& Context::getNative()
 {
-	if (_nativeObject == false)
+	if (!_nativeObject)
 	{
 		Fail(__FILE__, __func__, __LINE__).report();
 	}

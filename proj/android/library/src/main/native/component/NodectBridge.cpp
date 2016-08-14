@@ -24,7 +24,7 @@ Nodect deserializeNodect(JniObject& nodectHelper)
 	std::string tag = nodectHelper.call("getTag", std::string());
 
 	JniObject context = nodectHelper.call("getContext", JniObject("java.lang.Object"));
-	if (context == false)
+	if (!context)
 	{
 		ELOG("Missing context in %s", tag.c_str());
 		return Nodect("missing-context", nullptr);
