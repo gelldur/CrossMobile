@@ -49,6 +49,7 @@ SET(SOURCE_FILES_CORE
 		src/Director.cpp src/Director.h
 		src/exception/Fail.cpp src/exception/Fail.h
 		src/platform/Bridge.cpp src/platform/Bridge.h
+		src/platform/Context.cpp src/platform/Context.h
 		src/screen/Screen.cpp src/screen/Screen.h
 		src/screen/ScreenCreator.cpp src/screen/ScreenCreator.h
 		src/screen/ScreenHelper.h
@@ -59,7 +60,6 @@ SET(SOURCE_FILES_CORE
 IF(LINUX)
 	SET(SOURCE_FILES_PLATFORM
 			proj/linux/log.h
-			proj/linux/platform/Context.cpp proj/linux/platform/Context.h
 			)
 
 	SET(INCLUDE_DIRS_PLATFORM
@@ -78,7 +78,6 @@ ELSEIF(ANDROID)
 			${PLATFORM_ANDROID_SRC}/FixAny.h
 			${PLATFORM_ANDROID_SRC}/log.h
 			${PLATFORM_ANDROID_SRC}/platform/AndroidBridge.cpp ${PLATFORM_ANDROID_SRC}/platform/AndroidBridge.h
-			${PLATFORM_ANDROID_SRC}/platform/Context.cpp ${PLATFORM_ANDROID_SRC}/platform/Context.h
 			)
 
 	SET(INCLUDE_DIRS_PLATFORM

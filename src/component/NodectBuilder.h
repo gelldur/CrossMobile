@@ -7,7 +7,8 @@
 #include <string>
 
 #include "Nodect.h"
-#include "component/common/Container.h"
+#include <component/common/Container.h>
+#include <platform/Context.h>
 
 namespace NodectBuilder
 {

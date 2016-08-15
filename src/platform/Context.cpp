@@ -1,10 +1,23 @@
 //
-// Created by Dawid Drozd aka Gelldur on 6/17/16.
+// Created by Dawid Drozd aka Gelldur on 8/15/16.
 //
 
 #include "Context.h"
 
 #include <exception/Fail.h>
+
+#ifdef PLATFORM_IOS
+#import <UIKit/UIKit.h>
+
+id Context::getNative()
+{
+	if(_nativeObject == nil)
+	{
+		Fail(__FILE__,__func__,__LINE__).report();
+	}
+	return _nativeObject;
+}
+#elif PLATFORM_ANDROID
 
 JniObject& Context::getNative()
 {
@@ -27,3 +40,5 @@ JniObject& Context::getApplicationContext()
 	static JniObject _appContext;
 	return _appContext;
 }
+
+#endif
