@@ -20,7 +20,7 @@ public:
 	static Nodect* nullObject;
 
 	Nodect();
-	Nodect(const std::string& tag, std::shared_ptr<Context> context);
+	Nodect(const std::string& tag, const std::shared_ptr<Context>& context);
 	Nodect(Nodect&& other);
 	Nodect& operator=(Nodect&& other);
 

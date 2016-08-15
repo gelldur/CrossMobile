@@ -8,7 +8,7 @@
 namespace NodectBuilder
 {
 
-create::create(const std::string& tag, std::shared_ptr<Context> context)
+create::create(const std::string& tag, const std::shared_ptr<Context>& context)
 		: _node(tag, context)
 {
 }

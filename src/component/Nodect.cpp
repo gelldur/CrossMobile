@@ -13,7 +13,7 @@ Nodect::Nodect()
 {
 }
 
-Nodect::Nodect(const std::string& tag, std::shared_ptr<Context> context)
+Nodect::Nodect(const std::string& tag, const std::shared_ptr<Context>& context)
 		: _context(context)
 		, _tag(tag)
 {

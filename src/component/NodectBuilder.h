@@ -16,7 +16,7 @@ namespace NodectBuilder
 class create
 {
 public:
-	create(const std::string& tag, std::shared_ptr<Context> context);
+	create(const std::string& tag, const std::shared_ptr<Context>& context);
 
 	template<class... Args>
 	create(const std::string& tag, Args&& ... args)
