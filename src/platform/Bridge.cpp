@@ -5,6 +5,7 @@
 #include "Bridge.h"
 
 #include <log.h>
+#include <Poco/Path.h>
 
 #ifdef PLATFORM_IOS
 #include <platform/IosBridge.h>
@@ -30,11 +31,16 @@ CrossMobile::Platform::Bridge* Bridge::create()
 #endif
 }
 
+std::string Bridge::getWritablePath()
+{
+	return Poco::Path(getWritablePathNative()).toString();
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // DummyBridge
 ///////////////////////////////////////////////////////////////////////////////
 
-std::string DummyBridge::getWritablePath() const
+std::string DummyBridge::getWritablePathNative() const
 {
 	WLOG("Function %s not implemented: %s:%d", __func__, __FILE__, __LINE__);
 	return "";

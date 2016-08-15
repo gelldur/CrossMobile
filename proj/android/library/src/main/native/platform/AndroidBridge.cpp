@@ -14,7 +14,7 @@ namespace CrossMobile
 namespace Platform
 {
 
-std::string AndroidBridge::getWritablePath() const
+std::string AndroidBridge::getWritablePathNative() const
 {
 	auto& appContext = Context::getApplicationContext();
 

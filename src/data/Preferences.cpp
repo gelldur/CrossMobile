@@ -106,6 +106,7 @@ void Preferences::recreate()
 {
 	try
 	{
+		DLOG("Creating database: %s", DATABSE_FILE_NAME.c_str());
 		_session = std::make_unique<Poco::Data::Session>("SQLite", DATABSE_FILE_NAME.c_str());
 	}
 	catch (const std::exception& ex)

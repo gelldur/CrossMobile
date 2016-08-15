@@ -14,8 +14,8 @@ namespace Platform
 
 class AndroidBridge : public Bridge
 {
-public:
-	virtual std::string getWritablePath() const override;
+private:
+	virtual std::string getWritablePathNative() const override;
 };
 
 }

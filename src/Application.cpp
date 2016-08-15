@@ -11,7 +11,7 @@
 #include <Poco/Path.h>
 
 Application::Application(CrossMobile::Platform::Bridge* bridge, ScreenCreator* screenCreator)
-		: _preferences(Poco::Path(bridge->getWritablePath()).append("prefs.db").toString())
+		: _preferences(Poco::Path(bridge->getWritablePath(), "prefs.db").toString())
 		, _bridge(bridge)
 		, _screenCreator(screenCreator)
 {

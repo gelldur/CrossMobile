@@ -12,7 +12,7 @@ namespace CrossMobile
 namespace Platform
 {
 
-std::string IosBridge::getWritablePath() const
+std::string IosBridge::getWritablePathNative() const
 {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
 	NSString *libraryDirectory = [paths objectAtIndex:0];

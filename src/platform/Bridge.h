@@ -21,13 +21,15 @@ public:
 
 	static Bridge* create();
 
-	virtual std::string getWritablePath() const = 0;
+	std::string getWritablePath();
+private:
+	virtual std::string getWritablePathNative() const = 0;
 };
 
 class DummyBridge : public Bridge
 {
 public:
-	virtual std::string getWritablePath() const override;
+	virtual std::string getWritablePathNative() const override;
 };
 
 }

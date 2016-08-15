@@ -2,6 +2,7 @@
 
 #include <data/Preferences.h>
 #include <platform/Bridge.h>
+#include <Poco/Path.h>
 
 class PreferencesTest : public ::testing::Test
 {
@@ -39,7 +40,7 @@ std::string PreferencesTest::writablePath;
 TEST_F(PreferencesTest, defaultValues)
 {
 
-	Preferences testPrefs(writablePath + "test_default.db");
+	Preferences testPrefs(Poco::Path(writablePath, "test_default.db").toString());
 	testPrefs.clean();
 
 	EXPECT_EQ("aa", testPrefs.getValue("testA", "aa"));
@@ -50,10 +51,7 @@ TEST_F(PreferencesTest, defaultValues)
 
 TEST_F(PreferencesTest, empty)
 {
-	std::string writablePath = std::unique_ptr<CrossMobile::Platform::Bridge>(
-			CrossMobile::Platform::Bridge::create())->getWritablePath();
-
-	Preferences testPrefs(writablePath + "test_empty.db");
+	Preferences testPrefs(Poco::Path(writablePath, "test_empty.db").toString());
 	testPrefs.clean();
 
 	EXPECT_EQ("", testPrefs.getValue("testA", ""));
@@ -71,7 +69,7 @@ TEST_F(PreferencesTest, empty)
 
 TEST_F(PreferencesTest, oddChars)
 {
-	Preferences testPrefs(writablePath + "test_oddChars.db");
+	Preferences testPrefs(Poco::Path(writablePath, "test_oddChars.db").toString());
 	testPrefs.clean();
 
 	EXPECT_EQ("~!@#$%^&*((()", testPrefs.getValue("testA", "~!@#$%^&*((()"));
@@ -89,7 +87,7 @@ TEST_F(PreferencesTest, oddChars)
 
 TEST_F(PreferencesTest, readWrite)
 {
-	Preferences testPrefs(writablePath + "test_readWrite.db");
+	Preferences testPrefs(Poco::Path(writablePath, "test_readWrite.db").toString());
 	testPrefs.clean();
 
 	EXPECT_EQ("aa", testPrefs.getValue("testA", "aa"));
@@ -116,7 +114,7 @@ TEST_F(PreferencesTest, readWrite)
 
 TEST_F(PreferencesTest, writeLongText)
 {
-	Preferences testPrefs(writablePath + "test_writeLongText.db");
+	Preferences testPrefs(Poco::Path(writablePath, "test_writeLongText.db").toString());
 	testPrefs.clean();
 
 	std::string key;
@@ -145,11 +143,11 @@ TEST_F(PreferencesTest, writeLongText)
 TEST_F(PreferencesTest, recreateDatabase)
 {
 	{
-		Preferences testClean(writablePath + "test_recreate.db");
+		Preferences testClean(Poco::Path(writablePath, "test_recreate.db").toString());
 		testClean.clean();
 	}
 	{
-		Preferences testPrefs(writablePath + "test_recreate.db");
+		Preferences testPrefs(Poco::Path(writablePath, "test_recreate.db").toString());
 
 		EXPECT_EQ("aa", testPrefs.getValue("testA", "aa"));
 		testPrefs.setValue("testA", "bb");
@@ -158,20 +156,20 @@ TEST_F(PreferencesTest, recreateDatabase)
 		EXPECT_EQ("cc", testPrefs.getValue("testA", "1"));
 	}
 	{
-		Preferences testPrefs(writablePath + "test_recreate.db");
+		Preferences testPrefs(Poco::Path(writablePath, "test_recreate.db").toString());
 		EXPECT_EQ("cc", testPrefs.getValue("testA", ""));
 		EXPECT_EQ("cc", testPrefs.getValue("testA", ""));
 		testPrefs.setValue("testA", "123");
 	}
 	{
-		Preferences testPrefs(writablePath + "test_recreate.db");
+		Preferences testPrefs(Poco::Path(writablePath, "test_recreate.db").toString());
 		EXPECT_EQ("123", testPrefs.getValue("testA", ""));
 	}
 }
 
 TEST_F(PreferencesTest, multipleWrites)
 {
-	Preferences testPrefs(writablePath + "test_multipleWrites.db");
+	Preferences testPrefs(Poco::Path(writablePath, "test_multipleWrites.db").toString());
 	testPrefs.clean();
 
 	for (int i = 0; i < 20; ++i)
@@ -193,7 +191,7 @@ TEST_F(PreferencesTest, multipleWrites)
 
 TEST_F(PreferencesTest, bigLetters)
 {
-	Preferences testPrefs(writablePath + "test_bigLetters.db");
+	Preferences testPrefs(Poco::Path(writablePath, "test_bigLetters.db").toString());
 	testPrefs.clean();
 
 	EXPECT_EQ("aa", testPrefs.getValue("testA", "aa"));
