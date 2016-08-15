@@ -6,6 +6,7 @@
 
 #include <platform/Context.h>
 #import <component/list/ListProtocol.h>
+#include <platform/ContextHelper.h>
 
 namespace CrossMobile
 {
@@ -16,7 +17,7 @@ void List::reloadData()
 {
 	auto context = getContext();
 
-	id<ListProtocol> list = context->getNative();
+	id<ListProtocol> list = ContextHelper::getNative(context);
 
 	// @formatter:off
 	[list reloadData];

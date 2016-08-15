@@ -6,6 +6,7 @@
 
 #include <platform/Context.h>
 #include <component/view/Loading.h>
+#include <platform/ContextHelper.h>
 
 #import <UIKit/UIKit.h>
 
@@ -13,7 +14,7 @@ void Loading::loadingStart()
 {
 	auto context = getContext();
 
-	id view = context->getNative();
+	id view = ContextHelper::getNative(context);
 	[view loadingStart];
 }
 
@@ -21,6 +22,6 @@ void Loading::loadingStop()
 {
 	auto context = getContext();
 
-	id view = context->getNative();
+	id view = ContextHelper::getNative(context);
 	[view loadingStop];
 }

@@ -5,11 +5,12 @@
 
 #include <component/adapter/ListDataSourceComponent.h>
 #include <platform/Context.h>
+#include <platform/ContextHelper.h>
 
 void ListDataSourceComponent::setData(std::unique_ptr<ListDataSource>&& list) //
 {
 	auto context = getContext();
-	id<AdapterListProtocol> adapter = context->getNative();
+	id<AdapterListProtocol> adapter = ContextHelper::getNative(context);
 
 	[adapter setData:std::move(list)];
 }

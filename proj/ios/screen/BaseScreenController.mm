@@ -6,6 +6,7 @@
 #include <Director.h>
 #include <component/NodectBuilder.h>
 #include <platform/Context.h>
+#include <platform/ContextHelper.h>
 #include <screen/Screen.h>
 
 #include <log.h>
@@ -27,9 +28,9 @@
 
 	auto& director = Director::getInstance();
 	auto screen = director.getApp()->getScreenCreator()->create(_screenName,
-		NodectBuilder::create(_screenName, self).addComponent<Container>().build()); // Don't store in proprty!
+			NodectBuilder::createIos(_screenName, self).addComponent<Container>().build()); // Don't store in proprty!
 
-	director.pushScreen(screen->getName(), std::move(screen));
+	director.pushScreen(screen);
 
 	return self;
 }

@@ -6,18 +6,7 @@
 
 #include <exception/Fail.h>
 
-#ifdef PLATFORM_IOS
-#import <UIKit/UIKit.h>
-
-id Context::getNative()
-{
-	if(_nativeObject == nil)
-	{
-		Fail(__FILE__,__func__,__LINE__).report();
-	}
-	return _nativeObject;
-}
-#elif PLATFORM_ANDROID
+#if PLATFORM_ANDROID
 
 JniObject& Context::getNative()
 {
@@ -39,6 +28,16 @@ JniObject& Context::getApplicationContext()
 {
 	static JniObject _appContext;
 	return _appContext;
+}
+#else
+
+void* Context::getNative()
+{
+	if (_nativePointer == nullptr)
+	{
+		Fail(__FILE__, __func__, __LINE__).report();
+	}
+	return _nativePointer;
 }
 
 #endif

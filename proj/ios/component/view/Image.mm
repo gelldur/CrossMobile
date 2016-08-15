@@ -6,6 +6,7 @@
 
 #include <platform/Context.h>
 #include <log.h>
+#include <platform/ContextHelper.h>
 
 #import <UIKit/UIKit.h>
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -14,7 +15,7 @@ void Image::loadImage(const std::string& url)
 {
 	auto context = getContext();
 
-	UIImageView* image = context->getNative();
+	UIImageView* image = ContextHelper::getNative(context);
 
 	// @formatter:off
 	[image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithUTF8String:url.c_str()]]];
@@ -25,7 +26,7 @@ void Image::image(const std::string& name)
 {
 	auto context = getContext();
 
-	UIImageView* image = context->getNative();
+	UIImageView* image = ContextHelper::getNative(context);
 
 	// @formatter:off
 	image.image = [UIImage imageNamed:[NSString stringWithUTF8String:name.c_str()]];

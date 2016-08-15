@@ -4,25 +4,14 @@
 
 #pragma once
 
-#ifdef PLATFORM_IOS
-
-#elif PLATFORM_ANDROID
+#if PLATFORM_ANDROID
 #include <JniObject.h>
 #endif
 
 class Context
 {
 public:
-#ifdef PLATFORM_IOS
-
-	Context(id nativeObject)
-			: _nativeObject(nativeObject)
-	{
-	}
-
-	id getNative();
-
-#elif PLATFORM_ANDROID
+#if PLATFORM_ANDROID
 
 	Context(JniObject nativeObject)
 			: _nativeObject(nativeObject)
@@ -39,21 +28,22 @@ public:
 	static void setApplicationContext(jobject appContext);
 	static JniObject& getApplicationContext();
 
-#elif PLATFORM_LINUX
+#else
 
 	Context(void* pointer)
+			: _nativePointer(pointer)
 	{
 	}
+
+	void* getNative();
 
 #endif
 
 private:
-#ifdef PLATFORM_IOS
-	__weak id _nativeObject;
-#elif PLATFORM_ANDROID
+#if PLATFORM_ANDROID
 	JniObject _nativeObject;
+#else
+	void* _nativePointer = nullptr;
 #endif
 
 };
-
-

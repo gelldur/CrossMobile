@@ -9,6 +9,7 @@
 #include <ColorUtils.h>
 #include <Utils.h>
 #include <acme/text/AttributedText.h>
+#include <platform/ContextHelper.h>
 
 #import <UIKit/UIKit.h>
 
@@ -16,7 +17,7 @@ void Text::setText(const char* text)
 {
 	auto context = getContext();
 
-	UILabel* label = context->getNative();
+	UILabel* label = ContextHelper::getNative(context);
 	label.text = [NSString stringWithUTF8String:text];
 }
 
@@ -29,7 +30,7 @@ void Text::setTextColor(int color)
 {
 	auto context = getContext();
 
-	UILabel* label = context->getNative();
+	UILabel* label = ContextHelper::getNative(context);
 	label.textColor = UIColorFromRGB(color);
 }
 
@@ -57,6 +58,6 @@ void Text::setTextAttributed(const AttributedText& attributedText)
 
 	auto context = getContext();
 
-	UILabel* label = context->getNative();
+	UILabel* label = ContextHelper::getNative(context);
 	label.attributedText = attributedString;
 }

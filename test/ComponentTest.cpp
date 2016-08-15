@@ -3,11 +3,14 @@
 #include <component/view/Visibility.h>
 #include <component/NodectBuilder.h>
 #include <component/view/Image.h>
+#include <platform/Context.h>
+
+static void* randomPointer = nullptr;
 
 TEST(ComponentTest, testNullObjects_crashTest)
 {
 	//Test for crash ;)
-	Nodect nodect{"MyFunnyObject", std::make_shared<Context>(nullptr)};
+	Nodect nodect{"MyFunnyObject", std::make_shared<Context>(randomPointer)};
 	{
 		auto& nullVisibility = nodect.getComponent<Visibility>();
 		nullVisibility.setVisibility(Visibility::GONE);
@@ -41,7 +44,7 @@ public:
 
 TEST(ComponentTest, bugFixMoveComponents)
 {
-	auto object = NodectBuilder::create("MyFunnyObject", std::make_shared<Context>(nullptr))
+	auto object = NodectBuilder::create(std::make_shared<Context>(randomPointer), "MyFunnyObject")
 			.addComponent<TestComponent>()
 			.build();
 	auto movedObject = std::move(object);
@@ -53,7 +56,7 @@ TEST(ComponentTest, bugFixMoveComponents)
 TEST(ComponentTest, testAddComponent)
 {
 	//Test for crash ;)
-	Nodect nodect{"MyFunnyObject", std::make_shared<Context>(nullptr)};
+	Nodect nodect{"MyFunnyObject", std::make_shared<Context>(randomPointer)};
 	{
 		nodect.addComponent<Container>();
 	}
@@ -64,7 +67,7 @@ TEST(ComponentTest, testAddComponent)
 
 TEST(ComponentTest, testOfBuilders)
 {
-	auto myNative = NodectBuilder::create("HelloBuilder", nullptr).build();
+	auto myNative = NodectBuilder::create("HelloBuilder", randomPointer).build();
 	EXPECT_TRUE(myNative.getContext() != nullptr);
 	EXPECT_EQ("HelloBuilder", myNative.getTag());
 }

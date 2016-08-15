@@ -6,6 +6,7 @@
 
 #include <log.h>
 #include <platform/Context.h>
+#include <platform/ContextHelper.h>
 
 #import <BlocksKit/BlocksKit.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
@@ -13,7 +14,7 @@
 void Click::onEnter()
 {
 	auto context = getContext();
-	UIButton* button = context->getNative();
+	UIButton* button = ContextHelper::getNative(context);
 
 	[button bk_addEventHandler:^(id sender) {
 		onClick();

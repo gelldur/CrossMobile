@@ -13,20 +13,25 @@
 namespace NodectBuilder
 {
 
+#ifdef PLATFORM_IOS
+class createIos;
+#endif
+
 class create
 {
 public:
-	create(const std::string& tag, const std::shared_ptr<Context>& context);
+	create(const std::shared_ptr<Context>& context, const std::string& tag);
 
-	template<class... Args>
-	create(const std::string& tag, Args&& ... args)
-			: _node(tag, std::make_shared<Context>(std::forward<Args>(args)...))
+	create(const std::string& tag, void* nativePointer)
+			: create(std::make_shared<Context>(nativePointer), tag)
 	{
 	}
 
 	create(create&&) = delete;
 	create(const create&) = delete;
 	create& operator=(const create&) = delete;
+
+	virtual ~create() = default;
 
 	template<class T, class... Args>
 	create& addComponent(Args&& ... args)

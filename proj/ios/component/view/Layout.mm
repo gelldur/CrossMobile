@@ -4,6 +4,7 @@
 
 #include <platform/Context.h>
 #include <component/view/Layout.h>
+#include <platform/ContextHelper.h>
 
 #import <UIKit/UIKit.h>
 
@@ -11,7 +12,7 @@ void Layout::layout()
 {
 	auto context = getContext();
 
-	UIView* view = context->getNative();
+	UIView* view = ContextHelper::getNative(context);
 	[view setNeedsLayout];
 	[view layoutIfNeeded];
 }
