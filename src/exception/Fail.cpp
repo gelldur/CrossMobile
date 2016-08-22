@@ -4,7 +4,7 @@
 
 #include "Fail.h"
 
-#include <exception>
+#include <stdexcept>
 
 #include <log.h>
 
