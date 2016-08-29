@@ -44,7 +44,6 @@ void DataProviderComponent::onRequestData()
 
 void DataProviderComponent::onStartLoading()
 {
-	assert(_isLoading == false);
 	if (_receiver != nullptr && _isLoading == false)
 	{
 		_receiver->onStartLoading();
@@ -54,7 +53,6 @@ void DataProviderComponent::onStartLoading()
 
 void DataProviderComponent::onStopLoading()
 {
-	assert(_isLoading == true);
 	if (_receiver != nullptr && _isLoading == true)
 	{
 		_receiver->onStopLoading();
