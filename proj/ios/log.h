@@ -6,7 +6,7 @@
 
 #include <cstdio>
 
-#ifdef DEBUG
+#ifndef NDEBUG
 
 #define  DLOG(...)  fprintf(stderr,"DLOG:\t");fprintf(stderr,__VA_ARGS__);fprintf(stderr,"\n");fflush(stderr)
 #define  ILOG(...)  fprintf(stderr,"ILOG:\t");fprintf(stderr,__VA_ARGS__);fprintf(stderr,"\n");fflush(stderr)
