@@ -16,6 +16,7 @@ Server::Server(bool isDebugable)
 		: _isDebugable(isDebugable)
 		, _session(new Poco::Net::HTTPClientSession(_host))
 {
+	_session->setTimeout(Poco::Timespan(_timeoutConnect, 0));
 }
 
 void Server::setDefaultDebugable(bool isDebugableDefault)
