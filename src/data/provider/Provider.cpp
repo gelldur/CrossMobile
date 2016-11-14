@@ -22,6 +22,7 @@ public:
 			: isReady(false)
 			, _provider(provider)
 	{
+		assert(_provider);
 		_provider->setState(Provider::State::BEFORE_RUN);
 	}
 

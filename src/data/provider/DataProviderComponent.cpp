@@ -11,6 +11,7 @@ DataProviderComponent::DataProviderComponent(std::shared_ptr<Provider> provider,
 		: _provider(provider)
 		, _receiver(receiver)
 {
+	assert(provider);
 }
 
 DataProviderComponent::~DataProviderComponent()
