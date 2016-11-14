@@ -5,6 +5,7 @@
 #pragma once
 
 #include <component/Nodect.h>
+#include "ListDataSource.h"
 
 class AdapterList
 {
@@ -16,6 +17,8 @@ public:
 	virtual const std::string& getIdentifier(int index);
 
 	virtual void setElement(int position, const Nodect& row);
+
+	virtual std::unique_ptr<ListDataSource> getData();
 };
 
 

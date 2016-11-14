@@ -18,3 +18,8 @@ const std::string& AdapterList::getIdentifier(int index)
 void AdapterList::setElement(int position, const Nodect& row)
 {
 }
+
+std::unique_ptr<ListDataSource> AdapterList::getData()
+{
+	return std::unique_ptr<ListDataSource>(new ListDataSource());
+}

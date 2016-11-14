@@ -86,6 +86,32 @@ ELSEIF(ANDROID)
 			)
 ELSEIF(MAC_IOS)
 	SET(SOURCE_FILES_PLATFORM
+			proj/ios/ColorUtils.h
+			proj/ios/DebugUtils.h
+			proj/ios/DebugUtils.mm
+			proj/ios/log.h
+			proj/ios/Utils.h
+			proj/ios/Utils.mm
+			proj/ios/component/adapter/AdapterListProtocol.h
+			proj/ios/component/adapter/ListDataSourceComponent.mm
+			proj/ios/component/list/List.mm
+			proj/ios/component/list/ListProtocol.h
+			proj/ios/component/touch/Click.mm
+			proj/ios/component/view/Button.mm
+			proj/ios/component/view/Image.mm
+			proj/ios/component/view/Layout.mm
+			proj/ios/component/view/Loading.mm
+			proj/ios/component/view/LoadingProtocol.h
+			proj/ios/component/view/Text.mm
+			proj/ios/component/view/Visibility.mm
+			proj/ios/platform/IosBridge.h
+			proj/ios/platform/IosBridge.mm
+			proj/ios/platform/ContextHelper.mm proj/ios/platform/ContextHelper.h
+			proj/ios/screen/BaseScreenController.h
+			proj/ios/screen/BaseScreenController.mm
+			proj/ios/view/adapter/BaseAdapter.h
+			proj/ios/view/adapter/BaseAdapter.mm
+			proj/ios/view/adapter/UserInteraction.h
 			)
 
 	SET(INCLUDE_DIRS_PLATFORM
