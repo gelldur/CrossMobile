@@ -29,5 +29,6 @@ ValueType* Android_Fix_AnyCast(Poco::Any* operand)
 	}
 	Fail(__FILE__, __func__, __LINE__).add("Can't AnyCast from ").add(operand->type().name()).add(" to ")
 			.add(typeid(ValueType).name()).report();
+	return nullptr;
 }
 }
