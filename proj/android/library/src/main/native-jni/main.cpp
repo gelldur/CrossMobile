@@ -3,7 +3,6 @@
 //
 
 #include <Android.h>
-#include <AppMain.h>
 #include <log.h>
 #include <platform/Context.h>
 #include <JniObject.h>
@@ -11,6 +10,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+int startApplication(int argc, char** argv);
 
 jint JNI_OnLoad(JavaVM* vm, void* reserved)
 {

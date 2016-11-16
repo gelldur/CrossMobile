@@ -30,7 +30,7 @@ Nodect deserializeNodect(JniObject& nodectHelper)
 		return Nodect("missing-context", nullptr);
 	}
 
-	NodectBuilder::create builder(tag, context);
+	NodectBuilder::create builder(std::make_shared<Context>(context), tag);
 	deserializeComponents(builder, nodectHelper);
 
 	int nodesCount = nodectHelper.call("getNestedCount", 0);
