@@ -1,6 +1,8 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.3)
 PROJECT(CrossMobile)
 
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
 # Set core files
 SET(SOURCE_FILES_CORE
 		src/acme/ColorUtils.h
@@ -68,8 +70,14 @@ IF(LINUX)
 ELSEIF(ANDROID)
 	SET(PLATFORM_ANDROID_SRC proj/android/library/src/main/native)
 	SET(PLATFORM_ANDROID_SRC_OBJECTJNI proj/android/library/src/main/libs-native/jniobject/src/)
+	SET(PLATFORM_ANDROID_JNI proj/android/library/src/main/native-jni)
 
 	SET(SOURCE_FILES_PLATFORM
+			${PLATFORM_ANDROID_JNI}/ActivityComponent.cpp
+			${PLATFORM_ANDROID_JNI}/Extractor.cpp
+			${PLATFORM_ANDROID_JNI}/List.cpp
+			${PLATFORM_ANDROID_JNI}/main.cpp
+			${PLATFORM_ANDROID_JNI}/NodectBridge-jni.cpp
 			${PLATFORM_ANDROID_SRC_OBJECTJNI}/JniObject.cpp ${PLATFORM_ANDROID_SRC_OBJECTJNI}/JniObject.h
 			${PLATFORM_ANDROID_SRC}/Android.h
 			${PLATFORM_ANDROID_SRC}/component/NodectBridge.cpp ${PLATFORM_ANDROID_SRC}/component/NodectBridge.h
@@ -163,10 +171,17 @@ SET(POCO_STATIC ON CACHE BOOL "" FORCE)
 ADD_SUBDIRECTORY("libs/poco")
 TARGET_LINK_LIBRARIES(CrossMobile PocoNet PocoUtil PocoData PocoDataSQLite)
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic")#Add -Werror
-#SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-long-long -Wno-unused-private-field -Wnon-virtual-dtor")
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")# using Clang
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU")# using GCC
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "Intel")# using Intel C++
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")# using Visual Studio C++
+endif()
 
+TARGET_COMPILE_OPTIONS(${PROJECT_NAME} PUBLIC
+		-Wall -pedantic -Werror
+		-std=c++11
+		-Wno-unused-private-field -Wnon-virtual-dtor
+		)
 
 MESSAGE(STATUS "CMake ${CMAKE_VERSION} successfully configured ${PROJECT_NAME} using ${CMAKE_GENERATOR} generator")
 MESSAGE(STATUS "Installation target path: ${CMAKE_INSTALL_PREFIX}")
