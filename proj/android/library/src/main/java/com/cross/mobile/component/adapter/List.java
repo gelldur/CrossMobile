@@ -8,7 +8,6 @@ import com.cross.mobile.component.NodectBuilder;
  * Created by Dawid Drozd aka Gelldur on 8/11/16.
  */
 
-@SuppressWarnings("JniMissingFunction")
 @Keep
 public class List {
 	@Keep

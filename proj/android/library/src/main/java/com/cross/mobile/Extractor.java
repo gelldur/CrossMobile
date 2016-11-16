@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
  * Created by Dawid Drozd aka Gelldur on 8/10/16.
  */
 
-@SuppressWarnings("JniMissingFunction")
 @Keep
 public class Extractor {
 
