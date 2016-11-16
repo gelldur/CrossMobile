@@ -6,7 +6,7 @@
 
 #include <android/log.h>
 
-#ifdef DEBUG
+#ifndef NDEBUG
 
 #define  DLOG(...)  __android_log_print(ANDROID_LOG_DEBUG,"JNI",__VA_ARGS__)
 #define  ILOG(...)  __android_log_print(ANDROID_LOG_INFO,"JNI",__VA_ARGS__)
