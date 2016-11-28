@@ -35,7 +35,7 @@ public:
 		}
 		catch (std::exception& exception)
 		{
-			DLOG("Exception in background task!\n%s", exception.what());
+			DLOG("Exception in background task!\nWhat: %s", exception.what());
 			throw;
 		}
 		catch (...)
