@@ -125,7 +125,7 @@
 		if (creatorCallback == nil)
 		{
 			NSLog(@"Missing creator for: %@", cellIdentifier);
-			return nil;
+            [NSException raise:@"Missing creator" format:@"Missing creator for: %@", cellIdentifier];
 		}
 		cell = (UITableViewCell*)creatorCallback(indexPath, cellIdentifier);
 	}

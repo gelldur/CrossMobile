@@ -134,6 +134,7 @@ void Provider::onEvent(const void* sender, int& dummy)
 		Fail(__FILE__, __func__, __LINE__).report();
 	}
 	auto request = dynamic_cast<BackroundHelper*>(_runnable);
+    assert(request != nullptr);
 	if (request->isReady == false)
 	{
 		DLOG("WAITING!");

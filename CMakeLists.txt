@@ -1,13 +1,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.3)
 PROJECT(CrossMobile)
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/")
-
-IF(IOS)
-	INCLUDE(iOSBuildHelpers)
-ENDIF()
-
 # Set core files
 SET(SOURCE_FILES_CORE
 		src/acme/ColorUtils.h
@@ -64,96 +57,11 @@ SET(SOURCE_FILES_CORE
 		src/UILoop.h
 		)
 
-IF(LINUX)
-	SET(SOURCE_FILES_PLATFORM
-			proj/linux/log.h
-			)
-
-	SET(INCLUDE_DIRS_PLATFORM
-			proj/linux
-			)
-ELSEIF(ANDROID)
-	SET(PLATFORM_ANDROID_SRC proj/android/library/src/main/native)
-	SET(PLATFORM_ANDROID_SRC_OBJECTJNI proj/android/library/src/main/libs-native/jniobject/src/)
-	SET(PLATFORM_ANDROID_JNI proj/android/library/src/main/native-jni)
-
-	SET(SOURCE_FILES_PLATFORM
-			${PLATFORM_ANDROID_JNI}/ActivityComponent.cpp
-			${PLATFORM_ANDROID_JNI}/Extractor.cpp
-			${PLATFORM_ANDROID_JNI}/List.cpp
-			${PLATFORM_ANDROID_JNI}/main.cpp
-			${PLATFORM_ANDROID_JNI}/NodectBridge-jni.cpp
-			${PLATFORM_ANDROID_SRC_OBJECTJNI}/JniObject.cpp ${PLATFORM_ANDROID_SRC_OBJECTJNI}/JniObject.h
-			${PLATFORM_ANDROID_SRC}/Android.h
-			${PLATFORM_ANDROID_SRC}/component/NodectBridge.cpp ${PLATFORM_ANDROID_SRC}/component/NodectBridge.h
-			${PLATFORM_ANDROID_SRC}/component/view/Image.cpp
-			${PLATFORM_ANDROID_SRC}/component/view/Text.cpp
-			${PLATFORM_ANDROID_SRC}/FixAny.h
-			${PLATFORM_ANDROID_SRC}/log.h
-			${PLATFORM_ANDROID_SRC}/platform/AndroidBridge.cpp ${PLATFORM_ANDROID_SRC}/platform/AndroidBridge.h
-			)
-
-	SET(INCLUDE_DIRS_PLATFORM
-			${PLATFORM_ANDROID_SRC}
-			proj/android/library/src/main/libs-native/jniobject/src/
-			)
-ELSEIF(IOS)
-#	SET(SOURCE_FILES_PLATFORM
-#			proj/ios/ColorUtils.h
-#			proj/ios/DebugUtils.h
-#			proj/ios/DebugUtils.mm
-#			proj/ios/log.h
-#			proj/ios/Utils.h
-#			proj/ios/Utils.mm
-#			proj/ios/component/adapter/AdapterListProtocol.h
-#			proj/ios/component/adapter/ListDataSourceComponent.mm
-#			proj/ios/component/list/List.mm
-#			proj/ios/component/list/ListProtocol.h
-#			proj/ios/component/touch/Click.mm
-#			proj/ios/component/view/Button.mm
-#			proj/ios/component/view/Image.mm
-#			proj/ios/component/view/Layout.mm
-#			proj/ios/component/view/Loading.mm
-#			proj/ios/component/view/LoadingProtocol.h
-#			proj/ios/component/view/Text.mm
-#			proj/ios/component/view/Visibility.mm
-#			proj/ios/platform/IosBridge.h
-#			proj/ios/platform/IosBridge.mm
-#			proj/ios/platform/ContextHelper.mm proj/ios/platform/ContextHelper.h
-#			proj/ios/screen/BaseScreenController.h
-#			proj/ios/screen/BaseScreenController.mm
-#			proj/ios/view/adapter/BaseAdapter.h
-#			proj/ios/view/adapter/BaseAdapter.mm
-#			proj/ios/view/adapter/UserInteraction.h
-#			)
-
-	SET(INCLUDE_DIRS_PLATFORM
-			proj/ios/
-			)
-ELSE()
-	MESSAGE(FATAL_ERROR "Set build platform, CMake will exit.")
-ENDIF(LINUX)
-
-ADD_LIBRARY(CrossMobile STATIC ${SOURCE_FILES_CORE} ${SOURCE_FILES_PLATFORM})
-
-TARGET_INCLUDE_DIRECTORIES(CrossMobile PUBLIC
-		src/
-		${INCLUDE_DIRS_PLATFORM}
-		)
-
-IF(DEVELOPER_ANDROID)
-	TARGET_INCLUDE_DIRECTORIES(CrossMobile PUBLIC
-			$ENV{NDK_ROOT}/platforms/android-9/arch-arm/usr/include/
-			)
-ENDIF()
-
 SET(JSONCPP_WITH_TESTS OFF CACHE BOOL "" FORCE)
 SET(JSONCPP_WITH_POST_BUILD_UNITTEST OFF CACHE BOOL "" FORCE)
 SET(JSONCPP_WITH_PKGCONFIG_SUPPORT OFF CACHE BOOL "" FORCE)
 
 ADD_SUBDIRECTORY("libs/jsoncpp/")
-TARGET_LINK_LIBRARIES(CrossMobile jsoncpp_lib_static)
-
 
 SET(ENABLE_XML OFF CACHE BOOL "Enable the XML")
 SET(ENABLE_JSON OFF CACHE BOOL "Enable the JSON")
@@ -166,58 +74,47 @@ SET(ENABLE_DATA_ODBC OFF CACHE BOOL "Enable Data ODBC")
 SET(ENABLE_ZIP OFF CACHE BOOL "Enable Zip")
 SET(ENABLE_PAGECOMPILER OFF CACHE BOOL "Enable PageCompiler")
 SET(ENABLE_PAGECOMPILER_FILE2PAGE OFF CACHE BOOL "Enable File2Page")
-
 SET(POCO_STATIC ON CACHE BOOL "" FORCE)
 
 ADD_SUBDIRECTORY("libs/poco")
+
+ADD_LIBRARY(CrossMobile STATIC ${SOURCE_FILES_CORE})
+
+ADD_SUBDIRECTORY(proj/)
+
+TARGET_LINK_LIBRARIES(CrossMobile jsoncpp_lib_static)
 TARGET_LINK_LIBRARIES(CrossMobile PocoNet PocoUtil PocoData PocoDataSQLite)
 
-IF(CMAKE_CXX_COMPILER_ID MATCHES "Clang")# using Clang
-ELSEIF(CMAKE_CXX_COMPILER_ID MATCHES "GNU")# using GCC
-ELSEIF(CMAKE_CXX_COMPILER_ID MATCHES "Intel")# using Intel C++
-ELSEIF(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")# using Visual Studio C++
-ENDIF()
+TARGET_INCLUDE_DIRECTORIES(CrossMobile PUBLIC
+		src/
+		)
 
 IF(LINUX)
-	TARGET_COMPILE_OPTIONS(${PROJECT_NAME} PUBLIC -Werror)
+	TARGET_COMPILE_OPTIONS(${PROJECT_NAME} PRIVATE -Werror)
+	TARGET_INCLUDE_DIRECTORIES(CrossMobile PUBLIC
+			proj/linux/
+			)
+ELSE()
+	TARGET_LINK_LIBRARIES(CrossMobile CrossMobile-Platform)
 ENDIF()
 
-IF(IOS)
-	ADD_FRAMEWORK(UIKit ${PROJECT_NAME})
-
-	SET_XCODE_PROPERTY(${PROJECT_NAME} IPHONEOS_DEPLOYMENT_TARGET ${CMAKE_OSX_DEPLOYMENT_TARGET})
-
-	SET_TARGET_PROPERTIES(
-			${PROJECT_NAME}
-			PROPERTIES
-			MACOSX_BUNDLE YES
-			XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iPhone Developer"
-			XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "1,2"
-			XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES
-			XCODE_ATTRIBUTE_INSTALL_PATH "${CMAKE_BINARY_DIR}/ProductRelease"
-			XCODE_ATTRIBUTE_COMBINE_HIDPI_IMAGES "NO"
-			XCODE_ATTRIBUTE_PRODUCT_NAME "${PROJECT_NAME}"
-			XCODE_ATTRIBUTE_PRODUCT_NAME[variant=Debug] "${PROJECT_NAME}-Dbg"
-	)
-ENDIF()
-
-TARGET_COMPILE_OPTIONS(${PROJECT_NAME} PUBLIC
+TARGET_COMPILE_OPTIONS(${PROJECT_NAME} PRIVATE
 		-Wall -pedantic
 		-Wno-unused-private-field -Wnon-virtual-dtor
 		)
 
-MESSAGE(STATUS "CMake ${CMAKE_VERSION} successfully configured ${PROJECT_NAME} using ${CMAKE_GENERATOR} generator")
-MESSAGE(STATUS "Installation target path: ${CMAKE_INSTALL_PREFIX}")
-
-MESSAGE(STATUS "C_FLAGS:  =${CMAKE_C_FLAGS}")
-MESSAGE(STATUS "CMAKE_C_FLAGS_DEBUG:=${CMAKE_C_FLAGS_DEBUG}")
-MESSAGE(STATUS "CMAKE_C_FLAGS_RELEASE:=${CMAKE_C_FLAGS_RELEASE}")
-MESSAGE(STATUS "CMAKE_C_FLAGS_MINSIZEREL:=${CMAKE_C_FLAGS_MINSIZEREL}")
-MESSAGE(STATUS "CMAKE_C_FLAGS_RELWITHDEBINFO:=${CMAKE_C_FLAGS_RELWITHDEBINFO}")
-MESSAGE(STATUS "")
-MESSAGE(STATUS "")
-MESSAGE(STATUS "CXX_FLAGS:=${CMAKE_CXX_FLAGS}")
-MESSAGE(STATUS "CMAKE_CXX_FLAGS_DEBUG:=${CMAKE_CXX_FLAGS_DEBUG}")
-MESSAGE(STATUS "CMAKE_CXX_FLAGS_RELEASE:=${CMAKE_CXX_FLAGS_RELEASE}")
-MESSAGE(STATUS "CMAKE_CXX_FLAGS_MINSIZEREL:=${CMAKE_CXX_FLAGS_MINSIZEREL}")
-MESSAGE(STATUS "CMAKE_CXX_FLAGS_RELWITHDEBINFO:=${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
+#MESSAGE(STATUS "CMake ${CMAKE_VERSION} successfully configured ${PROJECT_NAME} using ${CMAKE_GENERATOR} generator")
+#MESSAGE(STATUS "Installation target path: ${CMAKE_INSTALL_PREFIX}")
+#
+#MESSAGE(STATUS "C_FLAGS:  =${CMAKE_C_FLAGS}")
+#MESSAGE(STATUS "CMAKE_C_FLAGS_DEBUG:=${CMAKE_C_FLAGS_DEBUG}")
+#MESSAGE(STATUS "CMAKE_C_FLAGS_RELEASE:=${CMAKE_C_FLAGS_RELEASE}")
+#MESSAGE(STATUS "CMAKE_C_FLAGS_MINSIZEREL:=${CMAKE_C_FLAGS_MINSIZEREL}")
+#MESSAGE(STATUS "CMAKE_C_FLAGS_RELWITHDEBINFO:=${CMAKE_C_FLAGS_RELWITHDEBINFO}")
+#MESSAGE(STATUS "")
+#MESSAGE(STATUS "")
+#MESSAGE(STATUS "CXX_FLAGS:=${CMAKE_CXX_FLAGS}")
+#MESSAGE(STATUS "CMAKE_CXX_FLAGS_DEBUG:=${CMAKE_CXX_FLAGS_DEBUG}")
+#MESSAGE(STATUS "CMAKE_CXX_FLAGS_RELEASE:=${CMAKE_CXX_FLAGS_RELEASE}")
+#MESSAGE(STATUS "CMAKE_CXX_FLAGS_MINSIZEREL:=${CMAKE_CXX_FLAGS_MINSIZEREL}")
+#MESSAGE(STATUS "CMAKE_CXX_FLAGS_RELWITHDEBINFO:=${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
