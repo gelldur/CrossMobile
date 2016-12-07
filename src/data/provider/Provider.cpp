@@ -35,12 +35,12 @@ public:
 		}
 		catch (std::exception& exception)
 		{
-			DLOG("Exception in background task!\nWhat: %s", exception.what());
+			ELOG("Exception in background task!\nWhat: %s", exception.what());
 			throw;
 		}
 		catch (...)
 		{
-			DLOG("Exception in background task!");
+			ELOG("Exception in background task!");
 			throw;
 		}
 	}
@@ -94,7 +94,6 @@ void Provider::onRequestData(std::shared_ptr<Provider>& thisProvider)
 		ELOG("Already queued");
 		return;
 	}
-
 	assert(thisProvider.get() == this);
 
 	_runnable = new BackroundHelper(thisProvider);
