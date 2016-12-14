@@ -9,7 +9,9 @@
 class Fail
 {
 public:
-	Fail(const char* fileName, const char* functionName, int lineNumber);
+	Fail(const std::string& fileName, const std::string& functionName, int lineNumber);
+
+	static std::string where(const std::string& fileName, const std::string& functionName, int lineNumber);
 
 	template<class T>
 	Fail& add(const T& message)

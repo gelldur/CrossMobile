@@ -8,17 +8,12 @@
 
 #include <log.h>
 
-Fail::Fail(const char* fileName, const char* functionName, int lineNumber)
+Fail::Fail(const std::string& fileName, const std::string& functionName, int lineNumber)
 		: _lineNumber(lineNumber)
 		, _fileName(fileName)
 		, _functionName(functionName)
+		, _stream(where(fileName, functionName, lineNumber))
 {
-	auto srcPosition = _fileName.rfind("/src/");
-	if (srcPosition != std::string::npos)
-	{
-		_fileName.erase(0, srcPosition);
-	}
-	_stream << _fileName << " " << _fileName << ":" << _lineNumber << " ";
 }
 
 void Fail::report()
@@ -26,4 +21,17 @@ void Fail::report()
 	auto message = _stream.str();
 	ILOG("Fail: %s", message.c_str());
 	throw std::runtime_error(message);
+}
+
+std::string Fail::where(const std::string& fileName, const std::string& functionName, int lineNumber)
+{
+	std::stringstream stream;
+	auto shortFileName = fileName;
+	auto srcPosition = shortFileName.rfind("/src/");
+	if (srcPosition != std::string::npos)
+	{
+		shortFileName.erase(0, srcPosition);
+	}
+	stream << shortFileName << " " << functionName << ":" << lineNumber << " ";
+	return stream.str();
 }
