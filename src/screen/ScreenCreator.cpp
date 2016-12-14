@@ -4,6 +4,8 @@
 
 #include "ScreenCreator.h"
 
+#include <exception/Fail.h>
+
 Screen* ScreenCreator::create(const std::string& name)
 {
 	return create(name, Nodect("nullObject-screen:" + name, nullptr));
@@ -11,7 +13,6 @@ Screen* ScreenCreator::create(const std::string& name)
 
 Screen* ScreenCreator::create(const std::string& name, Nodect&& nodeScreen)
 {
-	DLOG("%s:%s:%d", __FILE__, __func__, __LINE__);
-	ELOG("No such screen: %s", name.c_str());
-	throw std::runtime_error(std::string("No such screen: ") + name);
+	Fail(__FILE__, __func__, __LINE__).add("No such screen:").add(name).report();
+	return nullptr;
 }
