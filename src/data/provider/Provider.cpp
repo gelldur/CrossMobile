@@ -10,6 +10,7 @@
 #include <Director.h>
 #include <exception/Fail.h>
 #include <acme/guard/ChangeOnEnd.h>
+#include <Poco/Net/NetException.h>
 #include "Application.h"
 
 //TODO make thread safe
@@ -56,6 +57,11 @@ public:
 		{
 			_provider->onDoInBackground();
 			_provider->setState(Provider::State::DONE);
+		}
+		catch (const Poco::Net::NetException& ex)
+		{
+			_provider->setState(Provider::State::ERROR);
+			throw;
 		}
 		catch (...)
 		{
@@ -133,7 +139,7 @@ void Provider::onEvent(const void* sender, int& dummy)
 		Fail(__FILE__, __func__, __LINE__).report();
 	}
 	auto request = dynamic_cast<BackroundHelper*>(_runnable);
-    assert(request != nullptr);
+	assert(request != nullptr);
 	if (request->isReady == false)
 	{
 		DLOG("WAITING!");
