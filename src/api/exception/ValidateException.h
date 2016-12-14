@@ -8,9 +8,10 @@
 
 class ValidateException : public ApiException
 {
+	using inherited = ApiException;
 public:
 	ValidateException(int line, const char* functionName, const char* fileName, const std::string& message
-					  , const std::string& dump);
+			, const std::string& dump);
 };
 
 

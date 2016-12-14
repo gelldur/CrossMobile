@@ -4,4 +4,7 @@
 
 #include "ApiException.h"
 
-
+ApiException::ApiException(const std::string& message)
+		: inherited(message)
+{
+}

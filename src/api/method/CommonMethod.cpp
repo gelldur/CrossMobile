@@ -5,59 +5,52 @@
 #include "CommonMethod.h"
 
 #include <sstream>
+#include <cassert>
 
 #include <Poco/Net/HTTPResponse.h>
 #include <Poco/Net/MediaType.h>
 
 #include <log.h>
+#include <api/exception/ValidateException.h>
+#include <exception/Fail.h>
 
-std::deque<std::string> CommonMethod::_mockedResponses;
-
-std::istream& CommonMethod::requestGet(const Server& server, const std::string& pathAndQuery)
+std::unique_ptr<CommonMethod::HTTPMethod>
+CommonMethod::requestGet(const Server& server, const std::string& pathAndQuery)
 {
 	using Poco::Net::HTTPRequest;
 	using Poco::Net::HTTPResponse;
 	using Poco::Net::HTTPMessage;
 
-	HTTPRequest request(HTTPRequest::HTTP_GET, pathAndQuery, HTTPMessage::HTTP_1_1);
+	auto data = std::unique_ptr<HTTPMethod>(new HTTPMethod(server.getSession()));
+	data->request.setMethod(HTTPRequest::HTTP_GET);
+	data->request.setURI(pathAndQuery);
+	data->request.setVersion(HTTPMessage::HTTP_1_1);
 	if (server.isDebugable())
 	{
-		DLOG("Request[GET]: %s%s", server.getHost().c_str(), request.getURI().c_str());
+		DLOG("Request[GET]: %s%s", server.getHost().c_str(), data->request.getURI().c_str());
 	}
 
-	if (_mockedResponses.empty() == false)
-	{
-		_mockedResponse.str(_mockedResponses.front());
-		_mockedResponse.clear();
-		_mockedResponses.pop_front();
-		return _mockedResponse;
-	}
-
-	server.getSession()->sendRequest(request);
-	HTTPResponse response;
-	return server.getSession()->receiveResponse(response);
+	data->send();
+	return data;
 }
 
-std::istream& CommonMethod::requestPostForm(const Server& server, const std::string& pathAndQuery
+std::unique_ptr<CommonMethod::HTTPMethod>
+CommonMethod::requestPostForm(const Server& server, const std::string& pathAndQuery
 		, const std::map<std::string, std::string>& params)
 {
 	using Poco::Net::HTTPRequest;
 	using Poco::Net::HTTPResponse;
 	using Poco::Net::HTTPMessage;
 
-	HTTPRequest request(HTTPRequest::HTTP_POST, pathAndQuery, HTTPMessage::HTTP_1_1);
-	request.setContentType("application/x-www-form-urlencoded");
+	auto data = std::unique_ptr<HTTPMethod>(new HTTPMethod(server.getSession()));
+	data->request.setMethod(HTTPRequest::HTTP_POST);
+	data->request.setURI(pathAndQuery);
+	data->request.setVersion(HTTPMessage::HTTP_1_1);
+	data->request.setContentType("application/x-www-form-urlencoded");
 
 	if (server.isDebugable())
 	{
-		DLOG("Request[POST]: %s%s", server.getHost().c_str(), request.getURI().c_str());
-	}
-	if (_mockedResponses.empty() == false)
-	{
-		_mockedResponse.str(_mockedResponses.front());
-		_mockedResponse.clear();
-		_mockedResponses.pop_front();
-		return _mockedResponse;
+		DLOG("Request[POST]: %s%s", server.getHost().c_str(), data->request.getURI().c_str());
 	}
 
 	std::string urlForm;
@@ -73,43 +66,35 @@ std::istream& CommonMethod::requestPostForm(const Server& server, const std::str
 	{
 		DLOG("\tBody: %s", urlForm.c_str());
 	}
-	request.setContentLength(urlForm.length());
+	data->request.setContentLength(urlForm.length());
 
-	auto& bodyData = server.getSession()->sendRequest(request);
-	bodyData << urlForm;
-	HTTPResponse response;
-	return server.getSession()->receiveResponse(response);
+	data->send() << urlForm;
+	return data;
 }
 
-std::istream& CommonMethod::requestPostJson(const Server& server, const std::string& pathAndQuery
+std::unique_ptr<CommonMethod::HTTPMethod>
+CommonMethod::requestPostJson(const Server& server, const std::string& pathAndQuery
 		, const std::string& json)
 {
 	using Poco::Net::HTTPRequest;
 	using Poco::Net::HTTPResponse;
 	using Poco::Net::HTTPMessage;
 
-	HTTPRequest request(HTTPRequest::HTTP_POST, pathAndQuery, HTTPMessage::HTTP_1_1);
-	request.setContentType("application/json");
+	auto data = std::unique_ptr<HTTPMethod>(new HTTPMethod(server.getSession()));
+	data->request.setMethod(HTTPRequest::HTTP_POST);
+	data->request.setURI(pathAndQuery);
+	data->request.setVersion(HTTPMessage::HTTP_1_1);
+	data->request.setContentType("application/json");
+	data->request.setContentLength(json.length());
 
 	if (server.isDebugable())
 	{
-		DLOG("Request[POST]: %s%s", server.getHost().c_str(), request.getURI().c_str());
+		DLOG("Request[POST]: %s%s", server.getHost().c_str(), data->request.getURI().c_str());
 		DLOG("\tBody: %s", json.c_str());
 	}
-	if (_mockedResponses.empty() == false)
-	{
-		_mockedResponse.str(_mockedResponses.front());
-		_mockedResponse.clear();
-		_mockedResponses.pop_front();
-		return _mockedResponse;
-	}
 
-	request.setContentLength(json.length());
-
-	auto& bodyData = server.getSession()->sendRequest(request);
-	bodyData << json;
-	HTTPResponse response;
-	return server.getSession()->receiveResponse(response);
+	data->send() << json;
+	return data;
 }
 
 void CommonMethod::toJson(std::istream& stream, Json::Value& rootOut)
@@ -121,10 +106,7 @@ void CommonMethod::toJson(std::istream& stream, Json::Value& rootOut)
 
 	if (reader.parse(content.data(), content.data() + content.size(), rootOut, false) == false)
 	{
-		ELOG("JSON:\n%s", content.c_str());
-
-		ELOG("Error parsing json: %s", reader.getFormattedErrorMessages().c_str());
-		throw std::runtime_error(reader.getFormattedErrorMessages().c_str());
+		throw ValidateException(__LINE__, __func__, __FILE__, reader.getFormattedErrorMessages(), content);
 	}
 }
 
@@ -135,7 +117,18 @@ void CommonMethod::toJson(const std::string& document, Json::Value& rootOut)
 	toJson(tmpStream, rootOut);
 }
 
-void CommonMethod::addMockedResponse(const std::string& response)
+CommonMethod::HTTPMethod::HTTPMethod(Poco::Net::HTTPClientSession* session)
+		: _session(session)
 {
-	_mockedResponses.emplace_back(response);
+}
+
+std::ostream& CommonMethod::HTTPMethod::send()
+{
+	return _session->sendRequest(request);
+}
+
+std::istream& CommonMethod::HTTPMethod::receive()
+{
+	_responseBody = &_session->receiveResponse(response);
+	return *_responseBody;//can't be null
 }

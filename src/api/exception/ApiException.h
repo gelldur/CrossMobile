@@ -5,11 +5,13 @@
 #pragma once
 
 #include <string>
-#include <exception>
+#include <stdexcept>
 
-class ApiException : public std::exception
+class ApiException : public std::runtime_error
 {
-
+	using inherited = std::runtime_error;
+public:
+	ApiException(const std::string& message);
 };
 
 
