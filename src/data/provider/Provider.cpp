@@ -30,20 +30,7 @@ public:
 	virtual void run() override
 	{
 		ChangeOnEnd<std::atomic<bool>, bool> guard(isReady, true);
-		try
-		{
-			runTask();
-		}
-		catch (std::exception& exception)
-		{
-			ELOG("Exception in background task!\nWhat: %s", exception.what());
-			throw;
-		}
-		catch (...)
-		{
-			ELOG("Exception in background task!");
-			throw;
-		}
+		runTask();
 	}
 
 	void runTask()
