@@ -37,7 +37,7 @@ private:
 
 	bool _isDebugable;
 
-	int _timeoutConnect = 5;
+	int _timeoutConnect = 12;
 
 	std::string _host = defaultHost;
 	Poco::Net::HTTPClientSession* _session;
