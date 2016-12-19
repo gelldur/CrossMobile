@@ -68,8 +68,8 @@
 {
 	[super didReceiveMemoryWarning];
 	DLOG("native didReceiveMemoryWarning: %s", _screenName.c_str()); // Like onDestroy?
-
-	Director::getInstance().onDestroyScreen(_screenName);
+	//Not shure what should happen here. If I uncomment this, it will be a bug.
+	//Director::getInstance().onDestroyScreen(_screenName);
 }
 
 - (void)dealloc
