@@ -6,6 +6,7 @@
 
 #include <functional>
 #include <queue>
+#include <chrono>
 
 class Refresher
 {
@@ -18,13 +19,13 @@ public:
 		using call_t = std::function<void()>;
 
 		unsigned repeat;
-		unsigned delay;
 
-		long long time;
+		std::chrono::milliseconds delay;
+		std::chrono::milliseconds time;
 		call_t call;
 	};
 
-	void schedule(unsigned delay, const Callback::call_t& task, unsigned repeatCount = 1);
+	void schedule(std::chrono::milliseconds delay, const Callback::call_t& task, unsigned repeatCount = 1);
 	void unscheduleAll();
 
 	void onTick(const void* sender, int& dummy);

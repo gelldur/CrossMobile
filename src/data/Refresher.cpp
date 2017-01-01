@@ -4,8 +4,6 @@
 
 #include "Refresher.h"
 
-#include <chrono>
-
 #include <Poco/Delegate.h>
 #include <Poco/Runnable.h>
 
@@ -21,19 +19,20 @@ Refresher::~Refresher()
 	unscheduleAll();
 }
 
-void Refresher::schedule(unsigned delay, const Refresher::Callback::call_t& task, unsigned repeatCount)
+void Refresher::schedule(std::chrono::milliseconds delay, const Refresher::Callback::call_t& task, unsigned repeatCount)
 {
+	using namespace std::chrono;
 	if (repeatCount < 1)
 	{
 		return;
 	}
-	auto now = std::chrono::system_clock::now();
+	auto now = system_clock::now();
 
-	std::chrono::seconds delayDuration(delay);
-	delayDuration += std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch());
+	milliseconds delayDuration(delay);
+	delayDuration += duration_cast<milliseconds>(now.time_since_epoch());
 
 	Callback callback;
-	callback.time = (long long) delayDuration.count();
+	callback.time = delayDuration;
 	callback.call = task;
 	callback.delay = delay;
 	callback.repeat = repeatCount;
@@ -62,20 +61,19 @@ void Refresher::onTick(const void* sender, int& dummy)
 {
 	//TODO do it better ;)
 	auto now = std::chrono::system_clock::now();
-
-	long long nowInSecs = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
+	auto nowInMls = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch());
 
 	std::vector<Callback> repeatCallbacks;
 	while (_callbacks.empty() == false)
 	{
 		auto& top = _callbacks.top();
-		if (top.time <= nowInSecs)
+		if (top.time <= nowInMls)
 		{
 			top.call();
 			if (top.repeat > 1)
 			{
 				repeatCallbacks.push_back(top);
-				repeatCallbacks.back().time = nowInSecs += repeatCallbacks.back().delay;
+				repeatCallbacks.back().time = nowInMls += repeatCallbacks.back().delay;
 				--repeatCallbacks.back().repeat;
 			}
 			_callbacks.pop();
