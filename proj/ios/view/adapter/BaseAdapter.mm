@@ -44,7 +44,10 @@
 
 - (void)addCreatorFor:(NSString*)identifier creator:(UIView* (^)(NSIndexPath*, NSString*))creator
 {
-	[_creator setObject:creator forKey:identifier];
+    if(creator != nil)
+    {
+        [_creator setObject:creator forKey:identifier];
+    }
 }
 
 - (void)addCreatorFor:(NSString*)identifier
