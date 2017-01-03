@@ -7,6 +7,7 @@
 #include <functional>
 #include <queue>
 #include <chrono>
+#include <mutex>
 
 class Refresher
 {
@@ -16,22 +17,18 @@ public:
 
 	struct Callback
 	{
-		using call_t = std::function<void()>;
-
 		unsigned repeat;
 
 		std::chrono::milliseconds delay;
 		std::chrono::milliseconds time;
-		call_t call;
+		std::function<void()> call;
 	};
 
-	void schedule(std::chrono::milliseconds delay, const Callback::call_t& task, unsigned repeatCount = 1);
+	void schedule(std::chrono::milliseconds delay, const std::function<void()>& task, unsigned repeatCount = 1);
 	void unscheduleAll();
 
-	void onTick(const void* sender, int& dummy);
-
 private:
-
+	std::mutex _mutex;
 	bool _isScheduled = false;
 
 	struct compare
@@ -43,6 +40,20 @@ private:
 	};
 
 	std::priority_queue<Callback, std::vector<Callback>, compare> _callbacks;
+
+	void onTick(const void* sender, int& dummy);
+
+	bool isEmpty()
+	{
+		std::lock_guard<std::mutex> lock(_mutex);
+		return _callbacks.empty();
+	}
+
+	bool isReadyToCall(const std::chrono::milliseconds& now)
+	{
+		std::lock_guard<std::mutex> lock(_mutex);
+		return _callbacks.empty() == false && _callbacks.top().time <= now;
+	}
 };
 
 
