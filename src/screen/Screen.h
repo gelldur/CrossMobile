@@ -28,12 +28,24 @@ public:
 	{
 	}
 
+	/**
+	 * On iOS onCreate is called when viewDidLoad()
+	 */
 	virtual void onCreate() = 0;
 
+	/**
+	 * On iOS onResume is called when viewWillAppear()
+	 */
 	virtual void onResume() = 0;
 
+	/**
+	 * On iOS onPause is called when viewWillDisappear()
+	 */
 	virtual void onPause() = 0;
 
+	/**
+	 * On iOS onDestroy is called when dealloc()
+	 */
 	virtual void onDestroy() = 0;
 
 	const std::string& getName() const
