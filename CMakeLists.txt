@@ -41,6 +41,7 @@ SET(SOURCE_FILES_CORE
 		src/component/view/Loading.cpp src/component/view/Loading.h
 		src/component/view/Text.cpp src/component/view/Text.h
 		src/component/view/Visibility.cpp src/component/view/Visibility.h
+		src/data/Handler.cpp src/data/Handler.h
 		src/data/Preferences.cpp src/data/Preferences.h
 		src/data/provider/DataProviderComponent.cpp src/data/provider/DataProviderComponent.h
 		src/data/provider/Provider.cpp src/data/provider/Provider.h
@@ -64,7 +65,7 @@ SET(JSONCPP_WITH_PKGCONFIG_SUPPORT OFF CACHE BOOL "" FORCE)
 ADD_SUBDIRECTORY("libs/jsoncpp/")
 
 SET(ENABLE_XML OFF CACHE BOOL "Enable the XML")
-SET(ENABLE_JSON OFF CACHE BOOL "Enable the JSON")
+SET(ENABLE_JSON ON CACHE BOOL "Enable the JSON")
 SET(ENABLE_MONGODB OFF CACHE BOOL "Enable MongoDB")
 SET(ENABLE_PDF OFF CACHE BOOL "Enable PDF")
 SET(ENABLE_NETSSL OFF CACHE BOOL "Enable NetSSL")
@@ -84,7 +85,7 @@ ADD_LIBRARY(CrossMobile STATIC ${SOURCE_FILES_CORE})
 ADD_SUBDIRECTORY(proj/)
 
 TARGET_LINK_LIBRARIES(CrossMobile jsoncpp_lib_static)
-TARGET_LINK_LIBRARIES(CrossMobile PocoNet PocoUtil PocoData PocoDataSQLite)
+TARGET_LINK_LIBRARIES(CrossMobile PocoNet PocoUtil PocoData PocoDataSQLite PocoJSON)
 
 TARGET_INCLUDE_DIRECTORIES(CrossMobile PUBLIC
 		src/
