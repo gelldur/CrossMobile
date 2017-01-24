@@ -17,9 +17,9 @@ SET(SOURCE_FILES_PLATFORM_IOS
 		component/adapter/ListDataSourceComponent.mm
 		component/list/List.mm
 		component/list/ListProtocol.h
-		component/touch/Click.mm
+		#component/touch/Click.mm
 		component/view/Button.mm
-		component/view/Image.mm
+		#component/view/Image.mm
 		component/view/Layout.mm
 		component/view/Loading.mm
 		component/view/LoadingProtocol.h
