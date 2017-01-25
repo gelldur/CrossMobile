@@ -4,29 +4,25 @@
 
 #pragma once
 
+#include <memory>
 #include <string>
+
 #include <Poco/Net/HTTPClientSession.h>
 
 class Server
 {
 public:
-	Server();
 	Server(bool isDebugable);
+	Server(const std::string& host = Server::defaultHost, bool isDebugable = Server::defaultDebugable);
 
 	static void setDefaultDebugable(bool isDebugableDefault);
 	static void setDefaultHost(const std::string& host);
 
-	const std::string& getHost() const
-	{
-		return _host;
-	}
+	const std::string& getHost() const;
 
-	Poco::Net::HTTPClientSession* getSession() const
-	{
-		return _session;
-	}
+	Poco::Net::HTTPClientSession* getSession() const;
 
-	bool isDebugable() const
+	const bool isDebugable() const
 	{
 		return _isDebugable;
 	}
@@ -35,12 +31,10 @@ private:
 	static bool defaultDebugable;
 	static std::string defaultHost;
 
-	bool _isDebugable;
+	std::unique_ptr<Poco::Net::HTTPClientSession> _session;
 
-	int _timeoutConnect = 12;
-
-	std::string _host = defaultHost;
-	Poco::Net::HTTPClientSession* _session;
+	const bool _isDebugable;
+	const int _timeoutConnect = 12;
 };
 
 

@@ -7,14 +7,14 @@
 bool Server::defaultDebugable = false;
 std::string Server::defaultHost;
 
-Server::Server()
-		: Server(defaultDebugable)
+Server::Server(bool isDebugable)
+		: Server(defaultHost, isDebugable)
 {
 }
 
-Server::Server(bool isDebugable)
-		: _isDebugable(isDebugable)
-		, _session(new Poco::Net::HTTPClientSession(_host))
+Server::Server(const std::string& host, bool isDebugable)
+		: _session(new Poco::Net::HTTPClientSession(host))
+		, _isDebugable(isDebugable)
 {
 	_session->setTimeout(Poco::Timespan(_timeoutConnect, 0));
 }
@@ -27,4 +27,14 @@ void Server::setDefaultDebugable(bool isDebugableDefault)
 void Server::setDefaultHost(const std::string& host)
 {
 	defaultHost = host;
+}
+
+const std::string& Server::getHost() const
+{
+	return _session->getHost();
+}
+
+Poco::Net::HTTPClientSession* Server::getSession() const
+{
+	return _session.get();
 }
