@@ -7,50 +7,52 @@
 #include <sstream>
 #include <cassert>
 
-#include <Poco/Net/HTTPResponse.h>
-#include <Poco/Net/MediaType.h>
-
 #include <log.h>
 #include <api/exception/ValidateException.h>
 #include <exception/Fail.h>
 
-std::unique_ptr<CommonMethod::HTTPMethod>
-CommonMethod::requestGet(const Server& server, const std::string& pathAndQuery)
+CommonMethod::CommonMethod(const std::shared_ptr<Server>& server)
+		: _server(server)
+{
+	assert(_server != nullptr);
+}
+
+std::unique_ptr<CommonMethod::Connection> CommonMethod::requestGet(const std::string& pathAndQuery)
 {
 	using Poco::Net::HTTPRequest;
 	using Poco::Net::HTTPResponse;
 	using Poco::Net::HTTPMessage;
 
-	auto data = std::unique_ptr<HTTPMethod>(new HTTPMethod(server.getSession()));
+	auto data = std::unique_ptr<Connection>(new Connection(_server));
 	data->request.setMethod(HTTPRequest::HTTP_GET);
 	data->request.setURI(pathAndQuery);
 	data->request.setVersion(HTTPMessage::HTTP_1_1);
-	if (server.isDebugable())
+	if (_server->isDebugable())
 	{
-		DLOG("Request[GET]: %s%s", server.getHost().c_str(), data->request.getURI().c_str());
+		DLOG("Request[GET]: %s%s", _server->getHost().c_str(), data->request.getURI().c_str());
 	}
 
 	data->send();
 	return data;
 }
 
-std::unique_ptr<CommonMethod::HTTPMethod>
-CommonMethod::requestPostForm(const Server& server, const std::string& pathAndQuery
+std::unique_ptr<CommonMethod::Connection> CommonMethod::requestPostForm(
+		const std::string& pathAndQuery
 		, const std::map<std::string, std::string>& params)
 {
 	using Poco::Net::HTTPRequest;
 	using Poco::Net::HTTPResponse;
 	using Poco::Net::HTTPMessage;
 
-	auto data = std::unique_ptr<HTTPMethod>(new HTTPMethod(server.getSession()));
+	auto data = std::unique_ptr<Connection>(new Connection(_server));
 	data->request.setMethod(HTTPRequest::HTTP_POST);
 	data->request.setURI(pathAndQuery);
 	data->request.setVersion(HTTPMessage::HTTP_1_1);
 	data->request.setContentType("application/x-www-form-urlencoded");
 
-	if (server.isDebugable())
+	if (_server->isDebugable())
 	{
-		DLOG("Request[POST]: %s%s", server.getHost().c_str(), data->request.getURI().c_str());
+		DLOG("Request[POST]: %s%s", _server->getHost().c_str(), data->request.getURI().c_str());
 	}
 
 	std::string urlForm;
@@ -62,7 +64,7 @@ CommonMethod::requestPostForm(const Server& server, const std::string& pathAndQu
 		}
 		urlForm.pop_back();
 	}
-	if (server.isDebugable())
+	if (_server->isDebugable())
 	{
 		DLOG("\tBody: %s", urlForm.c_str());
 	}
@@ -72,24 +74,24 @@ CommonMethod::requestPostForm(const Server& server, const std::string& pathAndQu
 	return data;
 }
 
-std::unique_ptr<CommonMethod::HTTPMethod>
-CommonMethod::requestPostJson(const Server& server, const std::string& pathAndQuery
+std::unique_ptr<CommonMethod::Connection> CommonMethod::requestPostJson(
+		const std::string& pathAndQuery
 		, const std::string& json)
 {
 	using Poco::Net::HTTPRequest;
 	using Poco::Net::HTTPResponse;
 	using Poco::Net::HTTPMessage;
 
-	auto data = std::unique_ptr<HTTPMethod>(new HTTPMethod(server.getSession()));
+	auto data = std::unique_ptr<Connection>(new Connection(_server));
 	data->request.setMethod(HTTPRequest::HTTP_POST);
 	data->request.setURI(pathAndQuery);
 	data->request.setVersion(HTTPMessage::HTTP_1_1);
 	data->request.setContentType("application/json");
 	data->request.setContentLength(json.length());
 
-	if (server.isDebugable())
+	if (_server->isDebugable())
 	{
-		DLOG("Request[POST]: %s%s", server.getHost().c_str(), data->request.getURI().c_str());
+		DLOG("Request[POST]: %s%s", _server->getHost().c_str(), data->request.getURI().c_str());
 		DLOG("\tBody: %s", json.c_str());
 	}
 
@@ -117,18 +119,18 @@ void CommonMethod::toJson(const std::string& document, Json::Value& rootOut)
 	toJson(tmpStream, rootOut);
 }
 
-CommonMethod::HTTPMethod::HTTPMethod(Poco::Net::HTTPClientSession* session)
-		: _session(session)
+CommonMethod::Connection::Connection(const std::shared_ptr<Server>& server)
+		: _server(server)
 {
 }
 
-std::ostream& CommonMethod::HTTPMethod::send()
+std::ostream& CommonMethod::Connection::send()
 {
-	return _session->sendRequest(request);
+	return _server->getSession()->sendRequest(request);
 }
 
-std::istream& CommonMethod::HTTPMethod::receive()
+std::istream& CommonMethod::Connection::receive()
 {
-	_responseBody = &_session->receiveResponse(response);
+	_responseBody = &_server->getSession()->receiveResponse(response);
 	return *_responseBody;//can't be null
 }
