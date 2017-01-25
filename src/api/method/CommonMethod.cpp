@@ -17,7 +17,7 @@ CommonMethod::CommonMethod(const std::shared_ptr<Server>& server)
 	assert(_server != nullptr);
 }
 
-std::unique_ptr<CommonMethod::Connection> CommonMethod::requestGet(const std::string& pathAndQuery)
+std::unique_ptr<CommonMethod::Connection> CommonMethod::buildRequestGet(const std::string& pathAndQuery)
 {
 	using Poco::Net::HTTPRequest;
 	using Poco::Net::HTTPResponse;
@@ -31,6 +31,13 @@ std::unique_ptr<CommonMethod::Connection> CommonMethod::requestGet(const std::st
 	{
 		DLOG("Request[GET]: %s%s", _server->getHost().c_str(), data->request.getURI().c_str());
 	}
+
+	return data;
+}
+
+std::unique_ptr<CommonMethod::Connection> CommonMethod::requestGet(const std::string& pathAndQuery)
+{
+	auto data = buildRequestGet(pathAndQuery);
 
 	data->send();
 	return data;

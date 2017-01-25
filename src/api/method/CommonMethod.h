@@ -35,6 +35,7 @@ public:
 		std::istream* _responseBody = nullptr;
 	};
 
+	std::unique_ptr<Connection> buildRequestGet(const std::string& pathAndQuery);
 	std::unique_ptr<Connection> requestGet(const std::string& pathAndQuery);
 	std::unique_ptr<Connection> requestPostForm(const std::string& pathAndQuery
 			, const std::map<std::string, std::string>& params);
